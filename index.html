@@ -2,116 +2,155 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rock.Scot | Central Scotland's Rock Authority</title>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+
+<!-- SEO Meta Tags -->
+<meta name="description" content="Rock.Scot — Scotland's ultimate rock radio. Broadcasting to South Lanarkshire, North Ayrshire, and Inverclyde. Listen live 24/7.">
+<meta name="keywords" content="Scottish rock radio, South Lanarkshire radio, Inverclyde rock, North Ayrshire music, DJ shows, live rock, music news, rock stations Scotland">
+<meta name="author" content="Caledonia Tx Ltd | Rock.Scot">
+
+<!-- Open Graph / Social -->
+<meta property="og:title" content="Rock.Scot | Central Scotland's Rock Authority">
+<meta property="og:description" content="Rock.Scot — Scotland's ultimate rock radio. Live broadcasts, DJ shows, music news, and events.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/assets/images/branding/logo_ultra_wide.png">
+<meta property="og:url" content="https://hesonthemove-ux.github.io/rockscot-site/">
+
+<!-- Favicon / App Icons -->
+<link rel="icon" href="/assets/images/branding/logo_ultra_wide.png" type="image/png">
 <link rel="manifest" href="manifest.json">
 
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<!-- Stylesheet -->
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- PWA: Service Worker Registration -->
 <script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js').catch(err => console.log('SW registration failed:', err));
-}
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js');
+  }
 </script>
 </head>
+
 <body>
 
 <header>
-    <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-    <nav class="nav-strip">
-        <button class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</button>
-        <button class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</button>
-        <button class="nav-btn" onclick="app.switchTab('crew', event)">CREW</button>
-        <button class="nav-btn" onclick="app.switchTab('rates', event)">RATES</button>
-        <button class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</button>
-    </nav>
-    <div class="ticker-wrap"><div class="ticker-move" id="ticker-out"></div></div>
+  <img src="/assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+  <nav class="nav-strip" role="navigation" aria-label="Main Navigation">
+    <button class="nav-btn active" onclick="app.switchTab('live')">LIVE</button>
+    <button class="nav-btn" onclick="app.switchTab('wire')">WIRE</button>
+    <button class="nav-btn" onclick="app.switchTab('crew')">CREW</button>
+    <button class="nav-btn" onclick="app.switchTab('rates')">PORTAL</button>
+    <button class="nav-btn" onclick="app.switchTab('submit')">SUBMIT</button>
+  </nav>
+  <div class="ticker-wrap" aria-live="polite">
+    <div class="ticker-move" id="ticker-out">
+      <span class="ticker-item">Rock.Scot</span>
+      <span class="ticker-item ticker-brand">Across Scotland</span>
+    </div>
+  </div>
 </header>
 
 <main>
-    <!-- LIVE VIEW -->
-    <section id="v-live" class="view active">
-        <div class="desktop-split">
-            <div class="uniform-card">
-                <div id="clock" class="clock-display">00:00:00</div>
-                <div id="player-container" style="margin-top:20px;">
-                    <!-- Audio player injected by app.js -->
-                </div>
-            </div>
-            <div class="uniform-card">
-                <h3>SIGNAL STATUS</h3>
-                <div id="sig-list"></div>
-            </div>
-        </div>
-    </section>
 
-    <!-- WIRE VIEW -->
-    <section id="v-wire" class="view">
-        <div id="wire-grid"></div>
-    </section>
+<!-- LIVE VIEW -->
+<section id="v-live" class="view active" role="region" aria-label="Live Broadcast">
+  <div class="desktop-split">
+    <div class="uniform-card" style="max-width:100%;">
+      <div id="clock" style="font-family:'Bebas Neue'; font-size:6rem;">00:00:00</div>
+      <div id="player-container" style="margin-top:20px;">
+        <audio controls autoplay>
+          <source src="https://player.broadcast.radio/caledonia-tx-ltd" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+    </div>
+    <div class="uniform-card" style="max-width:100%; text-align:left;">
+      <h3 style="font-family:'Bebas Neue'; color:#ff5500;">SIGNAL STATUS</h3>
+      <div id="sig-list" style="margin-top:15px; font-family:'Oswald';">
+        <div style="padding:10px; border-bottom:1px solid #333;"><span style="color:#0f0">●</span> LANARKSHIRE: PEAK</div>
+        <div style="padding:10px; border-bottom:1px solid #333;"><span style="color:#0f0">●</span> INVERCLYDE: PEAK</div>
+        <div style="padding:10px; border-bottom:1px solid #333;"><span style="color:#0f0">●</span> AYRSHIRE: PEAK</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- CREW VIEW -->
-    <section id="v-crew" class="view">
-        <div id="crew-roller" class="crew-track"></div>
-    </section>
+<!-- WIRE VIEW -->
+<section id="v-wire" class="view" role="region" aria-label="Music News Wire">
+  <div id="wire-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; width:100%; max-width:1400px;"></div>
+</section>
 
-    <!-- RATES / ADVERTISING VIEW -->
-    <section id="v-rates" class="view">
-        <div class="desktop-split">
-            <div class="uniform-card">
-                <h2>547,000 COVERAGE POPULATION</h2>
-                <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde.</p>
-            </div>
-            <div class="uniform-card">
-                <h3>ADVERTISING PORTAL</h3>
-                <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-            </div>
-        </div>
-    </section>
+<!-- CREW VIEW -->
+<section id="v-crew" class="view" role="region" aria-label="DJ Crew">
+  <div id="crew-roller" class="crew-track"></div>
+</section>
 
-    <!-- SUBMIT VIEW -->
-    <section id="v-submit" class="view">
-        <div class="uniform-card">
-            <h2>GET PLAYED</h2>
-            <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
-            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-        </div>
-    </section>
+<!-- PORTAL VIEW -->
+<section id="v-rates" class="view" role="region" aria-label="Advertising Portal">
+  <div class="desktop-split">
+    <div class="uniform-card" style="max-width:100%; text-align:left;">
+      <h2 style="font-family:'Bebas Neue'; font-size:3rem; color:#ff5500;">547,000 COVERAGE POPULATION</h2>
+      <p style="font-family:'Oswald'; line-height:1.6; margin-top:15px;">Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
+    </div>
+    <div class="uniform-card" style="max-width:100%;">
+      <h3 style="font-family:'Bebas Neue'; font-size:2rem;">ADVERTISING PORTAL</h3>
+      <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+    </div>
+  </div>
+</section>
+
+<!-- SUBMIT TRACK VIEW -->
+<section id="v-submit" class="view" role="region" aria-label="Submit Track">
+  <div class="uniform-card">
+    <h2 style="font-family:'Bebas Neue'; font-size:3rem;">GET PLAYED</h2>
+    <p style="font-family:'Oswald'; margin-bottom:20px;">24/7 OFCOM Compliance Required. Max 25MB.</p>
+    <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
+  </div>
+</section>
+
 </main>
 
 <!-- MODALS -->
-
-<!-- Advertising Portal Modal -->
 <div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2>ADVERTISING CALCULATOR</h2>
-        <label>BUSINESS NAME</label>
-        <input type="text" id="biz-name" class="std-input">
-        <label>START DATE</label>
-        <input type="date" id="d-start" class="std-input" onchange="app.calcTotal()">
-        <label>END DATE</label>
-        <input type="date" id="d-end" class="std-input" onchange="app.calcTotal()">
-        <label>PACKAGE</label>
-        <select id="pkg-opt" class="std-input" onchange="app.calcTotal()"></select>
-        <div><input type="checkbox" id="prod-add" onchange="app.calcTotal()"> Add Production (+<span id="prod-price-display"></span>)</div>
-        <div class="total-display">
-            <span>TOTAL ESTIMATE:</span>
-            <span id="final-price">£0</span>
-            <p id="sur-alert">* 30% SHORT RUN SURCHARGE APPLIED (&lt;28 DAYS)</p>
-        </div>
-        <button class="btn-auth" onclick="app.sendEmail()">INITIATE VIA EMAIL</button>
-        <button class="btn-auth btn-pdf" onclick="app.genPDF()">DOWNLOAD CONTRACT (PDF)</button>
+  <div class="mag-layout" onclick="event.stopPropagation()">
+    <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;">ADVERTISING CALCULATOR</h2>
+    <label style="font-family:'Oswald'; color:#aaa;">BUSINESS NAME</label>
+    <input type="text" id="biz-name" class="std-input">
+    <label style="font-family:'Oswald'; color:#aaa;">START DATE</label>
+    <input type="date" id="d-start" class="std-input" onchange="app.calcTotal()">
+    <label style="font-family:'Oswald'; color:#aaa;">END DATE</label>
+    <input type="date" id="d-end" class="std-input" onchange="app.calcTotal()">
+    <label style="font-family:'Oswald'; color:#aaa;">PACKAGE</label>
+    <select id="pkg-opt" class="std-input" onchange="app.calcTotal()"></select>
+    <div style="margin:10px 0; background:#111; padding:10px; border:1px solid #333;">
+      <input type="checkbox" id="prod-add" onchange="app.calcTotal()">
+      <span style="font-family:'Oswald'; margin-left:10px;">ADD PRODUCTION (+<span id="prod-price-display"></span>)</span>
     </div>
+    <div style="background:#222; padding:20px; border-left:4px solid #ff5500; margin:20px 0;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-family:'Bebas Neue'; font-size:1.5rem;">TOTAL ESTIMATE:</span>
+        <span id="final-price" style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;">£0</span>
+      </div>
+      <p id="sur-alert" style="color:#ff5500; font-size:0.8rem; display:none;">* 30% SHORT RUN SURCHARGE APPLIED (&lt; 28 DAYS)</p>
+    </div>
+    <button class="btn-auth" onclick="app.sendEmail()">INITIATE VIA EMAIL</button>
+    <button class="btn-auth btn-pdf" onclick="app.genPDF()">DOWNLOAD CONTRACT (PDF)</button>
+  </div>
 </div>
 
-<!-- General Modal (DJ Bios / Submit Track) -->
 <div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2 id="gen-title"></h2>
-        <div id="gen-body"></div>
-    </div>
+  <div class="mag-layout" onclick="event.stopPropagation()">
+    <h2 id="gen-title" style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;"></h2>
+    <div id="gen-body" style="font-family:'Oswald'; line-height:1.6; font-size:1.1rem; color:#ddd;"></div>
+  </div>
 </div>
 
+<!-- App Scripts -->
 <script src="js/config.js"></script>
 <script src="js/app.js"></script>
 
