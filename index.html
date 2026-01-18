@@ -35,10 +35,7 @@ if ('serviceWorker' in navigator) {
             <div class="uniform-card">
                 <div id="clock" class="clock-display">00:00:00</div>
                 <div id="player-container" style="margin-top:20px;">
-                    <audio controls autoplay loop>
-                        <source src="https://player.broadcast.radio/caledondia-tx-ltd" type="audio/mpeg">
-                        Your browser does not support the audio element.
-                    </audio>
+                    <!-- Audio player injected by app.js -->
                 </div>
             </div>
             <div class="uniform-card">
@@ -58,7 +55,7 @@ if ('serviceWorker' in navigator) {
         <div id="crew-roller" class="crew-track"></div>
     </section>
 
-    <!-- RATES VIEW -->
+    <!-- RATES / ADVERTISING VIEW -->
     <section id="v-rates" class="view">
         <div class="desktop-split">
             <div class="uniform-card">
@@ -83,6 +80,8 @@ if ('serviceWorker' in navigator) {
 </main>
 
 <!-- MODALS -->
+
+<!-- Advertising Portal Modal -->
 <div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
     <div class="mag-layout" onclick="event.stopPropagation()">
         <h2>ADVERTISING CALCULATOR</h2>
@@ -105,6 +104,7 @@ if ('serviceWorker' in navigator) {
     </div>
 </div>
 
+<!-- General Modal (DJ Bios / Submit Track) -->
 <div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
     <div class="mag-layout" onclick="event.stopPropagation()">
         <h2 id="gen-title"></h2>
