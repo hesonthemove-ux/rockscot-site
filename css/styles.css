@@ -27,8 +27,8 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-size: contain; /* show full image */
-  background-position: center center; /* keep important message visible */
+  background-size: contain;   /* show full image within screen */
+  background-position: center center;
   background-repeat: no-repeat;
   background-attachment: fixed;
   z-index: -1;
@@ -40,22 +40,25 @@ body::before {
 ========================= */
 
 header {
+  position: relative;
   display: flex;
-  flex-direction: column; /* logo above main menu */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px 0;
-  background: rgba(0, 0, 0, 0.85);
-  border-bottom: 2px solid #ff5500;
+  padding-top: 20px;
+  background: transparent;
+  z-index: 10;
 }
 
-/* ===== LOGO (10% smaller than last) ===== */
+/* ===== LOGO ===== */
 .site-logo {
-  max-width: 603px; /* previous 670px minus 10% */
+  max-width: 543px; /* reduce by 10% from previous 603px */
   width: auto;
   height: auto;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: -12px; /* overlap menu */
+  z-index: 11;
+  position: relative;
 }
 
 /* =========================
@@ -65,17 +68,19 @@ header {
 .main-menu {
   display: flex;
   justify-content: center;
-  background: #000; /* black background */
+  background: transparent; /* transparent so logo shows through */
   padding: 12px 0;
-  gap: 28px;
+  gap: 24px;
   flex-wrap: wrap;
+  z-index: 10;
+  position: relative;
 }
 
 .main-menu a {
-  color: #aaa; /* grey text */
+  color: #aaa;  /* grey text */
   text-decoration: none;
   font-size: 1.15rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 1.2px;
   text-transform: uppercase;
   padding: 6px 12px;
@@ -85,8 +90,8 @@ header {
 
 .main-menu a:hover,
 .main-menu a.active {
-  color: #ff5500; /* neon orange on hover */
-  background: rgba(255, 85, 0, 0.1);
+  color: #ff5500; /* neon orange */
+  background: rgba(255,85,0,0.1);
 }
 
 /* =========================
@@ -249,11 +254,11 @@ footer {
   }
 
   .site-logo {
-    max-width: 543px; /* reduce proportionally */
+    max-width: 485px; /* reduce proportionally */
   }
 
   .main-menu {
-    gap: 18px;
+    gap: 16px;
   }
 }
 
@@ -263,6 +268,6 @@ footer {
 
 @media (min-width: 901px) and (max-width: 1400px) {
   .site-logo {
-    max-width: 620px;
+    max-width: 580px;
   }
 }
