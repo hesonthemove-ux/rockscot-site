@@ -1,130 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Rock.Scot | Central Scotland's Rock Authority</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rock.Scot | Central Scotland's Rock Authority</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/styles.css">
+<!-- Manifest & PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff5500">
+<link rel="icon" href="assets/images/branding/logo_ultra_wide.png" type="image/png">
 
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ff5500">
+<!-- Styles -->
+<link rel="stylesheet" href="css/styles.css">
 
-    <!-- Favicon -->
-    <link rel="icon" href="assets/images/branding/logo_ultra_wide.png" type="image/png">
 </head>
 <body>
-    <header>
-        <!-- Logo -->
-        <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-        <nav class="nav-strip">
-            <button class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</button>
-            <button class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</button>
-            <button class="nav-btn" onclick="app.switchTab('crew', event)">CREW</button>
-            <button class="nav-btn" onclick="app.switchTab('rates', event)">RATES</button>
-            <button class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</button>
-        </nav>
-        <div class="ticker-wrap"><div class="ticker-move" id="ticker-out"></div></div>
-    </header>
 
-    <main>
-        <!-- LIVE VIEW -->
-        <section id="v-live" class="view active">
-            <div class="uniform-card">
-                <div id="clock" style="font-family:'Oswald'; font-size:6rem; line-height:1;">00:00:00</div>
-                <div id="audio-container">
-                    <iframe src="https://player.broadcast.radio/caledonia-tx-ltd" frameborder="0" allow="autoplay"></iframe>
-                </div>
-            </div>
-            <div class="uniform-card">
-                <h3 style="color:var(--authority-orange);">SIGNAL STATUS</h3>
-                <div id="sig-list" style="margin-top:10px;"></div>
-            </div>
-        </section>
-
-        <!-- WIRE VIEW -->
-        <section id="v-wire" class="view">
-            <div id="wire-grid"></div>
-        </section>
-
-        <!-- CREW VIEW -->
-        <section id="v-crew" class="view">
-            <div id="crew-roller" class="crew-track"></div>
-        </section>
-
-        <!-- RATES VIEW -->
-        <section id="v-rates" class="view">
-            <div class="uniform-card">
-                <h2 style="color:var(--authority-orange); font-size:3rem;">547,000 COVERAGE POPULATION</h2>
-                <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
-            </div>
-            <div class="uniform-card">
-                <h3>ADVERTISING PORTAL</h3>
-                <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-            </div>
-        </section>
-
-        <!-- SUBMIT VIEW -->
-        <section id="v-submit" class="view">
-            <div class="uniform-card">
-                <h2 style="font-size:3rem;">GET PLAYED</h2>
-                <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
-                <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-            </div>
-        </section>
-    </main>
-
-    <!-- MODALS -->
-    <div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
-        <div class="mag-layout" onclick="event.stopPropagation()">
-            <h2 style="color:var(--authority-orange);">ADVERTISING CALCULATOR</h2>
-            <label>BUSINESS NAME</label>
-            <input type="text" id="biz-name" class="std-input">
-            <label>START DATE</label>
-            <input type="date" id="d-start" class="std-input" onchange="app.calcTotal()">
-            <label>END DATE</label>
-            <input type="date" id="d-end" class="std-input" onchange="app.calcTotal()">
-            <label>PACKAGE</label>
-            <select id="pkg-opt" class="std-input" onchange="app.calcTotal()"></select>
-            <div style="margin:10px 0; background:#111; padding:10px; border:1px solid #333;">
-                <input type="checkbox" id="prod-add" onchange="app.calcTotal()"> 
-                <span style="margin-left:10px;">ADD PRODUCTION (+<span id="prod-price-display"></span>)</span>
-            </div>
-            <div style="background:#222; padding:20px; border-left:4px solid var(--authority-orange); margin:20px 0;">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <span style="font-size:1.5rem;">TOTAL ESTIMATE:</span>
-                    <span id="final-price" style="font-size:2.5rem; color:var(--authority-orange);">£0</span>
-                </div>
-                <p id="sur-alert" style="color:var(--authority-orange); font-size:0.8rem; display:none;">* 30% SHORT RUN SURCHARGE APPLIED (&lt; 28 DAYS)</p>
-            </div>
-            <button class="btn-auth" onclick="app.sendEmail()">INITIATE VIA EMAIL</button>
-            <button class="btn-auth btn-pdf" onclick="app.genPDF()">DOWNLOAD CONTRACT (PDF)</button>
+<header>
+    <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+    <nav class="nav-strip">
+        <button class="nav-btn active" onclick="app.switchTab('live')">LIVE</button>
+        <button class="nav-btn" onclick="app.switchTab('wire')">WIRE</button>
+        <button class="nav-btn" onclick="app.switchTab('crew')">CREW</button>
+        <button class="nav-btn" onclick="app.switchTab('rates')">RATES</button>
+        <button class="nav-btn" onclick="app.switchTab('submit')">SUBMIT</button>
+    </nav>
+    <div class="ticker-wrap">
+        <div class="ticker-move" id="ticker-out">
+            <span class="ticker-item">Rock.Scot</span>
+            <span class="ticker-item ticker-brand">Across Scotland</span>
         </div>
     </div>
+</header>
 
-    <div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
-        <div class="mag-layout" onclick="event.stopPropagation()">
-            <h2 id="gen-title"></h2>
-            <div id="gen-body"></div>
+<main>
+
+<!-- LIVE VIEW -->
+<section id="v-live" class="view active">
+    <div class="desktop-split">
+        <div class="uniform-card" style="max-width:100%;">
+            <div id="clock" style="font-family:'Bebas Neue'; font-size:6rem; line-height:1;">00:00:00</div>
+            <div id="audio-container" style="margin-top:20px;">
+                <iframe src="https://player.broadcast.radio/caledonia-tx-ltd" style="width:100%; height:200px; border:none;"></iframe>
+            </div>
+        </div>
+        <div class="uniform-card" style="max-width:100%; text-align:left;">
+            <h3 style="font-family:'Bebas Neue'; color:var(--authority-orange);">SIGNAL STATUS</h3>
+            <div id="sig-list" style="margin-top:15px; font-family:'Oswald';">
+                <div><span style="color:#0f0">●</span> LANARKSHIRE: PEAK</div>
+                <div><span style="color:#0f0">●</span> INVERCLYDE: PEAK</div>
+                <div><span style="color:#0f0">●</span> AYRSHIRE: PEAK</div>
+            </div>
         </div>
     </div>
+</section>
 
-    <!-- JS -->
-    <script src="js/config.js"></script>
-    <script src="js/app.js"></script>
+<!-- WIRE VIEW -->
+<section id="v-wire" class="view">
+    <div id="wire-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; width:100%; max-width:1400px;"></div>
+</section>
 
-    <!-- Register Service Worker -->
-    <script>
-        if('serviceWorker' in navigator){
-            navigator.serviceWorker.register('/service-worker.js')
-            .then(reg => console.log('Service Worker Registered'))
-            .catch(err => console.error('SW Registration Failed', err));
-        }
-    </script>
+<!-- CREW VIEW -->
+<section id="v-crew" class="view">
+    <div id="crew-roller" class="crew-track"></div>
+</section>
+
+<!-- RATES VIEW -->
+<section id="v-rates" class="view">
+    <div class="desktop-split">
+        <div class="uniform-card" style="max-width:100%; text-align:left;">
+            <h2 style="font-family:'Bebas Neue'; font-size:3rem; color:var(--authority-orange);">547,000 COVERAGE POPULATION</h2>
+            <p style="font-family:'Oswald'; line-height:1.6; margin-top:15px;">Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
+        </div>
+        <div class="uniform-card" style="max-width:100%;">
+            <h3 style="font-family:'Bebas Neue'; font-size:2rem;">ADVERTISING PORTAL</h3>
+            <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+        </div>
+    </div>
+</section>
+
+<!-- SUBMIT VIEW -->
+<section id="v-submit" class="view">
+    <div class="uniform-card">
+        <h2 style="font-family:'Bebas Neue'; font-size:3rem;">GET PLAYED</h2>
+        <p style="font-family:'Oswald'; margin-bottom:20px;">24/7 OFCOM Compliance Required. Max 25MB.</p>
+        <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
+    </div>
+</section>
+
+</main>
+
+<!-- MODALS -->
+<div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
+    <div class="mag-layout" onclick="event.stopPropagation()">
+        <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--authority-orange);">ADVERTISING CALCULATOR</h2>
+        <!-- Form content dynamically populated -->
+    </div>
+</div>
+
+<div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
+    <div class="mag-layout" onclick="event.stopPropagation()">
+        <h2 id="gen-title" style="font-family:'Bebas Neue'; font-size:2.5rem; color:var(--authority-orange);"></h2>
+        <div id="gen-body" style="font-family:'Oswald'; line-height:1.6; font-size:1.1rem; color:#ddd;"></div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/app.js" type="module"></script>
+
+<!-- Register Service Worker -->
+<script>
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('service-worker.js')
+    .then(reg => console.log('SW Registered', reg))
+    .catch(err => console.warn('SW registration failed', err));
+}
+</script>
+
 </body>
 </html>
