@@ -1,66 +1,89 @@
-// ROCK.SCOT SERVICE WORKER
 const CACHE_NAME = 'rockscot-cache-v1';
 const ASSETS_TO_CACHE = [
-    '/', // index.html
+    // HTML
+    '/',
     '/index.html',
-    '/css/styles.css',
-    '/js/app.js',
-    '/manifest.json',
 
-    // Branding
-    '/images/branding/logo_ultra_wide.png',
+    // CSS
+    '/css/styles.css',
+
+    // JS
+    '/js/app.js',
+    '/js/config.js',
+    '/js/crew.js',
+    '/js/modals.js',
+    '/js/player.js',
+    '/js/state.js',
+    '/js/ui.js',
+    '/js/views.js',
+    '/js/wire.js',
+    '/js/ads.js',
+
+    // Logo & Branding
+    '/assets/images/branding/logo_ultra_wide.png',
 
     // Backgrounds
-    '/images/background/background1.jpg',
-    '/images/background/background2.jpg',
-    '/images/background/background3.jpg',
-    '/images/background/background4.jpg',
-    '/images/background/background5.jpg',
-    '/images/background/background6.jpg',
-    '/images/background/background7.jpg',
+    '/assets/images/background/background1.jpg',
+    '/assets/images/background/background2.jpg',
+    '/assets/images/background/background3.jpg',
+    '/assets/images/background/background4.jpg',
+    '/assets/images/background/background5.jpg',
+    '/assets/images/background/background6.jpg',
+    '/assets/images/background/background7.jpg',
 
-    // DJ images
-    '/images/djs/dj_andy.jpg',
-    '/images/djs/dj_alex.jpg',
-    '/images/djs/dj_stevie.jpg',
-    '/images/djs/dj_mhairi.jpg',
-    '/images/djs/dj_jude.jpg',
-    '/images/djs/dj_chris.jpg',
-    '/images/djs/dj_cal.jpg',
-    '/images/djs/dj_blue.jpg'
+    // Crew
+    '/assets/images/crew/dj_alex.jpg',
+    '/assets/images/crew/dj_andy.jpg',
+    '/assets/images/crew/dj_stevie.jpg',
+    '/assets/images/crew/dj_mhairi.jpg',
+    '/assets/images/crew/dj_jude.jpg',
+    '/assets/images/crew/dj_chris.jpg',
+    '/assets/images/crew/dj_cal.jpg',
+    '/assets/images/crew/dj_blue.jpg'
 ];
 
-// Install SW and cache assets
+// Install Service Worker and cache files
 self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME)
-            .then(cache => cache.addAll(ASSETS_TO_CACHE))
-            .then(() => self.skipWaiting())
+        caches.open(CACHE_NAME).then(cache => {
+            return cache.addAll(ASSETS_TO_CACHE);
+        })
     );
+    self.skipWaiting();
 });
 
-// Activate SW and remove old caches
+// Activate SW and clean old caches
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(keys => Promise.all(
-            keys.map(key => {
-                if(key !== CACHE_NAME) return caches.delete(key);
-            })
-        ))
+        caches.keys().then(keys =>
+            Promise.all(
+                keys.map(key => {
+                    if (key !== CACHE_NAME) return caches.delete(key);
+                })
+            )
+        )
     );
     self.clients.claim();
 });
 
-// Fetch from cache, fallback to network
+// Fetch from cache first, fallback to network
 self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.match(event.request)
-            .then(res => res || fetch(event.request))
-            .catch(() => {
-                // Optional fallback
-                if(event.request.destination === 'image') {
-                    return '/images/branding/logo_ultra_wide.png';
-                }
-            })
+        caches.match(event.request).then(cached => {
+            if (cached) return cached;
+            return fetch(event.request)
+                .then(response => {
+                    return caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, response.clone());
+                        return response;
+                    });
+                })
+                .catch(() => {
+                    // Optional: fallback image for images if offline
+                    if (event.request.destination === 'image') {
+                        return '/assets/images/background/background1.jpg';
+                    }
+                });
+        })
     );
 });
