@@ -1,150 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock.Scot | Central Scotland's Rock Authority</title>
+  <!-- CORE -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Rock.Scot - South Lanarkshire, North Ayrshire & Inverclyde's premier rock radio station. Tune in 24/7 for classic & indie rock.">
-    <meta name="keywords" content="Scottish rock radio, Rock.Scot, South Lanarkshire radio, Inverclyde music, North Ayrshire rock, Scottish DJs, Rock music Scotland">
-    <meta name="author" content="Caledonia Tx Ltd">
-    
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="Rock.Scot | Central Scotland's Rock Authority">
-    <meta property="og:description" content="Listen live to Rock.Scot, covering South Lanarkshire, North Ayrshire & Inverclyde with the best rock DJs and music.">
-    <meta property="og:image" content="assets/images/branding/logo_ultra_wide.png">
-    <meta property="og:type" content="website">
-    
-    <!-- Manifest for PWA -->
-    <link rel="manifest" href="manifest.json">
+  <!-- PRIMARY SEO -->
+  <title>Rock.Scot | Scotland’s Rock Radio Station | Lanarkshire, Inverclyde & Ayrshire</title>
+  <meta name="description" content="Rock.Scot is Scotland’s independent rock radio station broadcasting across South Lanarkshire, Inverclyde and North Ayrshire. Classic rock, Scottish rock, indie and alternative — 24/7.">
+  <meta name="keywords" content="Scottish rock radio, rock radio Scotland, Lanarkshire radio station, Inverclyde radio, Ayrshire rock music, Scottish bands radio, independent radio Scotland">
+  <meta name="author" content="Rock.Scot">
+  <meta name="robots" content="index, follow">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Bebas+Neue&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <!-- GEO TARGETING -->
+  <meta name="geo.region" content="GB-SCT">
+  <meta name="geo.placename" content="Scotland">
+  <meta name="ICBM" content="55.8642, -4.2518">
 
-    <!-- Styles -->
-    <link rel="stylesheet" href="css/styles.css">
+  <!-- CANONICAL -->
+  <link rel="canonical" href="https://hesonthemove-ux.github.io/rockscot-site/">
 
+  <!-- OPEN GRAPH -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rock.Scot | Scotland’s Rock Authority">
+  <meta property="og:description" content="Scotland’s independent rock radio station. Broadcasting rock music across Lanarkshire, Inverclyde and Ayrshire.">
+  <meta property="og:url" content="https://hesonthemove-ux.github.io/rockscot-site/">
+  <meta property="og:image" content="assets/images/branding/logo_ultra_wide.png">
+
+  <!-- TWITTER -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rock.Scot | Scotland’s Rock Radio">
+  <meta name="twitter:description" content="Independent Scottish rock radio broadcasting 24/7 across central and west Scotland.">
+  <meta name="twitter:image" content="assets/images/branding/logo_ultra_wide.png">
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+
+  <!-- FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- SERVICE WORKER -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js');
+    }
+  </script>
+
+  <!-- STRUCTURED DATA -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RadioStation",
+    "name": "Rock.Scot",
+    "url": "https://hesonthemove-ux.github.io/rockscot-site/",
+    "logo": "https://hesonthemove-ux.github.io/rockscot-site/assets/images/branding/logo_ultra_wide.png",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Scotland"
+    },
+    "broadcastFrequency": "Online",
+    "genre": ["Rock", "Classic Rock", "Scottish Rock", "Indie"],
+    "sameAs": [],
+    "description": "Independent Scottish rock radio station broadcasting across South Lanarkshire, Inverclyde and North Ayrshire."
+  }
+  </script>
 </head>
+
 <body>
 
-<header>
-    <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-    <nav class="nav-strip">
-        <button class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</button>
-        <button class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</button>
-        <button class="nav-btn" onclick="app.switchTab('crew', event)">CREW</button>
-        <button class="nav-btn" onclick="app.switchTab('rates', event)">RATES</button>
-        <button class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</button>
+  <!-- HEADER -->
+  <header class="site-header">
+    <img src="assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot Logo" class="site-logo">
+
+    <nav class="main-nav">
+      <button onclick="app.switchTab('live', event)">Live</button>
+      <button onclick="app.switchTab('wire', event)">Wire</button>
+      <button onclick="app.switchTab('crew', event)">Crew</button>
+      <button onclick="app.switchTab('rates', event)">Rates</button>
+      <button onclick="app.switchTab('submit', event)">Submit</button>
     </nav>
-    <div class="ticker-wrap">
-        <div class="ticker-move" id="ticker-out"></div>
-    </div>
-</header>
 
-<main>
-    <!-- LIVE VIEW -->
+    <div class="ticker">
+      <div id="ticker-text">
+        Rock.Scot — Scotland’s Independent Rock Authority Broadcasting 24/7
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- LIVE -->
     <section id="v-live" class="view active">
-        <div class="desktop-split">
-            <div class="uniform-card" style="max-width:100%;">
-                <div id="clock" style="font-family:'Bebas Neue'; font-size:6rem; line-height:1;">00:00:00</div>
-                <div id="player-container" style="margin-top:20px;"></div>
-            </div>
-            <div class="uniform-card" style="max-width:100%; text-align:left;">
-                <h3 style="font-family:'Bebas Neue'; color:#ff5500;">SIGNAL STATUS</h3>
-                <div id="sig-list" style="margin-top:15px; font-family:'Oswald';"></div>
-            </div>
-        </div>
+      <h1>Scotland’s Rock Radio Station</h1>
+
+      <div id="clock" aria-label="Current time"></div>
+
+      <div id="player-container" aria-label="Live radio player"></div>
+
+      <div class="signal-status">
+        <h2>Signal Coverage</h2>
+        <ul>
+          <li>South Lanarkshire — Peak</li>
+          <li>Inverclyde — Peak</li>
+          <li>North Ayrshire — Peak</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- WIRE VIEW -->
+    <!-- WIRE -->
     <section id="v-wire" class="view">
-        <div id="wire-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; width:100%; max-width:1400px;"></div>
+      <h2>Scottish Music News</h2>
+      <div id="wire-grid"></div>
     </section>
 
-    <!-- CREW VIEW -->
+    <!-- CREW -->
     <section id="v-crew" class="view">
-        <div id="crew-roller" class="crew-track"></div>
+      <h2>The Rock.Scot Crew</h2>
+      <div id="crew-grid"></div>
     </section>
 
-    <!-- RATES VIEW -->
+    <!-- RATES -->
     <section id="v-rates" class="view">
-        <div class="desktop-split">
-            <div class="uniform-card" style="max-width:100%; text-align:left;">
-                <h2 style="font-family:'Bebas Neue'; font-size:3rem; color:#ff5500;">547,000 COVERAGE POPULATION</h2>
-                <p style="font-family:'Oswald'; line-height:1.6; margin-top:15px;">
-                    Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.
-                </p>
-            </div>
-            <div class="uniform-card" style="max-width:100%;">
-                <h3 style="font-family:'Bebas Neue'; font-size:2rem;">ADVERTISING PORTAL</h3>
-                <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-            </div>
-        </div>
+      <h2>Advertising & Sponsorship</h2>
+      <p>Reach rock fans across central and west Scotland.</p>
+      <button onclick="app.openAdPortal()">Launch Portal</button>
     </section>
 
-    <!-- SUBMIT VIEW -->
+    <!-- SUBMIT -->
     <section id="v-submit" class="view">
-        <div class="uniform-card">
-            <h2 style="font-family:'Bebas Neue'; font-size:3rem;">GET PLAYED</h2>
-            <p style="font-family:'Oswald'; margin-bottom:20px;">24/7 OFCOM Compliance Required. Max 25MB.</p>
-            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-        </div>
+      <h2>Submit Your Music</h2>
+      <p>Scottish artists and labels welcome. OFCOM-compliant submissions only.</p>
+      <button onclick="app.openSubmit()">Submit Track</button>
     </section>
-</main>
 
-<!-- Modals -->
-<div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;">ADVERTISING CALCULATOR</h2>
-        <label style="font-family:'Oswald'; color:#aaa;">BUSINESS NAME</label>
-        <input type="text" id="biz-name" class="std-input">
-        <label style="font-family:'Oswald'; color:#aaa;">START DATE</label>
-        <input type="date" id="d-start" class="std-input" onchange="app.calcTotal()">
-        <label style="font-family:'Oswald'; color:#aaa;">END DATE</label>
-        <input type="date" id="d-end" class="std-input" onchange="app.calcTotal()">
-        <label style="font-family:'Oswald'; color:#aaa;">PACKAGE</label>
-        <select id="pkg-opt" class="std-input" onchange="app.calcTotal()"></select>
+  </main>
 
-        <div style="margin:10px 0; background:#111; padding:10px; border:1px solid #333;">
-            <input type="checkbox" id="prod-add" onchange="app.calcTotal()"> 
-            <span style="font-family:'Oswald'; margin-left:10px;">ADD PRODUCTION (+<span id="prod-price-display"></span>)</span>
-        </div>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <p>© Rock.Scot. Independent Scottish Radio. All rights reserved.</p>
+    <p>Broadcast in accordance with UK communications regulations.</p>
+  </footer>
 
-        <div style="background:#222; padding:20px; border-left:4px solid #ff5500; margin:20px 0;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span style="font-family:'Bebas Neue'; font-size:1.5rem;">TOTAL ESTIMATE:</span>
-                <span id="final-price" style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;">£0</span>
-            </div>
-            <p id="sur-alert" style="color:#ff5500; font-size:0.8rem; display:none;">
-                * 30% SHORT RUN SURCHARGE APPLIED (< 28 DAYS)
-            </p>
-        </div>
-
-        <button class="btn-auth" onclick="app.sendEmail()">INITIATE VIA EMAIL</button>
-        <button class="btn-auth btn-pdf" onclick="app.genPDF()">DOWNLOAD CONTRACT (PDF)</button>
-    </div>
-</div>
-
-<div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2 id="gen-title" style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;"></h2>
-        <div id="gen-body" style="font-family:'Oswald'; line-height:1.6; font-size:1.1rem; color:#ddd;"></div>
-    </div>
-</div>
-
-<!-- JS -->
-<script src="js/config.js"></script>
-<script src="js/app.js" type="module"></script>
-
-<!-- Register Service Worker -->
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js')
-        .then(() => console.log('Service Worker Registered'))
-        .catch(err => console.error('SW Registration failed:', err));
-    }
-</script>
+  <!-- JS -->
+  <script src="js/app.js"></script>
 
 </body>
 </html>
