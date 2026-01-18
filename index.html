@@ -4,88 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock.Scot | Central Scotland's Rock Authority</title>
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="manifest" href="manifest.json">
-    <script type="module" src="assets/js/app.js" defer></script>
+    <script type="module" src="js/app.js" defer></script>
 </head>
 <body>
-    <header>
-        <img src="assets/images/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-        <nav class="main-nav">
-            <a href="#" class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</a>
-            <a href="#" class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</a>
-            <a href="#" class="nav-btn" onclick="app.switchTab('crew', event)">CREW</a>
-            <a href="#" class="nav-btn" onclick="app.switchTab('rates', event)">RATES</a>
-            <a href="#" class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</a>
-        </nav>
-        <div class="ticker-wrap">
-            <div class="ticker-move" id="ticker-out"></div>
-        </div>
-    </header>
 
-    <main>
-        <!-- LIVE VIEW -->
-        <section id="v-live" class="view active">
-            <div class="view-content">
-                <div class="live-left">
-                    <div class="clock" id="clock">00:00:00</div>
-                    <div class="player">
-                        <iframe id="player-container" src="https://player.broadcast.radio/caledonia-tx-ltd" allow="autoplay" frameborder="0"></iframe>
-                    </div>
-                </div>
-                <div class="live-right">
-                    <div class="signal-list" id="sig-list"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- WIRE VIEW -->
-        <section id="v-wire" class="view">
-            <div class="view-content" id="wire-grid"></div>
-        </section>
-
-        <!-- CREW VIEW -->
-        <section id="v-crew" class="view">
-            <div class="crew-grid" id="crew-roller"></div>
-        </section>
-
-        <!-- RATES VIEW -->
-        <section id="v-rates" class="view">
-            <div class="view-content">
-                <div class="uniform-card">
-                    <h2>547,000 COVERAGE POPULATION</h2>
-                    <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
-                </div>
-                <div class="uniform-card">
-                    <h3>ADVERTISING PORTAL</h3>
-                    <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SUBMIT VIEW -->
-        <section id="v-submit" class="view">
-            <div class="uniform-card">
-                <h2>GET PLAYED</h2>
-                <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
-                <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-            </div>
-        </section>
-    </main>
-
-    <!-- Modals -->
-    <div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
-        <div class="mag-layout" onclick="event.stopPropagation()">
-            <h2>ADVERTISING CALCULATOR</h2>
-            <!-- Calculator content will be injected by app.js -->
-        </div>
+<header>
+    <img src="images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+    <nav class="nav-strip">
+        <button class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</button>
+        <button class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</button>
+        <button class="nav-btn" onclick="app.switchTab('crew', event)">CREW</button>
+        <button class="nav-btn" onclick="app.switchTab('rates', event)">RATES</button>
+        <button class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</button>
+    </nav>
+    <div class="ticker-wrap">
+        <div class="ticker-move" id="ticker-out"></div>
     </div>
+</header>
 
-    <div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
-        <div class="mag-layout" onclick="event.stopPropagation()">
-            <h2 id="gen-title"></h2>
-            <div id="gen-body"></div>
+<main>
+    <!-- LIVE VIEW -->
+    <section id="v-live" class="view active">
+        <div class="uniform-card">
+            <div id="clock" style="font-family:'Oswald'; font-size:5rem;">00:00:00</div>
+            <div id="player-container" style="margin-top:20px;"></div>
         </div>
-    </div>
+        <div class="uniform-card">
+            <h3 style="font-family:'Oswald'; color:#ff5500;">SIGNAL STATUS</h3>
+            <div id="sig-list" style="margin-top:10px;"></div>
+        </div>
+    </section>
+
+    <!-- WIRE VIEW -->
+    <section id="v-wire" class="view">
+        <div id="wire-grid" class="grid-container"></div>
+    </section>
+
+    <!-- CREW VIEW -->
+    <section id="v-crew" class="view">
+        <div id="crew-roller" class="crew-track"></div>
+    </section>
+
+    <!-- RATES VIEW -->
+    <section id="v-rates" class="view">
+        <div class="uniform-card">
+            <h2 style="font-family:'Oswald'; font-size:2rem; color:#ff5500;">547,000 COVERAGE POPULATION</h2>
+            <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
+        </div>
+        <div class="uniform-card">
+            <h3 style="font-family:'Oswald'; font-size:1.8rem;">ADVERTISING PORTAL</h3>
+            <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+        </div>
+    </section>
+
+    <!-- SUBMIT VIEW -->
+    <section id="v-submit" class="view">
+        <div class="uniform-card">
+            <h2 style="font-family:'Oswald'; font-size:2rem;">GET PLAYED</h2>
+            <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
+            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
+        </div>
+    </section>
+</main>
+
 </body>
 </html>
