@@ -1,31 +1,23 @@
 {
-  "name": "Rock.Scot – Central Scotland’s Rock Authority",
+  "name": "Rock.Scot | Central Scotland's Rock Authority",
   "short_name": "Rock.Scot",
-  "description": "Rock.Scot is Central Scotland’s rock radio authority. Broadcasting loud rock across Lanarkshire, Ayrshire and Inverclyde.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "description": "Scotland's #1 rock station, bringing live shows, DJ sets, news, and local rock culture to South Lanarkshire, North Ayrshire, and Inverclyde.",
+  "start_url": "/index.html",
+  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "background_color": "#000000",
   "theme_color": "#ff5500",
-  "lang": "en-GB",
-
   "icons": [
     {
-      "src": "./assets/icons/icon-192.png",
+      "src": "/assets/images/logo_ultra_wide.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./assets/icons/icon-512.png",
+      "src": "/assets/images/logo_ultra_wide.png",
       "sizes": "512x512",
       "type": "image/png"
     }
-  ],
-
-  "categories": [
-    "music",
-    "entertainment",
-    "radio"
   ]
 }
