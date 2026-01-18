@@ -1,130 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
+  <!-- =====================================
+       CORE META
+  ====================================== -->
   <meta charset="UTF-8">
-
-  <title>Rock.Scot | Scotland’s Rock Authority | 24/7 Rock Radio</title>
-
-  <meta name="description" content="Rock.Scot is Scotland’s rock authority. Broadcasting 24/7 rock music across South Lanarkshire, North Ayrshire and Inverclyde.">
-  <meta name="keywords" content="Scottish rock radio, rock radio Scotland, Ayrshire rock music, South Lanarkshire radio, Inverclyde rock station">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock.Scot | Central Scotland’s Rock Radio Authority</title>
 
-  <link rel="canonical" href="https://hesonthemove-ux.github.io/rockscot-site/">
+  <meta name="description" content="Rock.Scot is Central Scotland’s loudest rock radio station. Broadcasting rock, indie and alternative music across Lanarkshire, Ayrshire and Inverclyde.">
+  <meta name="keywords" content="Rock radio Scotland, Scottish rock station, Lanarkshire radio, Ayrshire radio, Inverclyde radio, rock music Scotland, indie rock Scotland, alternative radio Scotland">
+  <meta name="author" content="Rock.Scot">
 
-  <!-- Google Font -->
+  <!-- =====================================
+       GEO & LOCAL SEO
+  ====================================== -->
+  <meta name="geo.region" content="GB-SCT">
+  <meta name="geo.placename" content="Central Scotland">
+  <meta name="geo.position" content="55.8642;-4.2518">
+  <meta name="ICBM" content="55.8642, -4.2518">
+
+  <!-- =====================================
+       OPEN GRAPH (SOCIAL)
+  ====================================== -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Rock.Scot | Central Scotland’s Rock Authority">
+  <meta property="og:description" content="Loud rock radio for Lanarkshire, Ayrshire & Inverclyde. Independent. Unfiltered. Scottish.">
+  <meta property="og:url" content="https://hesonthemove-ux.github.io/rockscot-site/">
+  <meta property="og:site_name" content="Rock.Scot">
+
+  <!-- =====================================
+       TWITTER / X
+  ====================================== -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Rock.Scot – Scotland’s Rock Authority">
+  <meta name="twitter:description" content="Rock radio broadcasting across Central Scotland. Rock. Indie. Alternative.">
+
+  <!-- =====================================
+       FONTS
+  ====================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <!-- CSS -->
+  <!-- =====================================
+       STYLES
+  ====================================== -->
   <link rel="stylesheet" href="./css/styles.css">
+
+  <!-- =====================================
+       PWA
+  ====================================== -->
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#ff5500">
+
+  <!-- =====================================
+       STRUCTURED DATA (RADIO STATION)
+  ====================================== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RadioStation",
+    "name": "Rock.Scot",
+    "url": "https://hesonthemove-ux.github.io/rockscot-site/",
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": "Central Scotland"
+    },
+    "genre": ["Rock", "Indie", "Alternative"],
+    "inLanguage": "en-GB"
+  }
+  </script>
 </head>
 
 <body>
 
-<header class="site-header">
-  <img src="./assets/images/logo_ultra_wide.png" alt="Rock.Scot Logo" class="logo">
+  <!-- =====================================
+       HEADER
+  ====================================== -->
+  <header class="site-header">
+    <img src="./assets/images/logo_ultra_wide.png" alt="Rock.Scot – Central Scotland Rock Radio" class="logo">
+    <nav class="main-nav">
+      <a href="#live">Live</a>
+      <a href="#wire">Wire</a>
+      <a href="#crew">Crew</a>
+      <a href="#rates">Rates</a>
+      <a href="#submit">Submit</a>
+    </nav>
+  </header>
 
-  <nav class="main-nav">
-    <a href="#home">Home</a>
-    <a href="#wire">Wire</a>
-    <a href="#crew">Crew</a>
-    <a href="#rates">Rates</a>
-    <a href="#submit">Submit</a>
-  </nav>
-</header>
+  <!-- =====================================
+       HERO / LIVE
+  ====================================== -->
+  <section id="live" class="hero">
+    <h1>Central Scotland’s Rock Authority</h1>
+    <p>Broadcasting loud rock across Lanarkshire, Ayrshire & Inverclyde</p>
 
-<!-- HERO / HOME -->
-<section id="home" class="hero" style="background-image:url('./assets/images/background/background1.jpg')">
-  <div class="hero-inner">
-    <h1>Scotland’s Rock Authority</h1>
-    <p>Broadcasting 24/7 rock across South Lanarkshire, Ayrshire & Inverclyde</p>
-
-    <!-- CLOCK -->
-    <div id="clock" class="clock">00:00:00</div>
-
-    <!-- AUDIO PLAYER -->
-    <audio controls autoplay preload="none" class="player">
-      <source src="https://player.broadcast.radio/caledondia-tx-ltd" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-
-    <!-- SIGNAL -->
-    <div class="signals">
-      <span>● LANARKSHIRE — LIVE</span>
-      <span>● AYRSHIRE — LIVE</span>
-      <span>● INVERCLYDE — LIVE</span>
+    <div class="player">
+      <audio controls preload="none">
+        <source src="https://player.broadcast.radio/caledonia-tx-ltd" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
     </div>
-  </div>
-</section>
 
-<!-- WIRE -->
-<section id="wire" class="section" style="background-image:url('./assets/images/background/background2.jpg')">
-  <h2>The Wire</h2>
-  <p>Scottish rock news, station updates and live broadcast alerts.</p>
-</section>
+    <div id="clock" class="clock"></div>
 
-<!-- CREW -->
-<section id="crew" class="section" style="background-image:url('./assets/images/background/background3.jpg')">
-  <h2>The Crew</h2>
-  <p>Meet the voices behind Rock.Scot.</p>
-</section>
+    <div class="signals">
+      <span>Lanarkshire ● Peak</span>
+      <span>Ayrshire ● Peak</span>
+      <span>Inverclyde ● Peak</span>
+    </div>
+  </section>
 
-<!-- RATES -->
-<section id="rates" class="section" style="background-image:url('./assets/images/background/background4.jpg')">
-  <h2>Rates</h2>
-  <p>Advertising & broadcast partnerships.</p>
+  <!-- =====================================
+       WIRE
+  ====================================== -->
+  <section id="wire">
+    <h2>Scottish Music Wire</h2>
+    <p>News, releases and stories from the Scottish rock scene.</p>
+  </section>
 
-  <a class="cta" href="https://hesonthemove-ux.github.io/rockscot-site/portal.html">
-    Launch Portal
-  </a>
-</section>
+  <!-- =====================================
+       CREW
+  ====================================== -->
+  <section id="crew">
+    <h2>The Rock.Scot Crew</h2>
+    <p>Broadcasting from towns and cities across Central Scotland.</p>
+  </section>
 
-<!-- SUBMIT -->
-<section id="submit" class="section" style="background-image:url('./assets/images/background/background5.jpg')">
-  <h2>Submit Music</h2>
-  <p>Scottish bands & artists — send us your tracks.</p>
-</section>
+  <!-- =====================================
+       RATES
+  ====================================== -->
+  <section id="rates">
+    <h2>Advertise on Rock.Scot</h2>
+    <p>Reach rock fans across Central Scotland.</p>
+    <button class="cta">Launch Portal</button>
+  </section>
 
-<footer class="site-footer">
-  <p>© Rock.Scot — Scotland’s Rock Authority</p>
+  <!-- =====================================
+       SUBMIT
+  ====================================== -->
+  <section id="submit">
+    <h2>Submit Your Music</h2>
+    <p>Scottish bands, labels and promoters welcome.</p>
+  </section>
 
-  <!-- SEO BLOCK (hidden but valid) -->
-  <div class="seo-block">
-    Rock.Scot broadcasts rock music across South Lanarkshire, North Ayrshire, Inverclyde, East Kilbride, Hamilton, Greenock, Paisley, Irvine and Kilmarnock.
-  </div>
-</footer>
+  <!-- =====================================
+       FOOTER
+  ====================================== -->
+  <footer>
+    <p>&copy; Rock.Scot – Independent Scottish Rock Radio</p>
+  </footer>
 
-<!-- CLOCK SCRIPT -->
-<script>
-  function updateClock() {
-    const now = new Date();
-    document.getElementById('clock').textContent =
-      now.toLocaleTimeString('en-GB', { hour12: false });
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-</script>
+  <!-- =====================================
+       APP JS
+  ====================================== -->
+  <script src="./js/app.js"></script>
 
-<!-- SERVICE WORKER REGISTER -->
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js');
-  }
-</script>
-
-<!-- SCHEMA -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "RadioStation",
-  "name": "Rock.Scot",
-  "url": "https://hesonthemove-ux.github.io/rockscot-site/",
-  "genre": "Rock",
-  "areaServed": ["South Lanarkshire","North Ayrshire","Inverclyde"],
-  "description": "Scotland’s independent rock radio authority broadcasting 24/7."
-}
-</script>
+  <!-- =====================================
+       SERVICE WORKER
+  ====================================== -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
+  </script>
 
 </body>
 </html>
