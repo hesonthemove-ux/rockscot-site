@@ -4,116 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock.Scot | Central Scotland's Rock Authority</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Manifest for PWA -->
     <link rel="manifest" href="manifest.json">
-    <script src="app.js" defer></script>
+
 </head>
 <body>
 
-<header>
-    <img src="assets/images/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-    <nav class="main-nav">
-        <a href="#live" class="active">LIVE</a>
-        <a href="#wire">WIRE</a>
-        <a href="#crew">CREW</a>
-        <a href="#rates">RATES</a>
-        <a href="#submit">SUBMIT</a>
-    </nav>
-    <div class="ticker-wrap">
-        <div class="ticker-item ticker-brand">Rock.Scot Across Scotland</div>
-    </div>
-</header>
+    <header>
+        <img src="assets/images/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+        
+        <nav class="main-nav">
+            <a href="#" class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</a>
+            <a href="#" class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</a>
+            <a href="#" class="nav-btn" onclick="app.switchTab('crew', event)">CREW</a>
+            <a href="#" class="nav-btn" onclick="app.switchTab('rates', event)">RATES</a>
+            <a href="#" class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</a>
+        </nav>
 
-<main>
-    <!-- LIVE SECTION -->
-    <section id="live" class="view">
-        <div class="view-content">
-            <div class="live-left">
-                <div class="clock" id="clock">00:00:00</div>
-                <div class="player">
-                    <iframe src="https://player.broadcast.radio/caledonia-tx-ltd" allow="autoplay"></iframe>
+        <div class="ticker-wrap">
+            <div class="ticker-move" id="ticker-out"></div>
+        </div>
+    </header>
+
+    <main>
+        <!-- LIVE VIEW -->
+        <section id="v-live" class="view active">
+            <div class="view-content">
+                <div class="live-left">
+                    <div class="clock" id="clock">00:00:00</div>
+                    <div class="player">
+                        <iframe id="player-iframe" src="https://player.broadcast.radio/caledonia-tx-ltd" allow="autoplay"></iframe>
+                    </div>
+                </div>
+                <div class="live-right">
+                    <div class="uniform-card">
+                        <h3>Signal Status</h3>
+                        <div class="signal-list" id="sig-list"></div>
+                    </div>
                 </div>
             </div>
-            <div class="live-right">
-                <h3>Signal Status</h3>
-                <div class="signal-list">
-                    <div><span class="signal-dot">●</span> LANARKSHIRE: PEAK</div>
-                    <div><span class="signal-dot">●</span> INVERCLYDE: PEAK</div>
-                    <div><span class="signal-dot">●</span> AYRSHIRE: PEAK</div>
+        </section>
+
+        <!-- WIRE VIEW -->
+        <section id="v-wire" class="view">
+            <div id="wire-grid" class="wire-grid"></div>
+        </section>
+
+        <!-- CREW VIEW -->
+        <section id="v-crew" class="view">
+            <div id="crew-roller" class="crew-grid"></div>
+        </section>
+
+        <!-- RATES VIEW -->
+        <section id="v-rates" class="view">
+            <div class="view-content">
+                <div class="uniform-card">
+                    <h2>Coverage Population: 547,000</h2>
+                    <p>South Lanarkshire, North Ayrshire, Inverclyde. Based on council area estimates.</p>
+                </div>
+                <div class="uniform-card">
+                    <h3>Advertising Portal</h3>
+                    <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- WIRE SECTION -->
-    <section id="wire" class="view">
-        <div class="wire-grid" id="wire-grid">
-            <h3>Loading news...</h3>
-        </div>
-    </section>
-
-    <!-- CREW SECTION -->
-    <section id="crew" class="view">
-        <div class="crew-grid" id="crew-roller">
-            <!-- DJ cards populated via app.js -->
-        </div>
-    </section>
-
-    <!-- RATES SECTION -->
-    <section id="rates" class="view">
-        <div class="view-content">
+        <!-- SUBMIT VIEW -->
+        <section id="v-submit" class="view">
             <div class="uniform-card">
-                <h2>547,000 Coverage Population</h2>
-                <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
+                <h2>Get Played</h2>
+                <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
+                <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
             </div>
-            <div class="uniform-card">
-                <h3>Advertising Portal</h3>
-                <button id="launch-portal" class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-            </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- SUBMIT SECTION -->
-    <section id="submit" class="view">
-        <div class="uniform-card">
-            <h2>Get Played</h2>
-            <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
-            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
+    <!-- Modals -->
+    <div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
+        <div class="mag-layout" onclick="event.stopPropagation()">
+            <h2 id="gen-title"></h2>
+            <div id="gen-body"></div>
         </div>
-    </section>
-</main>
-
-<!-- MODALS -->
-<div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2>Advertising Calculator</h2>
-        <label>Business Name</label>
-        <input type="text" id="biz-name" class="std-input">
-        <label>Start Date</label>
-        <input type="date" id="d-start" class="std-input" onchange="app.calcTotal()">
-        <label>End Date</label>
-        <input type="date" id="d-end" class="std-input" onchange="app.calcTotal()">
-        <label>Package</label>
-        <select id="pkg-opt" class="std-input" onchange="app.calcTotal()"></select>
-        <div>
-            <input type="checkbox" id="prod-add" onchange="app.calcTotal()"> Add Production (+<span id="prod-price-display"></span>)
-        </div>
-        <div>
-            <strong>Total Estimate:</strong> <span id="final-price">£0</span>
-            <p id="sur-alert" style="display:none;">* 30% Short Run Surcharge (<28 Days)</p>
-        </div>
-        <button class="btn-auth" onclick="app.sendEmail()">Initiate via Email</button>
-        <button class="btn-auth" onclick="app.genPDF()">Download Contract (PDF)</button>
     </div>
-</div>
 
-<div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2 id="gen-title"></h2>
-        <div id="gen-body"></div>
+    <div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
+        <div class="mag-layout" onclick="event.stopPropagation()">
+            <h2>Advertising Calculator</h2>
+            <p>Form content here...</p>
+        </div>
     </div>
-</div>
+
+    <!-- Scripts -->
+    <script type="module" src="assets/js/app.js"></script>
+    
+    <!-- Register Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('service-worker.js')
+                .then(reg => console.log('Service Worker registered', reg))
+                .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+    </script>
 
 </body>
 </html>
