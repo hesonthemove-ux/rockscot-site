@@ -4,9 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock.Scot | Central Scotland's Rock Authority</title>
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Manifest -->
     <link rel="manifest" href="manifest.json">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Service Worker -->
     <script>
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/service-worker.js');
@@ -16,61 +24,69 @@
 <body>
 
     <header>
-        <img src="assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot – Scottish Rock Radio" class="site-logo">
+        <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+
         <nav class="main-menu">
-            <a href="#live" class="nav-btn active">Live</a>
-            <a href="#wire" class="nav-btn">Wire</a>
-            <a href="#crew" class="nav-btn">Crew</a>
-            <a href="#rates" class="nav-btn">Rates</a>
-            <a href="#submit" class="nav-btn">Submit</a>
+            <button onclick="app.switchTab('live')">LIVE</button>
+            <button onclick="app.switchTab('wire')">WIRE</button>
+            <button onclick="app.switchTab('crew')">CREW</button>
+            <button onclick="app.switchTab('rates')">RATES</button>
+            <button onclick="app.switchTab('submit')">SUBMIT</button>
         </nav>
-        <div class="ticker-wrap"><div class="ticker-move" id="ticker-out"></div></div>
     </header>
 
     <main>
-        <section id="live">
-            <div class="uniform-card">
-                <div id="clock" class="clock">00:00:00</div>
+        <!-- Live Tab -->
+        <section id="v-live" class="view active">
+            <div class="live-container">
+                <div class="clock" id="clock">00:00:00</div>
                 <div id="audio-player">
-                    <audio id="radio-stream" controls autoplay>
+                    <audio id="radio-stream" controls>
                         <source src="https://player.broadcast.radio/caledondia-tx-ltd" type="audio/mpeg">
-                        Your browser does not support the audio element.
+                        Your browser does not support audio playback.
                     </audio>
+                    <button id="start-stream">Start Stream</button>
                 </div>
-                <div id="sig-list" class="signals"></div>
+
+                <div id="arrival-board-container">
+                    <h2>Live Updates</h2>
+                    <div id="arrival-board"></div>
+                </div>
             </div>
         </section>
 
-        <section id="wire">
-            <div id="wire-grid" class="grid"></div>
+        <!-- Wire Tab -->
+        <section id="v-wire" class="view">
+            <div id="wire-grid"></div>
         </section>
 
-        <section id="crew">
-            <div id="crew-roller" class="crew-track"></div>
-        </section>
-
-        <section id="rates">
-            <div class="uniform-card">
-                <h2>Advertising Portal</h2>
-                <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+        <!-- Crew Tab -->
+        <section id="v-crew" class="view">
+            <div class="crew-rolodex">
+                <div class="crew-rolodex-track" id="crew-roller"></div>
             </div>
         </section>
 
-        <section id="submit">
+        <!-- Rates Tab -->
+        <section id="v-rates" class="view">
+            <div class="desktop-split">
+                <div class="uniform-card">
+                    <h3>Advertising Portal</h3>
+                    <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Submit Tab -->
+        <section id="v-submit" class="view">
             <div class="uniform-card">
-                <h2>Get Played</h2>
+                <h2>GET PLAYED</h2>
                 <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
             </div>
         </section>
     </main>
 
-    <div id="gen-modal" class="modal-overlay">
-        <div class="mag-layout" onclick="event.stopPropagation()">
-            <h2 id="gen-title"></h2>
-            <div id="gen-body"></div>
-        </div>
-    </div>
-
+    <!-- JS -->
     <script type="module" src="js/app.js"></script>
 </body>
 </html>
