@@ -1,43 +1,30 @@
-// wire.js
-// Handles WIRE news feed
+// ========================
+// Wire/News Module
+// ========================
 
-import { STATION_CONFIG } from './config.js';
+export async function loadWire(STATION_CONFIG) {
+    const grid = document.getElementById('wire-grid');
+    if (!grid) return;
 
-class Wire {
-  constructor(gridId='wire-grid') {
-    this.grid = document.getElementById(gridId);
-    if (!this.grid) return;
-    this.loadWire();
-  }
+    grid.innerHTML = '<h3>TUNING...</h3>';
 
-  async loadWire() {
-    this.grid.innerHTML = '<h3>TUNING...</h3>';
     try {
-      const res = await fetch(STATION_CONFIG.newsFeed);
-      const data = await res.json();
-      if (!data.items?.length) { this.grid.innerHTML='<h3>NO NEWS AVAILABLE</h3>'; return; }
-      this.grid.innerHTML = data.items.map(i=>{
-        const desc = i.description ? escape(i.description) : '';
-        const title = i.title ? i.title.replace(/'/g,'') : 'Untitled';
-        return `<div class="uniform-card" onclick="Wire.openNews('${title}','${desc}')">
-                  <h4 style="color:var(--authority-orange);font-family:'Oswald';">${title}</h4>
-                  <p style="font-size:0.8rem;margin-top:10px;">Tap to read</p>
-                </div>`;
-      }).join('');
-    } catch(e) { console.error(e); this.grid.innerHTML='<h3>WIRE OFFLINE</h3>'; }
-  }
+        const res = await fetch(STATION_CONFIG.news.feed);
+        const data = await res.json();
 
-  static openNews(title, description) {
-    const genTitle = document.getElementById('gen-title');
-    const genBody = document.getElementById('gen-body');
-    const genModal = document.getElementById('gen-modal');
-    if(genTitle && genBody && genModal) {
-      genTitle.innerText = title;
-      genBody.innerHTML = unescape(description);
-      genModal.classList.add('open');
+        grid.innerHTML = data.items.map(i => {
+            const titleSafe = i.title.replace(/'/g, "");
+            const descEscaped = encodeURIComponent(i.description);
+            return `
+                <div class="uniform-card" onclick="window.app.openNews('${titleSafe}', '${descEscaped}')">
+                    <h4 style="color:var(--authority-orange); font-family:'Oswald';">${i.title}</h4>
+                    <p style="font-size:0.8rem; margin-top:10px;">Tap to read</p>
+                </div>
+            `;
+        }).join('');
+
+    } catch (e) {
+        grid.innerHTML = '<h3>WIRE OFFLINE</h3>';
+        console.error("Wire load error:", e);
     }
-  }
 }
-
-let wireInstance = null;
-export function getWire() { if(!wireInstance) wireInstance=new Wire(); return wireInstance; }
