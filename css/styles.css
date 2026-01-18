@@ -1,106 +1,211 @@
-/* General */
+/* ===============================
+   GLOBAL RESET & BASE
+================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
 body {
-    font-family: 'Oswald', sans-serif;
-    background: #000;
-    color: #fff;
-    overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-    margin: 0;
-    padding: 0;
-    transition: background-image 0.5s ease;
-    background-size: cover;
-    background-position: center;
+  font-family: 'Oswald', sans-serif;
+  background: #000;
+  color: #fff;
+  line-height: 1.5;
 }
 
-/* Header & nav */
-header {
-    position: sticky;
-    top: 0;
-    z-index: 9999;
-    background: #000;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.hdr-logo { width:100%; max-width:600px; padding:10px 0; display:block; }
-.nav-strip { display:flex; width:100%; background:#000; border-bottom:4px solid #ff5500; }
-.nav-btn { flex:1; background:#000; border:none; color:#777; font-family:'Oswald'; font-weight:700; cursor:pointer; transition:0.3s; }
-.nav-btn.active { color:#ff5500; background:#111; }
-.nav-btn:hover { color:#fff; }
+/* ===============================
+   HEADER & NAV
+================================ */
 
-/* Ticker */
-.ticker-wrap { width:100%; overflow:hidden; background:#111; height:30px; border-bottom:1px solid rgba(255,255,255,0.2); display:flex; align-items:center; font-family:'Oswald'; font-weight:700; font-size:0.9rem; }
-.ticker-move { display:flex; white-space:nowrap; animation: ticker 45s linear infinite; }
-.ticker-item { padding:0 40px; text-transform:uppercase; color:#aaa; }
-.ticker-brand { color:#ff5500; font-weight:900; }
-@keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-/* Views */
-.view { display:none; height:calc(100vh - 190px); width:100%; padding:15px; overflow-y:auto; flex-direction:column; align-items:center; }
-.view.active { display:flex !important; }
-
-/* Cards */
-.uniform-card {
-    width:100%; max-width:450px;
-    background: rgba(0,0,0,0.7);
-    border:1px solid rgba(255,255,255,0.2);
-    padding:25px; text-align:center;
-    box-shadow:0 20px 50px rgba(0,0,0,0.9);
-    text-shadow:2px 2px 5px #000;
-    margin-bottom:20px;
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  z-index: 1000;
 }
 
-/* Buttons */
-.btn-auth { width:100%; padding:15px; background:#ff5500; border:none; color:#fff; font-family:'Oswald'; font-weight:700; font-size:1.4rem; cursor:pointer; text-transform:uppercase; margin-top:10px; transition:0.2s; }
-.btn-auth:hover { background:#fff; color:#000; }
+.logo {
+  max-height: 60px;
+}
 
-/* Signals */
-#sig-list div { font-size:0.9rem; padding:8px 10px; border-bottom:1px solid rgba(255,255,255,0.2); }
+.main-nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
 
-/* Persistent Audio Player */
-.audio-player-collapsed {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    max-width: 600px;
-    background: rgba(0,0,0,0.8);
-    border: 1px solid #333;
-    border-radius: 8px;
-    overflow: hidden;
-    z-index: 10000;
-    transition: height 0.3s ease;
-    height: 40px;
+.main-nav a:hover {
+  color: #e10600;
 }
-.audio-player-collapsed audio {
-    display: none;
-    width: 100%;
-    outline: none;
-    background: #000;
-    margin-top: 5px;
+
+/* ===============================
+   HERO / HOME
+================================ */
+
+.hero {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
 }
-.audio-player-expanded {
-    height: 70px;
+
+.hero-inner {
+  background: rgba(0,0,0,0.75);
+  padding: 30px;
+  text-align: center;
+  max-width: 800px;
+  width: 90%;
 }
-.audio-player-expanded audio {
-    display: block;
+
+.hero h1 {
+  font-size: 3rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
-.audio-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    font-family: 'Oswald';
-    font-weight: 700;
-    color: #ff5500;
-    cursor: pointer;
+
+.hero p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
 }
-.audio-header button {
-    background: none;
-    border: none;
-    color: #ff5500;
-    font-size: 1rem;
-    cursor: pointer;
+
+/* ===============================
+   CLOCK
+================================ */
+
+.clock {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   AUDIO PLAYER
+================================ */
+
+.player {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* ===============================
+   SIGNALS
+================================ */
+
+.signals {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.signals span {
+  color: #00ff2a;
+}
+
+/* ===============================
+   SECTIONS
+================================ */
+
+.section {
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  padding: 120px 20px 40px;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.section p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+/* ===============================
+   CTA BUTTON
+================================ */
+
+.cta {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 15px 30px;
+  background: #e10600;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cta:hover {
+  background: #ff1a1a;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+
+.site-footer {
+  background: #000;
+  padding: 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+}
+
+/* ===============================
+   SEO BLOCK (HIDDEN)
+================================ */
+
+.seo-block {
+  position: absolute;
+  left: -9999px;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .section h2 {
+    font-size: 2rem;
+  }
+
+  .main-nav a {
+    margin-left: 10px;
+    font-size: 0.9rem;
+  }
 }
