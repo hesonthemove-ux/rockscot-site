@@ -42,53 +42,61 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 24px;
-  background: rgba(0, 0, 0, 0.75);
+  padding: 18px 32px;
+  background: rgba(0, 0, 0, 0.8);
   border-bottom: 2px solid #b30000;
 }
 
-/* ===== LOGO FIX ===== */
+/* ===== LOGO (CORRECT SIZE) ===== */
 .site-logo {
-  max-width: 320px;
-  width: 100%;
+  max-width: 420px;
+  width: auto;
   height: auto;
   display: block;
 }
 
-@media (max-width: 768px) {
-  .site-logo {
-    max-width: 220px;
-  }
-}
-
 /* =========================
-   NAVIGATION
+   NAVIGATION (FIXED)
 ========================= */
+
+nav {
+  display: flex;
+  align-items: center;
+}
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 18px;
+  gap: 28px;
+  align-items: center;
+}
+
+nav li {
+  display: flex;
 }
 
 nav a {
   text-decoration: none;
   color: #fff;
+  font-size: 1.05rem;
   font-weight: 500;
-  letter-spacing: 1px;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
+  padding: 6px 4px;
+  border-bottom: 2px solid transparent;
 }
 
 nav a:hover {
   color: #b30000;
+  border-bottom: 2px solid #b30000;
 }
 
 /* =========================
-   MAIN LAYOUT
+   MAIN
 ========================= */
 
 main {
-  padding: 24px;
+  padding: 28px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -98,10 +106,10 @@ main {
 ========================= */
 
 #clock {
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
   letter-spacing: 2px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 /* =========================
@@ -109,10 +117,10 @@ main {
 ========================= */
 
 #ticker {
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.85);
   border-top: 1px solid #b30000;
   border-bottom: 1px solid #b30000;
-  padding: 10px 0;
+  padding: 12px 0;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -120,8 +128,8 @@ main {
 #ticker span {
   display: inline-block;
   padding-left: 100%;
-  animation: ticker 20s linear infinite;
-  font-size: 1.1rem;
+  animation: ticker 22s linear infinite;
+  font-size: 1.15rem;
 }
 
 @keyframes ticker {
@@ -134,9 +142,9 @@ main {
 ========================= */
 
 #audio-player {
-  margin: 20px 0;
-  padding: 16px;
-  background: rgba(0,0,0,0.75);
+  margin: 24px 0;
+  padding: 18px;
+  background: rgba(0,0,0,0.8);
   border: 1px solid #b30000;
   border-radius: 6px;
 }
@@ -150,15 +158,15 @@ audio {
 ========================= */
 
 section {
-  margin: 32px 0;
-  background: rgba(0,0,0,0.65);
-  padding: 24px;
+  margin: 36px 0;
+  background: rgba(0,0,0,0.7);
+  padding: 26px;
   border-radius: 8px;
 }
 
 section h2 {
-  font-size: 2rem;
-  margin-bottom: 16px;
+  font-size: 2.1rem;
+  margin-bottom: 18px;
   text-transform: uppercase;
   border-bottom: 2px solid #b30000;
   padding-bottom: 6px;
@@ -170,45 +178,45 @@ section h2 {
 
 .crew-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px;
 }
 
 .crew-card {
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
   border: 1px solid #333;
-  padding: 16px;
+  padding: 18px;
   border-radius: 6px;
   text-align: center;
 }
 
 .crew-card img {
   width: 100%;
-  max-width: 180px;
+  max-width: 200px;
   height: auto;
   border-radius: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .crew-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-bottom: 6px;
 }
 
 .crew-card p {
   font-size: 1rem;
-  line-height: 1.4;
+  line-height: 1.45;
   opacity: 0.9;
 }
 
 /* =========================
-   LINKS & BUTTONS
+   BUTTONS & LINKS
 ========================= */
 
 a.button {
   display: inline-block;
-  margin-top: 12px;
-  padding: 10px 18px;
+  margin-top: 14px;
+  padding: 12px 20px;
   background: #b30000;
   color: #fff;
   text-decoration: none;
@@ -226,23 +234,28 @@ a.button:hover {
 
 footer {
   text-align: center;
-  padding: 20px;
-  font-size: 0.9rem;
-  background: rgba(0,0,0,0.85);
+  padding: 22px;
+  font-size: 0.95rem;
+  background: rgba(0,0,0,0.9);
   border-top: 1px solid #333;
 }
 
 /* =========================
-   RESPONSIVE
+   MOBILE FIXES
 ========================= */
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   header {
     flex-direction: column;
-    gap: 12px;
+    gap: 18px;
+  }
+
+  .site-logo {
+    max-width: 320px;
   }
 
   nav ul {
+    gap: 18px;
     flex-wrap: wrap;
     justify-content: center;
   }
