@@ -2,6 +2,129 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Rock.Scot | Central Scotland's Rock Authority</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/styles.css">
+
+<!-- Manifest -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff5500">
+
+</head>
+<body>
+
+<header>
+    <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+    <nav class="nav-strip">
+        <button class="nav-btn active" onclick="app.switchTab('live', this)">LIVE</button>
+        <button class="nav-btn" onclick="app.switchTab('wire', this)">WIRE</button>
+        <button class="nav-btn" onclick="app.switchTab('crew', this)">CREW</button>
+        <button class="nav-btn" onclick="app.switchTab('rates', this)">RATES</button>
+        <button class="nav-btn" onclick="app.switchTab('submit', this)">SUBMIT</button>
+    </nav>
+    <div class="ticker-wrap">
+        <div class="ticker-move" id="ticker-out">
+            <span class="ticker-item">Rock.Scot</span>
+            <span class="ticker-item ticker-brand">Across Scotland</span>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- LIVE VIEW -->
+    <section id="v-live" class="view active">
+        <div class="desktop-split">
+            <div class="uniform-card" style="max-width:100%;">
+                <div id="clock" style="font-family:'Bebas Neue'; font-size:6rem; line-height:1;">00:00:00</div>
+                <div id="player-container" style="margin-top:20px;">
+                    <audio id="live-stream" controls autoplay>
+                        <source src="https://player.broadcast.radio/caledondia-tx-ltd" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+            </div>
+            <div class="uniform-card" style="max-width:100%; text-align:left;">
+                <h3 style="font-family:'Bebas Neue'; color:#ff5500;">SIGNAL STATUS</h3>
+                <div id="sig-list" style="margin-top:15px; font-family:'Oswald';"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WIRE VIEW -->
+    <section id="v-wire" class="view">
+        <div id="wire-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; width:100%; max-width:1400px;"></div>
+    </section>
+
+    <!-- CREW VIEW -->
+    <section id="v-crew" class="view">
+        <div id="crew-roller" class="crew-track"></div>
+    </section>
+
+    <!-- RATES VIEW -->
+    <section id="v-rates" class="view">
+        <div class="desktop-split">
+            <div class="uniform-card" style="max-width:100%; text-align:left;">
+                <h2 style="font-family:'Bebas Neue'; font-size:3rem; color:#ff5500;">547,000 COVERAGE POPULATION</h2>
+                <p style="font-family:'Oswald'; line-height:1.6; margin-top:15px;">Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
+            </div>
+            <div class="uniform-card" style="max-width:100%;">
+                <h3 style="font-family:'Bebas Neue'; font-size:2rem;">ADVERTISING PORTAL</h3>
+                <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUBMIT VIEW -->
+    <section id="v-submit" class="view">
+        <div class="uniform-card">
+            <h2 style="font-family:'Bebas Neue'; font-size:3rem;">GET PLAYED</h2>
+            <p style="font-family:'Oswald'; margin-bottom:20px;">24/7 OFCOM Compliance Required. Max 25MB.</p>
+            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
+        </div>
+    </section>
+</main>
+
+<!-- MODALS -->
+<div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
+    <div class="mag-layout" onclick="event.stopPropagation()">
+        <h2 style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;">ADVERTISING CALCULATOR</h2>
+        <!-- form inputs here -->
+    </div>
+</div>
+
+<div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
+    <div class="mag-layout" onclick="event.stopPropagation()">
+        <h2 id="gen-title" style="font-family:'Bebas Neue'; font-size:2.5rem; color:#ff5500;"></h2>
+        <div id="gen-body" style="font-family:'Oswald'; line-height:1.6; font-size:1.1rem; color:#ddd;"></div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+
+<!-- Register Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log('Service Worker Registered', reg))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    });
+}
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rock.Scot | Central Scotland's Rock Authority</title>
 
