@@ -1,264 +1,90 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
 <head>
-  <!-- =====================================
-       CORE META
-  ====================================== -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock.Scot | Central Scotland’s Rock Radio Authority</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Rock.Scot | Central Scotland's Rock Authority</title>
 
-  <meta name="description" content="Rock.Scot is Central Scotland’s loudest rock radio station. Broadcasting rock, indie and alternative music across Lanarkshire, Ayrshire and Inverclyde.">
-  <meta name="keywords" content="Rock radio Scotland, Scottish rock station, Lanarkshire radio, Ayrshire radio, Inverclyde radio, rock music Scotland, indie rock Scotland, alternative radio Scotland">
-  <meta name="author" content="Rock.Scot">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
-  <!-- =====================================
-       GEO & LOCAL SEO
-  ====================================== -->
-  <meta name="geo.region" content="GB-SCT">
-  <meta name="geo.placename" content="Central Scotland">
-  <meta name="geo.position" content="55.8642;-4.2518">
-  <meta name="ICBM" content="55.8642, -4.2518">
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="./manifest.json">
 
-  <!-- =====================================
-       OPEN GRAPH (SOCIAL)
-  ====================================== -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Rock.Scot | Central Scotland’s Rock Authority">
-  <meta property="og:description" content="Loud rock radio for Lanarkshire, Ayrshire & Inverclyde. Independent. Unfiltered. Scottish.">
-  <meta property="og:url" content="https://hesonthemove-ux.github.io/rockscot-site/">
-  <meta property="og:site_name" content="Rock.Scot">
+    <!-- Styles -->
+    <link rel="stylesheet" href="./css/styles.css">
 
-  <!-- =====================================
-       TWITTER / X
-  ====================================== -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Rock.Scot – Scotland’s Rock Authority">
-  <meta name="twitter:description" content="Rock radio broadcasting across Central Scotland. Rock. Indie. Alternative.">
-
-  <!-- =====================================
-       FONTS
-  ====================================== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&display=swap" rel="stylesheet">
-
-  <!-- =====================================
-       STYLES
-  ====================================== -->
-  <link rel="stylesheet" href="./css/styles.css">
-
-  <!-- =====================================
-       PWA
-  ====================================== -->
-  <link rel="manifest" href="./manifest.json">
-  <meta name="theme-color" content="#ff5500">
-
-  <!-- =====================================
-       STRUCTURED DATA (RADIO STATION)
-  ====================================== -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "RadioStation",
-    "name": "Rock.Scot",
-    "url": "https://hesonthemove-ux.github.io/rockscot-site/",
-    "areaServed": {
-      "@type": "AdministrativeArea",
-      "name": "Central Scotland"
-    },
-    "genre": ["Rock", "Indie", "Alternative"],
-    "inLanguage": "en-GB"
-  }
-  </script>
 </head>
-
 <body>
+    <header>
+        <img src="./assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot Logo" class="hdr-logo">
 
-  <!-- =====================================
-       HEADER
-  ====================================== -->
-  <header class="site-header">
-    <img src="./assets/images/logo_ultra_wide.png" alt="Rock.Scot – Central Scotland Rock Radio" class="logo">
-    <nav class="main-nav">
-      <a href="#live">Live</a>
-      <a href="#wire">Wire</a>
-      <a href="#crew">Crew</a>
-      <a href="#rates">Rates</a>
-      <a href="#submit">Submit</a>
-    </nav>
-  </header>
+        <nav class="main-nav">
+            <a href="#live">LIVE</a>
+            <a href="#wire">WIRE</a>
+            <a href="#crew">CREW</a>
+            <a href="#rates">RATES</a>
+            <a href="#submit">SUBMIT</a>
+        </nav>
+    </header>
 
-  <!-- =====================================
-       HERO / LIVE
-  ====================================== -->
-  <section id="live" class="hero">
-    <h1>Central Scotland’s Rock Authority</h1>
-    <p>Broadcasting loud rock across Lanarkshire, Ayrshire & Inverclyde</p>
+    <section id="live">
+        <div class="view-content">
+            <div class="live-left">
+                <div id="clock" class="clock">00:00:00</div>
+                <div class="player"></div>
+            </div>
+            <div class="live-right">
+                <h3>SIGNAL STATUS</h3>
+                <div id="sig-list" class="signal-list">
+                    <div><span class="signal-dot">●</span> LANARKSHIRE: PEAK</div>
+                    <div><span class="signal-dot">●</span> INVERCLYDE: PEAK</div>
+                    <div><span class="signal-dot">●</span> AYRSHIRE: PEAK</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <div class="player">
-      <audio controls preload="none">
-        <source src="https://player.broadcast.radio/caledonia-tx-ltd" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-    </div>
+    <section id="wire">
+        <div class="view-content">
+            <h2>WIRE FEED</h2>
+            <div id="wire-grid" class="wire-grid">Loading news...</div>
+        </div>
+    </section>
 
-    <div id="clock" class="clock"></div>
+    <section id="crew">
+        <div class="view-content">
+            <h2>OUR DJ CREW</h2>
+            <div id="crew-grid" class="crew-grid"></div>
+        </div>
+    </section>
 
-    <div class="signals">
-      <span>Lanarkshire ● Peak</span>
-      <span>Ayrshire ● Peak</span>
-      <span>Inverclyde ● Peak</span>
-    </div>
-  </section>
+    <section id="rates">
+        <div class="view-content">
+            <h2>ADVERTISING PORTAL</h2>
+            <button id="launch-portal" class="btn-auth">Launch Portal</button>
+        </div>
+    </section>
 
-  <!-- =====================================
-       WIRE
-  ====================================== -->
-  <section id="wire">
-    <h2>Scottish Music Wire</h2>
-    <p>News, releases and stories from the Scottish rock scene.</p>
-  </section>
+    <section id="submit">
+        <div class="view-content">
+            <h2>SUBMIT YOUR TRACK</h2>
+            <p>Ensure 24/7 OFCOM compliance. Max 25MB.</p>
+            <button id="submit-track" class="btn-auth">Start Upload</button>
+        </div>
+    </section>
 
-  <!-- =====================================
-       CREW WITH BIOS
-  ====================================== -->
-  <section id="crew">
-    <h2>The Rock.Scot Crew</h2>
-    <p>Broadcasting from towns and cities across Central Scotland.</p>
+    <!-- App JS -->
+    <script src="./js/config.js"></script>
+    <script src="./js/app.js"></script>
 
-    <div class="crew-grid">
-
-      <div class="crew-card">
-        <h3>Andy – East Kilbride's Rock Rebel</h3>
-        <p>Hailing from East Kilbride in South Lanarkshire, Andy grew up blasting Biffy Clyro anthems from his bedroom. Started pirate radio in his garage before joining Rock.Scot, bringing high-energy playlists across Inverclyde, South Lanarkshire, and North Ayrshire.</p>
-        <ul>
-          <li>Favourite Scottish rock band: Biffy Clyro</li>
-          <li>Best gig ever: Franz Ferdinand at the Barrowland Ballroom</li>
-          <li>Dream venue to DJ: King Tut's Wah Wah Hut</li>
-          <li>Fun fact: Crowd-surfed at a Big Country tribute night and lost a shoe</li>
-        </ul>
-      </div>
-
-      <div class="crew-card">
-        <h3>Alex – Johnstone's Vinyl Viking</h3>
-        <p>Born and bred in Johnstone, Alex discovered rock digging through his uncle's record collection. Spins deep cuts and local shout-outs on Rock.Scot.</p>
-        <ul>
-          <li>Favourite Scottish rock band: Nazareth</li>
-          <li>Best gig ever: Texas at the SEC Armadillo</li>
-          <li>Dream venue: Barrowland Ballroom</li>
-          <li>Fun fact: Prized scratched vinyl of Deacon Blue from secret afterparty</li>
-        </ul>
-      </div>
-
-      <div class="crew-card">
-        <h3>Stevie – Port Glasgow's Headbanger</h3>
-        <p>From Port Glasgow, Stevie grew up on AC/DC and formed a garage band before DJing. Late-night shows keep Inverclyde headbanging.</p>
-        <ul>
-          <li>Favourite Scottish rock band: Big Country</li>
-          <li>Best gig ever: Mogwai at Òran Mór</li>
-          <li>Dream venue: Beacon Arts Centre, Greenock</li>
-          <li>Fun fact: Once high-fived Angus Young at a secret pub gig</li>
-        </ul>
-      </div>
-
-      <div class="crew-card">
-        <h3>Mhairi – Hamilton's Hard Rock Queen</h3>
-        <p>Hamilton-born Mhairi traded pop for distortion pedals. Witty banter and killer playlists dominate the Rock.Scot airwaves.</p>
-        <ul>
-          <li>Favourite Scottish rock band: The Jesus and Mary Chain</li>
-          <li>Best gig ever: Teenage Fanclub at King Tut's</li>
-          <li>Dream venue: The Grand Hall, Kilmarnock</li>
-          <li>Fun fact: Moonlights as tattoo artist for rock band logos</li>
-        </ul>
-      </div>
-
-      <div class="crew-card">
-        <h3>Jude – Irvine's Indie Rock Icon</h3>
-        <p>Irvine-native Jude champions Scottish indie rock and melodic acts on Rock.Scot, supporting emerging local talent.</p>
-        <ul>
-          <li>Favourite Scottish rock band: Travis</li>
-          <li>Best gig ever: Idlewild at the Barrowland</li>
-          <li>Dream venue: Harbour Arts Centre, Irvine</li>
-          <li>Fun fact: Once hitchhiked to a Franz Ferdinand gig and ended backstage</li>
-        </ul>
-      </div>
-
-      <div class="crew-card">
-        <h3>Chris – Greenock's Guitar Guru</h3>
-        <p>Chris grew up in Greenock on Primal Scream. Started DJing pub gigs before joining Rock.Scot to blast rock across the Firth of Clyde.</p>
-        <ul>
-          <li>Favourite Scottish rock band: Primal Scream</li>
-          <li>Best gig ever: Simple Minds at the OVO Hydro</li>
-          <li>Dream venue: Cathouse Rock Club, Glasgow</li>
-          <li>Fun fact: Owns every Big Country album on vinyl</li>
-        </ul>
-      </div>
-
-      <div class="crew-card">
-        <h3>Cal – Kilmarnock's Classic Rocker</h3>
-        <p>Kilmarnock-born Cal grew up on Biffy Clyro and The Sensational Alex Harvey Band. DJing now delivers timeless rock to fans in Ayrshire and North Ayrshire.</p>
-        <ul>
-          <li>Favourite Scottish rock band: Biffy Clyro</li>
-          <li>Best gig ever: The Fratellis at The Grand Hall Kilmarnock</li>
-          <li>Dream venue: Palace Theatre & Grand Hall, Kilmarnock</li>
-          <li>Fun fact: Nicknamed "Cal the Rocker" after winning an air guitar contest</li>
-        </ul>
-      </div>
-
-      <div class="crew-card">
-        <h3>Blue – Gourock's Bluesy Rock Maverick</h3>
-        <p>Blue grew up in Gourock on Nazareth and Gerry Rafferty. DJing across Rock.Scot delivers bluesy rock vibes from Gourock to Wemyss Bay.</p>
-        <ul>
-          <li>Favourite Scottish rock band: Nazareth</li>
-          <li>Best gig ever: Texas at Paisley Arts Centre</li>
-          <li>Dream venue: Coats Paisley / Beacon Arts Centre</li>
-          <li>Fun fact: Once mistaken for a roadie at a Mogwai gig</li>
-        </ul>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- =====================================
-       RATES
-  ====================================== -->
-  <section id="rates">
-    <h2>Advertise on Rock.Scot</h2>
-    <p>Reach rock fans across Central Scotland.</p>
-    <button class="cta">Launch Portal</button>
-  </section>
-
-  <!-- =====================================
-       SUBMIT
-  ====================================== -->
-  <section id="submit">
-    <h2>Submit Your Music</h2>
-    <p>Scottish bands, labels and promoters welcome.</p>
-  </section>
-
-  <!-- =====================================
-       FOOTER
-  ====================================== -->
-  <footer>
-    <p>&copy; Rock.Scot – Independent Scottish Rock Radio</p>
-  </footer>
-
-  <!-- =====================================
-       APP JS
-  ====================================== -->
-  <script src="./js/app.js"></script>
-
-  <!-- =====================================
-       SERVICE WORKER
-  ====================================== -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js');
-      });
-    }
-  </script>
-
+    <!-- Service Worker registration -->
+    <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js')
+            .then(() => console.log('Service Worker registered.'))
+            .catch(err => console.error('Service Worker registration failed:', err));
+        }
+    </script>
 </body>
 </html>
