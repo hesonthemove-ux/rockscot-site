@@ -1,128 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rock.Scot | Central Scotland's Rock Authority</title>
-<link rel="stylesheet" href="css/styles.css">
-<link rel="manifest" href="manifest.json">
-<script>
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-        .then(reg => console.log('SW registered:', reg.scope))
-        .catch(err => console.log('SW registration failed:', err));
-    });
-}
-</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock.Scot | Central Scotland's Rock Authority</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="module" src="js/config.js" defer></script>
+    <script type="module" src="js/app.js" defer></script>
 </head>
 <body>
+    <header>
+        <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+        <nav class="nav-strip">
+            <button class="nav-btn active" data-tab="live">LIVE</button>
+            <button class="nav-btn" data-tab="wire">WIRE</button>
+            <button class="nav-btn" data-tab="crew">CREW</button>
+            <button class="nav-btn" data-tab="rates">RATES</button>
+            <button class="nav-btn" data-tab="submit">SUBMIT</button>
+        </nav>
+        <div class="ticker-wrap">
+            <div class="ticker-move" id="ticker-out"></div>
+        </div>
+    </header>
 
-<header>
-    <img src="assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot Logo" class="hdr-logo">
-    <nav class="nav-strip">
-        <button class="nav-btn active" onclick="app.switchTab('live', this)">LIVE</button>
-        <button class="nav-btn" onclick="app.switchTab('wire', this)">WIRE</button>
-        <button class="nav-btn" onclick="app.switchTab('crew', this)">CREW</button>
-        <button class="nav-btn" onclick="app.switchTab('rates', this)">RATES</button>
-        <button class="nav-btn" onclick="app.switchTab('submit', this)">SUBMIT</button>
-    </nav>
-    <div class="ticker-wrap">
-        <div class="ticker-move" id="ticker-out"></div>
-    </div>
-</header>
-
-<main>
-    <!-- LIVE VIEW -->
-    <section id="v-live" class="view active">
-        <div class="desktop-split">
+    <main>
+        <!-- LIVE -->
+        <section id="v-live" class="view active">
             <div class="uniform-card">
-                <div id="clock" style="font-family:'Bebas Neue'; font-size:6rem;">00:00:00</div>
-                <div id="audio-container">
+                <div id="clock" style="font-family:'Oswald'; font-size:6rem; text-align:center;">00:00:00</div>
+                <div id="audio-container" style="margin-top:20px;">
                     <audio controls autoplay loop>
-                        <source src="https://player.broadcast.radio/caledondia-tx-ltd" type="audio/mpeg">
+                        <source src="https://player.broadcast.radio/caledonia-tx-ltd" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
                 </div>
             </div>
-            <div class="uniform-card" style="text-align:left;">
+            <div class="uniform-card">
                 <h3 style="color:var(--authority-orange);">SIGNAL STATUS</h3>
                 <div id="sig-list" style="margin-top:15px;"></div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- WIRE VIEW -->
-    <section id="v-wire" class="view">
-        <div id="wire-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px;"></div>
-    </section>
+        <!-- WIRE -->
+        <section id="v-wire" class="view">
+            <div id="wire-grid"></div>
+        </section>
 
-    <!-- CREW VIEW -->
-    <section id="v-crew" class="view">
-        <div id="crew-roller" class="crew-track"></div>
-    </section>
+        <!-- CREW -->
+        <section id="v-crew" class="view">
+            <div id="crew-roller" class="crew-track"></div>
+        </section>
 
-    <!-- RATES VIEW -->
-    <section id="v-rates" class="view">
-        <div class="desktop-split">
-            <div class="uniform-card" style="text-align:left;">
-                <h2 style="font-size:3rem; color:var(--authority-orange);">547,000 COVERAGE POPULATION</h2>
-                <p style="margin-top:15px;">Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
+        <!-- RATES -->
+        <section id="v-rates" class="view">
+            <div class="uniform-card">
+                <h2 style="color:var(--authority-orange);">547,000 COVERAGE POPULATION</h2>
+                <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde.</p>
             </div>
-            <div class="uniform-card" style="text-align:center;">
-                <h3 style="font-size:2rem;">ADVERTISING PORTAL</h3>
-                <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+            <div class="uniform-card">
+                <h3 style="color:var(--authority-orange);">ADVERTISING PORTAL</h3>
+                <button class="btn-auth" id="launch-portal">Launch Portal</button>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- SUBMIT VIEW -->
-    <section id="v-submit" class="view">
-        <div class="uniform-card">
-            <h2 style="font-size:3rem;">GET PLAYED</h2>
-            <p style="margin-bottom:20px;">24/7 OFCOM Compliance Required. Max 25MB.</p>
-            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-        </div>
-    </section>
-</main>
-
-<!-- MODALS -->
-<div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2 style="color:var(--authority-orange);">ADVERTISING CALCULATOR</h2>
-        <label>BUSINESS NAME</label>
-        <input type="text" id="biz-name" class="std-input">
-        <label>START DATE</label>
-        <input type="date" id="d-start" class="std-input" onchange="app.calcTotal()">
-        <label>END DATE</label>
-        <input type="date" id="d-end" class="std-input" onchange="app.calcTotal()">
-        <label>PACKAGE</label>
-        <select id="pkg-opt" class="std-input" onchange="app.calcTotal()"></select>
-        <div style="margin:10px 0; background:#111; padding:10px; border:1px solid #333;">
-            <input type="checkbox" id="prod-add" onchange="app.calcTotal()">
-            <span style="margin-left:10px;">ADD PRODUCTION (+<span id="prod-price-display"></span>)</span>
-        </div>
-        <div style="background:#222; padding:20px; border-left:4px solid var(--authority-orange); margin:20px 0;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-                <span>TOTAL ESTIMATE:</span>
-                <span id="final-price" style="color:var(--authority-orange); font-size:2.5rem;">£0</span>
+        <!-- SUBMIT -->
+        <section id="v-submit" class="view">
+            <div class="uniform-card">
+                <h2 style="color:var(--authority-orange);">GET PLAYED</h2>
+                <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
+                <button class="btn-auth" id="start-upload">Start Upload</button>
             </div>
-            <p id="sur-alert" style="color:var(--authority-orange); font-size:0.8rem; display:none;">* 30% SHORT RUN SURCHARGE APPLIED (&lt; 28 DAYS)</p>
+        </section>
+    </main>
+
+    <!-- MODAL -->
+    <div id="gen-modal" class="modal-overlay">
+        <div class="mag-layout">
+            <h2 id="gen-title"></h2>
+            <div id="gen-body"></div>
         </div>
-        <button class="btn-auth" onclick="app.sendEmail()">INITIATE VIA EMAIL</button>
-        <button class="btn-auth btn-pdf" onclick="app.genPDF()">DOWNLOAD CONTRACT (PDF)</button>
     </div>
-</div>
-
-<div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2 id="gen-title"></h2>
-        <div id="gen-body"></div>
-    </div>
-</div>
-
-<script src="js/config.js"></script>
-<script src="js/app.js"></script>
 
 </body>
 </html>
