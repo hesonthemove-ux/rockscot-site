@@ -1,13 +1,15 @@
 /* ==========================================
-   Rock.Scot Phase 5 Styles
+   Rock.Scot Phase 6 Styles
    Fonts: Oswald & Bebas Neue
-   Responsive Layout, Crew Grid, Ticker
+   Full Responsive Layout
+   Crew Grid, Ticker, Tabs, Modals, Player
    ========================================== */
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Oswald', sans-serif;
+    background: #111;
     color: #eee;
     background-size: cover;
     background-position: center;
@@ -219,6 +221,14 @@ main {
 
 .total-display span {
     display: inline-block;
+}
+
+/* Audio Player */
+audio {
+    width: 100%;
+    border-radius: 5px;
+    background: #222;
+    outline: none;
 }
 
 /* Responsive */
