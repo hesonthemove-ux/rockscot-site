@@ -1,39 +1,40 @@
-// player.js
-// Persistent audio player module
+// ========================
+// Player Module
+// ========================
 
-import { STATION_CONFIG } from './config.js';
+let audioPlayer = null;
 
-class Player {
-  constructor(containerId) {
-    this.container = document.getElementById(containerId);
-    this.audio = null;
-    this.init();
-  }
+export function initPlayer(streamUrl) {
+    // If already initialized, do nothing
+    if (audioPlayer) return;
 
-  init() {
-    if (!this.audio) {
-      this.audio = document.createElement('audio');
-      this.audio.src = STATION_CONFIG.meta.streamUrl;
-      this.audio.controls = true;
-      this.audio.autoplay = true;
-      this.audio.loop = true;
-      this.audio.preload = "auto";
-      this.audio.style.width = "100%";
-      this.audio.setAttribute('id', 'persistent-audio');
+    // Create audio element
+    audioPlayer = document.createElement('audio');
+    audioPlayer.src = streamUrl;
+    audioPlayer.controls = true;
+    audioPlayer.autoplay = true;
+    audioPlayer.loop = true;
+    audioPlayer.style.width = '100%';
 
-      this.container.appendChild(this.audio);
-    }
-  }
+    // Inject into the live player container
+    const container = document.getElementById('player-container');
+    if (container) container.appendChild(audioPlayer);
 
-  play() { this.audio.play().catch(e => console.warn("Playback blocked", e)); }
-  pause() { this.audio.pause(); }
-  toggle() { this.audio.paused ? this.play() : this.pause(); }
-  setVolume(value) { this.audio.volume = Math.min(Math.max(value,0),1); }
-  isPlaying() { return !this.audio.paused; }
+    // Keep player alive across view switches
+    window.addEventListener('beforeunload', () => {
+        if (audioPlayer) audioPlayer.pause();
+    });
 }
 
-let playerInstance = null;
-export function getPlayer(containerId='player-container') {
-  if (!playerInstance) playerInstance = new Player(containerId);
-  return playerInstance;
+// Optional: expose controls for later
+export function play() {
+    if (audioPlayer) audioPlayer.play();
+}
+
+export function pause() {
+    if (audioPlayer) audioPlayer.pause();
+}
+
+export function setVolume(level) {
+    if (audioPlayer) audioPlayer.volume = Math.min(Math.max(level, 0), 1);
 }
