@@ -4,22 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock.Scot | Central Scotland's Rock Authority</title>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700;900&display=swap" rel="stylesheet">
-
-    <!-- Styles -->
     <link rel="stylesheet" href="assets/css/styles.css">
-
-    <!-- Manifest for PWA -->
     <link rel="manifest" href="manifest.json">
-
+    <script type="module" src="assets/js/app.js" defer></script>
 </head>
 <body>
-
     <header>
         <img src="assets/images/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-        
         <nav class="main-nav">
             <a href="#" class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</a>
             <a href="#" class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</a>
@@ -27,7 +18,6 @@
             <a href="#" class="nav-btn" onclick="app.switchTab('rates', event)">RATES</a>
             <a href="#" class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</a>
         </nav>
-
         <div class="ticker-wrap">
             <div class="ticker-move" id="ticker-out"></div>
         </div>
@@ -40,37 +30,34 @@
                 <div class="live-left">
                     <div class="clock" id="clock">00:00:00</div>
                     <div class="player">
-                        <iframe id="player-iframe" src="https://player.broadcast.radio/caledonia-tx-ltd" allow="autoplay"></iframe>
+                        <iframe id="player-container" src="https://player.broadcast.radio/caledonia-tx-ltd" allow="autoplay" frameborder="0"></iframe>
                     </div>
                 </div>
                 <div class="live-right">
-                    <div class="uniform-card">
-                        <h3>Signal Status</h3>
-                        <div class="signal-list" id="sig-list"></div>
-                    </div>
+                    <div class="signal-list" id="sig-list"></div>
                 </div>
             </div>
         </section>
 
         <!-- WIRE VIEW -->
         <section id="v-wire" class="view">
-            <div id="wire-grid" class="wire-grid"></div>
+            <div class="view-content" id="wire-grid"></div>
         </section>
 
         <!-- CREW VIEW -->
         <section id="v-crew" class="view">
-            <div id="crew-roller" class="crew-grid"></div>
+            <div class="crew-grid" id="crew-roller"></div>
         </section>
 
         <!-- RATES VIEW -->
         <section id="v-rates" class="view">
             <div class="view-content">
                 <div class="uniform-card">
-                    <h2>Coverage Population: 547,000</h2>
-                    <p>South Lanarkshire, North Ayrshire, Inverclyde. Based on council area estimates.</p>
+                    <h2>547,000 COVERAGE POPULATION</h2>
+                    <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
                 </div>
                 <div class="uniform-card">
-                    <h3>Advertising Portal</h3>
+                    <h3>ADVERTISING PORTAL</h3>
                     <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
                 </div>
             </div>
@@ -79,7 +66,7 @@
         <!-- SUBMIT VIEW -->
         <section id="v-submit" class="view">
             <div class="uniform-card">
-                <h2>Get Played</h2>
+                <h2>GET PLAYED</h2>
                 <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
                 <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
             </div>
@@ -87,33 +74,18 @@
     </main>
 
     <!-- Modals -->
+    <div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
+        <div class="mag-layout" onclick="event.stopPropagation()">
+            <h2>ADVERTISING CALCULATOR</h2>
+            <!-- Calculator content will be injected by app.js -->
+        </div>
+    </div>
+
     <div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
         <div class="mag-layout" onclick="event.stopPropagation()">
             <h2 id="gen-title"></h2>
             <div id="gen-body"></div>
         </div>
     </div>
-
-    <div id="ad-modal" class="modal-overlay" onclick="app.closeModals()">
-        <div class="mag-layout" onclick="event.stopPropagation()">
-            <h2>Advertising Calculator</h2>
-            <p>Form content here...</p>
-        </div>
-    </div>
-
-    <!-- Scripts -->
-    <script type="module" src="assets/js/app.js"></script>
-    
-    <!-- Register Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('service-worker.js')
-                .then(reg => console.log('Service Worker registered', reg))
-                .catch(err => console.log('Service Worker registration failed:', err));
-            });
-        }
-    </script>
-
 </body>
 </html>
