@@ -1,130 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Rock.Scot | Central Scotland's Rock Authority</title>
+  <meta charset="UTF-8">
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <title>Rock.Scot | Scotland’s Rock Authority | 24/7 Rock Radio</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="./css/styles.css">
+  <meta name="description" content="Rock.Scot is Scotland’s rock authority. Broadcasting 24/7 rock music across South Lanarkshire, North Ayrshire and Inverclyde.">
+  <meta name="keywords" content="Scottish rock radio, rock radio Scotland, Ayrshire rock music, South Lanarkshire radio, Inverclyde rock station">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Manifest -->
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#ff5500">
+  <link rel="canonical" href="https://hesonthemove-ux.github.io/rockscot-site/">
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./css/styles.css">
 </head>
+
 <body>
 
-<header>
-    <img src="./assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-    <nav class="nav-strip">
-        <button class="nav-btn active" data-target="live">LIVE</button>
-        <button class="nav-btn" data-target="wire">WIRE</button>
-        <button class="nav-btn" data-target="crew">CREW</button>
-        <button class="nav-btn" data-target="rates">RATES</button>
-        <button class="nav-btn" data-target="submit">SUBMIT</button>
-    </nav>
-    <div class="ticker-wrap"><div class="ticker-move" id="ticker-out"></div></div>
+<header class="site-header">
+  <img src="./assets/images/logo_ultra_wide.png" alt="Rock.Scot Logo" class="logo">
+
+  <nav class="main-nav">
+    <a href="#home">Home</a>
+    <a href="#wire">Wire</a>
+    <a href="#crew">Crew</a>
+    <a href="#rates">Rates</a>
+    <a href="#submit">Submit</a>
+  </nav>
 </header>
 
-<main>
-    <!-- LIVE SECTION -->
-    <section id="v-live" class="view active">
-        <div class="desktop-split">
-            <div class="uniform-card" style="text-align:center; max-width:100%;">
-                <div id="clock" style="font-size:6rem; line-height:1;">00:00:00</div>
-                <div id="player-container" style="margin-top:20px;"></div>
-            </div>
-            <div class="uniform-card" style="text-align:left; max-width:100%;">
-                <h3 style="color:#ff5500;">SIGNAL STATUS</h3>
-                <div id="sig-list" style="margin-top:15px;"></div>
-            </div>
-        </div>
-    </section>
+<!-- HERO / HOME -->
+<section id="home" class="hero" style="background-image:url('./assets/images/background/background1.jpg')">
+  <div class="hero-inner">
+    <h1>Scotland’s Rock Authority</h1>
+    <p>Broadcasting 24/7 rock across South Lanarkshire, Ayrshire & Inverclyde</p>
 
-    <!-- WIRE SECTION -->
-    <section id="v-wire" class="view">
-        <div id="wire-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; width:100%; max-width:1400px;"></div>
-    </section>
+    <!-- CLOCK -->
+    <div id="clock" class="clock">00:00:00</div>
 
-    <!-- CREW SECTION -->
-    <section id="v-crew" class="view">
-        <div id="crew-roller" class="crew-track"></div>
-    </section>
-
-    <!-- RATES SECTION -->
-    <section id="v-rates" class="view">
-        <div class="desktop-split">
-            <div class="uniform-card" style="text-align:left; max-width:100%;">
-                <h2 style="font-size:3rem; color:#ff5500;">547,000 COVERAGE POPULATION</h2>
-                <p>Targeting South Lanarkshire, North Ayrshire, and Inverclyde. Based on council area estimates.</p>
-            </div>
-            <div class="uniform-card" style="max-width:100%;">
-                <h3 style="font-size:2rem;">ADVERTISING PORTAL</h3>
-                <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- SUBMIT SECTION -->
-    <section id="v-submit" class="view">
-        <div class="uniform-card">
-            <h2 style="font-size:3rem;">GET PLAYED</h2>
-            <p>24/7 OFCOM Compliance Required. Max 25MB.</p>
-            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-        </div>
-    </section>
-</main>
-
-<!-- Persistent Collapsible Audio Player -->
-<div id="persistent-player" class="audio-player-collapsed">
-    <div class="audio-header">
-        <span>Rock.Scot Live Stream</span>
-        <button id="audio-toggle">▼</button>
-    </div>
-    <audio id="main-audio" controls autoplay loop>
-        <source src="https://player.broadcast.radio/caledondia-tx-ltd" type="audio/mpeg">
-        Your browser does not support the audio element.
+    <!-- AUDIO PLAYER -->
+    <audio controls autoplay preload="none" class="player">
+      <source src="https://player.broadcast.radio/caledondia-tx-ltd" type="audio/mpeg">
+      Your browser does not support the audio element.
     </audio>
-</div>
 
-<!-- MODALS -->
-<div id="gen-modal" class="modal-overlay" onclick="app.closeModals()">
-    <div class="mag-layout" onclick="event.stopPropagation()">
-        <h2 id="gen-title" style="font-size:2.5rem; color:#ff5500;"></h2>
-        <div id="gen-body" style="line-height:1.6; font-size:1.1rem; color:#ddd;"></div>
+    <!-- SIGNAL -->
+    <div class="signals">
+      <span>● LANARKSHIRE — LIVE</span>
+      <span>● AYRSHIRE — LIVE</span>
+      <span>● INVERCLYDE — LIVE</span>
     </div>
-</div>
+  </div>
+</section>
 
-<!-- JS -->
-<script src="./js/app.js"></script>
+<!-- WIRE -->
+<section id="wire" class="section" style="background-image:url('./assets/images/background/background2.jpg')">
+  <h2>The Wire</h2>
+  <p>Scottish rock news, station updates and live broadcast alerts.</p>
+</section>
 
-<!-- Persistent Audio Toggle + Service Worker -->
+<!-- CREW -->
+<section id="crew" class="section" style="background-image:url('./assets/images/background/background3.jpg')">
+  <h2>The Crew</h2>
+  <p>Meet the voices behind Rock.Scot.</p>
+</section>
+
+<!-- RATES -->
+<section id="rates" class="section" style="background-image:url('./assets/images/background/background4.jpg')">
+  <h2>Rates</h2>
+  <p>Advertising & broadcast partnerships.</p>
+
+  <a class="cta" href="https://hesonthemove-ux.github.io/rockscot-site/portal.html">
+    Launch Portal
+  </a>
+</section>
+
+<!-- SUBMIT -->
+<section id="submit" class="section" style="background-image:url('./assets/images/background/background5.jpg')">
+  <h2>Submit Music</h2>
+  <p>Scottish bands & artists — send us your tracks.</p>
+</section>
+
+<footer class="site-footer">
+  <p>© Rock.Scot — Scotland’s Rock Authority</p>
+
+  <!-- SEO BLOCK (hidden but valid) -->
+  <div class="seo-block">
+    Rock.Scot broadcasts rock music across South Lanarkshire, North Ayrshire, Inverclyde, East Kilbride, Hamilton, Greenock, Paisley, Irvine and Kilmarnock.
+  </div>
+</footer>
+
+<!-- CLOCK SCRIPT -->
 <script>
-const playerDiv = document.getElementById('persistent-player');
-const toggleBtn = document.getElementById('audio-toggle');
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toLocaleTimeString('en-GB', { hour12: false });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+</script>
 
-toggleBtn.addEventListener('click', () => {
-    if(playerDiv.classList.contains('audio-player-collapsed')) {
-        playerDiv.classList.remove('audio-player-collapsed');
-        playerDiv.classList.add('audio-player-expanded');
-        toggleBtn.innerText = '▲';
-    } else {
-        playerDiv.classList.remove('audio-player-expanded');
-        playerDiv.classList.add('audio-player-collapsed');
-        toggleBtn.innerText = '▼';
-    }
-});
+<!-- SERVICE WORKER REGISTER -->
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+  }
+</script>
 
-// Register Service Worker
-if('serviceWorker' in navigator){
-    window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./service-worker.js')
-            .then(reg => console.log('Service Worker registered:', reg.scope))
-            .catch(err => console.warn('Service Worker failed:', err));
-    });
+<!-- SCHEMA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RadioStation",
+  "name": "Rock.Scot",
+  "url": "https://hesonthemove-ux.github.io/rockscot-site/",
+  "genre": "Rock",
+  "areaServed": ["South Lanarkshire","North Ayrshire","Inverclyde"],
+  "description": "Scotland’s independent rock radio authority broadcasting 24/7."
 }
 </script>
 
