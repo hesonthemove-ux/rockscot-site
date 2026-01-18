@@ -1,93 +1,63 @@
-export const app = {
+const app = {
     bgIdx:0,
+    backgrounds:[
+        'assets/images/background/background1.jpg',
+        'assets/images/background/background2.jpg',
+        'assets/images/background/background3.jpg',
+        'assets/images/background/background4.jpg',
+        'assets/images/background/background5.jpg',
+        'assets/images/background/background6.jpg',
+        'assets/images/background/background7.jpg'
+    ],
+    djs:[
+        {id:'alex', name:'ALEX', img:'assets/images/crew/dj_alex.jpg', bio:'Johnstone Vinyl Viking...'},
+        {id:'andy', name:'ANDY', img:'assets/images/crew/dj_andy.jpg', bio:'East Kilbride Rock Rebel...'}
+        // add rest
+    ],
     init:function(){
-        this.initClock();
-        this.initAudio();
-        this.initCrew();
+        this.startClock();
+        this.initBackground();
+        this.initPlayer();
         this.initArrivalBoard();
-        this.switchTab('live');
+        this.loadCrew();
     },
-
-    initClock:function(){
-        const clock = document.getElementById('clock');
-        setInterval(()=> {
-            const d = new Date();
-            clock.innerText = d.toTimeString().split(' ')[0];
-        },1000);
+    startClock:function(){
+        const c=document.getElementById('clock');
+        setInterval(()=>{let d=new Date(); c.innerText=d.toTimeString().split(' ')[0];},1000);
     },
-
-    initAudio:function(){
-        const radioStream = document.getElementById('radio-stream');
-        const startBtn = document.getElementById('start-stream');
-        radioStream.play().catch(()=>{
-            startBtn.style.display = 'inline-block';
-            startBtn.addEventListener('click',()=>{
-                radioStream.play();
-                startBtn.style.display = 'none';
-            });
-        });
-    },
-
-    initCrew:function(){
-        const crewData=[
-            {name:'Andy', img:'assets/images/crew/dj_andy.jpg'},
-            {name:'Alex', img:'assets/images/crew/dj_alex.jpg'},
-            {name:'Stevie', img:'assets/images/crew/dj_stevie.jpg'},
-            {name:'Mhairi', img:'assets/images/crew/dj_mhairi.jpg'},
-            {name:'Jude', img:'assets/images/crew/dj_jude.jpg'},
-            {name:'Chris', img:'assets/images/crew/dj_chris.jpg'},
-            {name:'Cal', img:'assets/images/crew/dj_cal.jpg'},
-            {name:'Blue', img:'assets/images/crew/dj_blue.jpg'}
-        ];
-        const track = document.getElementById('crew-roller');
-        track.innerHTML=crewData.map(c=>`
-            <div class="crew-card">
-                <img src="${c.img}">
-                <div class="crew-info"><h3>${c.name}</h3></div>
-            </div>
-        `).join('');
-
-        // Optional: simple vertical scroll / rolodex rotation
-        let idx=0;
+    initBackground:function(){
+        const body=document.body;
         setInterval(()=>{
-            idx=(idx+1)%crewData.length;
-            const angle = idx*-45;
-            track.style.transform=`rotateX(${angle}deg)`;
-        },3500);
+            this.bgIdx=(this.bgIdx+1)%this.backgrounds.length;
+            body.style.backgroundImage=`url('${this.backgrounds[this.bgIdx]}')`;
+        },15000);
+        body.style.backgroundImage=`url('${this.backgrounds[0]}')`;
     },
-
-    initArrivalBoard:function(){
-        const board=document.getElementById('arrival-board');
-        const messages=[
-            "Rock.Scot on air – East Kilbride",
-            "Andy live – 7pm-9pm",
-            "Next: Alex – Vinyl Viking",
-            "Traffic: clear",
-            "Weather: Storm warning"
-        ];
-        let i=0;
-        function updateBoard(){
-            board.innerHTML='';
-            for(let j=0;j<3;j++){
-                const div=document.createElement('div');
-                div.innerText=messages[(i+j)%messages.length];
-                board.appendChild(div);
-            }
-            i=(i+1)%messages.length;
-        }
-        setInterval(updateBoard,3000);
-        updateBoard();
+    initPlayer:function(){
+        const container=document.getElementById('player-container');
+        container.innerHTML=`<iframe src="https://player.broadcast.radio/caledonia-tx-ltd" allow="autoplay" style="width:100%;height:80px;border:none;"></iframe>`;
     },
-
-    switchTab:function(id){
+    switchTab:function(id,e){
         document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
         document.getElementById('v-'+id).classList.add('active');
-        document.querySelectorAll('.main-menu button').forEach(b=>b.classList.remove('active'));
-        document.querySelector(`.main-menu button[onclick="app.switchTab('${id}')"]`).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+        e.currentTarget.classList.add('active');
     },
-
-    openAdModal:function(){ alert("Portal coming soon"); },
-    openSubmitModal:function(){ alert("Upload coming soon"); }
+    initArrivalBoard:function(){
+        const board=document.getElementById('arrival-board');
+        const signals=['LANARKSHIRE','INVERCLYDE','AYRSHIRE'];
+        board.innerHTML=signals.map(s=>`<div>${s} PEAK</div>`).join('');
+    },
+    loadCrew:function(){
+        const trk=document.getElementById('crew-rolodex');
+        trk.innerHTML=this.djs.map(d=>`
+            <div class="crew-card" onclick="alert('${d.bio}')">
+                <img src="${d.img}">
+                <h4>${d.name}</h4>
+            </div>`).join('');
+    },
+    openAdModal:function(){ alert('Advertising Portal'); },
+    openSubmitModal:function(){ alert('Submit Track'); }
 };
 
-app.init();
+window.addEventListener('DOMContentLoaded',()=>{app.init();});
