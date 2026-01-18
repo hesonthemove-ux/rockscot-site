@@ -4,8 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock.Scot | Central Scotland's Rock Authority</title>
+
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Manifest -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- JS Modules -->
     <script type="module" src="js/config.js" defer></script>
     <script type="module" src="js/app.js" defer></script>
 </head>
@@ -25,7 +34,7 @@
     </header>
 
     <main>
-        <!-- LIVE -->
+        <!-- LIVE VIEW -->
         <section id="v-live" class="view active">
             <div class="uniform-card">
                 <div id="clock" style="font-family:'Oswald'; font-size:6rem; text-align:center;">00:00:00</div>
@@ -42,17 +51,17 @@
             </div>
         </section>
 
-        <!-- WIRE -->
+        <!-- WIRE VIEW -->
         <section id="v-wire" class="view">
             <div id="wire-grid"></div>
         </section>
 
-        <!-- CREW -->
+        <!-- CREW VIEW -->
         <section id="v-crew" class="view">
             <div id="crew-roller" class="crew-track"></div>
         </section>
 
-        <!-- RATES -->
+        <!-- RATES VIEW -->
         <section id="v-rates" class="view">
             <div class="uniform-card">
                 <h2 style="color:var(--authority-orange);">547,000 COVERAGE POPULATION</h2>
@@ -64,7 +73,7 @@
             </div>
         </section>
 
-        <!-- SUBMIT -->
+        <!-- SUBMIT VIEW -->
         <section id="v-submit" class="view">
             <div class="uniform-card">
                 <h2 style="color:var(--authority-orange);">GET PLAYED</h2>
@@ -82,5 +91,13 @@
         </div>
     </div>
 
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('Service Worker registered:', reg))
+        .catch(err => console.log('Service Worker registration failed:', err));
+      }
+    </script>
 </body>
 </html>
