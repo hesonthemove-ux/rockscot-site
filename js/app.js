@@ -1,195 +1,81 @@
-/* ==========================================
-   Rock.Scot Phase 6 App Controller
-   ========================================== */
+import { STATION_CONFIG } from './config.js'; // your DJ data, prices, signals, etc.
 
-const app = (() => {
+const app = {
+  init: function() {
+    this.initClock();
+    this.initTicker();
+    this.loadSignals();
+    this.loadCrew();
+    this.setupNavigation();
+    this.setupAudio();
+  },
 
-  /* ------------------------------
-     CONFIG (MATCHES YOUR STRUCTURE)
-  ------------------------------ */
-  const STREAM_URL = "https://player.broadcast.radio/caledondia-tx-ltd";
-
-  const BACKGROUNDS = [
-    "assets/images/background/background1.jpg",
-    "assets/images/background/background2.jpg",
-    "assets/images/background/background3.jpg",
-    "assets/images/background/background4.jpg",
-    "assets/images/background/background5.jpg",
-    "assets/images/background/background6.jpg",
-    "assets/images/background/background7.jpg"
-  ];
-
-  const TICKER_MESSAGES = [
-    "ROCK.SCOT – CENTRAL SCOTLAND'S ROCK AUTHORITY",
-    "SERVING SOUTH LANARKSHIRE • INVERCLYDE • NORTH AYRSHIRE",
-    "LISTEN LIVE 24/7 • ROCK • INDIE • CLASSICS",
-    "ADVERTISE YOUR BUSINESS ON ROCK.SCOT",
-    "SUPPORTING SCOTTISH ROCK MUSIC"
-  ];
-
-  const CREW = [
-    { name: "Andy", img: "assets/images/crew/dj_andy.jpg", role: "East Kilbride's Rock Rebel" },
-    { name: "Alex", img: "assets/images/crew/dj_alex.jpg", role: "Johnstone's Vinyl Viking" },
-    { name: "Stevie", img: "assets/images/crew/dj_stevie.jpg", role: "Port Glasgow's Headbanger" },
-    { name: "Mhairi", img: "assets/images/crew/dj_mhairi.jpg", role: "Hamilton's Hard Rock Queen" },
-    { name: "Jude", img: "assets/images/crew/dj_jude.jpg", role: "Irvine's Indie Icon" },
-    { name: "Chris", img: "assets/images/crew/dj_chris.jpg", role: "Greenock's Guitar Guru" },
-    { name: "Cal", img: "assets/images/crew/dj_cal.jpg", role: "Kilmarnock's Classic Rocker" },
-    { name: "Blue", img: "assets/images/crew/dj_blue.jpg", role: "Gourock's Blues Maverick" }
-  ];
-
-  let bgIndex = 0;
-  let audioEl = null;
-
-  /* ------------------------------
-     INIT
-  ------------------------------ */
-  function init() {
-    startClock();
-    startBackgrounds();
-    buildTicker();
-    buildPlayer();
-    buildCrew();
-    showView("live");
-  }
-
-  /* ------------------------------
-     CLOCK
-  ------------------------------ */
-  function startClock() {
-    const clockEl = document.getElementById("clock");
-    if (!clockEl) return;
-
+  initClock: function() {
+    const clockEl = document.getElementById('clock');
     setInterval(() => {
-      const now = new Date();
-      clockEl.textContent = now.toLocaleTimeString("en-GB", {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit"
-      });
+      const d = new Date();
+      clockEl.innerText = d.toLocaleTimeString('en-GB');
     }, 1000);
-  }
+  },
 
-  /* ------------------------------
-     BACKGROUND ROTATION
-  ------------------------------ */
-  function startBackgrounds() {
-    document.body.style.backgroundImage = `url('${BACKGROUNDS[0]}')`;
+  initTicker: function() {
+    const msg = '<span class="ticker-item">Rock.Scot</span><span class="ticker-item ticker-brand">Across Scotland</span>';
+    document.getElementById('ticker-out').innerHTML = msg.repeat(10);
+  },
 
-    setInterval(() => {
-      bgIndex = (bgIndex + 1) % BACKGROUNDS.length;
-      document.body.style.backgroundImage = `url('${BACKGROUNDS[bgIndex]}')`;
-    }, 15000);
-  }
+  loadSignals: function() {
+    const sigList = document.getElementById('sig-list');
+    sigList.innerHTML = STATION_CONFIG.signals.map(l => `<div><span class="green-dot">●</span> ${l}: PEAK</div>`).join('');
+  },
 
-  /* ------------------------------
-     TICKER
-  ------------------------------ */
-  function buildTicker() {
-    const ticker = document.getElementById("ticker-out");
-    if (!ticker) return;
-
-    ticker.innerHTML = "";
-
-    TICKER_MESSAGES.concat(TICKER_MESSAGES).forEach(text => {
-      const span = document.createElement("div");
-      span.className = "ticker-item";
-      span.textContent = text;
-      ticker.appendChild(span);
-    });
-  }
-
-  /* ------------------------------
-     AUDIO PLAYER
-  ------------------------------ */
-  function buildPlayer() {
-    const container = document.getElementById("player-container");
-    if (!container) return;
-
-    if (!audioEl) {
-      audioEl = document.createElement("audio");
-      audioEl.src = STREAM_URL;
-      audioEl.controls = true;
-      audioEl.autoplay = false;
-    }
-
-    container.innerHTML = "";
-    container.appendChild(audioEl);
-  }
-
-  /* ------------------------------
-     NAVIGATION
-  ------------------------------ */
-  function showView(view) {
-    document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-    document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-
-    document.getElementById(`v-${view}`)?.classList.add("active");
-  }
-
-  function switchTab(view, evt) {
-    if (evt) {
-      document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-      evt.target.classList.add("active");
-    }
-    showView(view);
-  }
-
-  /* ------------------------------
-     CREW GRID
-  ------------------------------ */
-  function buildCrew() {
-    const track = document.getElementById("crew-roller");
-    if (!track) return;
-
-    track.innerHTML = "";
-
-    CREW.forEach(dj => {
-      const card = document.createElement("div");
-      card.className = "crew-card";
-      card.innerHTML = `
-        <img src="${dj.img}" alt="${dj.name}">
+  loadCrew: function() {
+    const trk = document.getElementById('crew-roller');
+    trk.innerHTML = STATION_CONFIG.djs.map(d => `
+      <div class="crew-card" onclick="app.openBio('${d.id}')">
+        <img src="assets/images/crew/${d.img}" alt="${d.name}">
         <div class="crew-info">
-          <h3>${dj.name}</h3>
-          <p>${dj.role}</p>
+          <h3>${d.name}</h3>
+          <p>${d.title}</p>
         </div>
-      `;
-      track.appendChild(card);
+      </div>
+    `).join('');
+  },
+
+  openBio: function(id) {
+    const dj = STATION_CONFIG.djs.find(d => d.id === id);
+    if(dj) {
+      document.getElementById('gen-title').innerText = dj.name;
+      document.getElementById('gen-body').innerText = dj.bio;
+      document.getElementById('gen-modal').classList.add('open');
+    }
+  },
+
+  setupNavigation: function() {
+    const links = document.querySelectorAll('.main-menu a');
+    links.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        links.forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const target = link.getAttribute('href').replace('#','');
+        document.querySelectorAll('main > section').forEach(sec => sec.style.display='none');
+        const activeSection = document.getElementById(target);
+        if(activeSection) activeSection.style.display='block';
+      });
     });
-  }
 
-  /* ------------------------------
-     MODALS
-  ------------------------------ */
-  function openAdModal() {
-    document.getElementById("ad-modal")?.classList.add("open");
-  }
+    // show default section
+    document.querySelectorAll('main > section').forEach(sec => sec.style.display='none');
+    document.getElementById('live').style.display='block';
+  },
 
-  function openSubmitModal() {
-    document.getElementById("gen-modal")?.classList.add("open");
-    document.getElementById("gen-title").textContent = "SUBMIT YOUR MUSIC";
-    document.getElementById("gen-body").innerHTML =
-      "<p>Email your track to <strong>music@rock.scot</strong><br>Max 25MB • OFCOM compliant</p>";
-  }
+  setupAudio: function() {
+    const radioStream = document.getElementById('radio-stream');
+    radioStream.play().catch(()=>console.log('User interaction required for autoplay'));
+  },
 
-  function closeModals() {
-    document.querySelectorAll(".modal-overlay").forEach(m => m.classList.remove("open"));
-  }
+  openAdModal: function() { alert('Advertising portal modal goes here.'); },
+  openSubmitModal: function() { alert('Track submission modal goes here.'); }
+};
 
-  /* ------------------------------
-     PUBLIC API
-  ------------------------------ */
-  return {
-    init,
-    switchTab,
-    openAdModal,
-    openSubmitModal,
-    closeModals
-  };
-
-})();
-
-/* ------------------------------
-   START APP
------------------------------- */
-document.addEventListener("DOMContentLoaded", app.init);
+document.addEventListener('DOMContentLoaded', () => app.init());
