@@ -1,5 +1,5 @@
 /* =========================
-   GLOBAL RESET & FONTS
+   GLOBAL RESET & FONT
 ========================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap');
@@ -20,7 +20,7 @@ html, body {
 }
 
 /* =========================
-   BACKGROUND
+   FULLSCREEN BACKGROUND
 ========================= */
 
 body::before {
@@ -28,8 +28,9 @@ body::before {
   position: fixed;
   inset: 0;
   background-size: cover;
-  background-position: center;
+  background-position: center center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   z-index: -1;
   transition: background-image 1s ease-in-out;
 }
@@ -42,61 +43,61 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 32px;
-  background: rgba(0, 0, 0, 0.8);
+  padding: 22px 36px;
+  background: rgba(0, 0, 0, 0.85);
   border-bottom: 2px solid #b30000;
 }
 
-/* ===== LOGO (CORRECT SIZE) ===== */
+/* ===== LOGO (INCREASED SIZE) ===== */
 .site-logo {
-  max-width: 420px;
+  max-width: 570px; /* +35% */
   width: auto;
   height: auto;
   display: block;
 }
 
 /* =========================
-   NAVIGATION (FIXED)
+   NAVIGATION (STYLE FIXED)
 ========================= */
 
 nav {
-  display: flex;
-  align-items: center;
+  background: transparent;
 }
 
 nav ul {
   list-style: none;
   display: flex;
-  gap: 28px;
   align-items: center;
+  gap: 32px;
 }
 
 nav li {
-  display: flex;
+  background: transparent;
 }
 
 nav a {
+  background: transparent;
+  color: #ffffff;
   text-decoration: none;
-  color: #fff;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.4px;
   text-transform: uppercase;
   padding: 6px 4px;
   border-bottom: 2px solid transparent;
 }
 
 nav a:hover {
-  color: #b30000;
-  border-bottom: 2px solid #b30000;
+  color: #ff1a1a;
+  border-bottom: 2px solid #ff1a1a;
 }
 
 /* =========================
-   MAIN
+   MAIN LAYOUT
 ========================= */
 
 main {
-  padding: 28px;
+  padding: 30px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -106,10 +107,10 @@ main {
 ========================= */
 
 #clock {
-  font-size: 2.2rem;
+  font-size: 2.3rem;
   font-weight: 600;
   letter-spacing: 2px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 /* =========================
@@ -117,7 +118,7 @@ main {
 ========================= */
 
 #ticker {
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.9);
   border-top: 1px solid #b30000;
   border-bottom: 1px solid #b30000;
   padding: 12px 0;
@@ -144,7 +145,7 @@ main {
 #audio-player {
   margin: 24px 0;
   padding: 18px;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
   border: 1px solid #b30000;
   border-radius: 6px;
 }
@@ -154,18 +155,18 @@ audio {
 }
 
 /* =========================
-   SECTIONS
+   CONTENT SECTIONS
 ========================= */
 
 section {
-  margin: 36px 0;
-  background: rgba(0,0,0,0.7);
-  padding: 26px;
+  margin: 40px 0;
+  background: rgba(0,0,0,0.75);
+  padding: 28px;
   border-radius: 8px;
 }
 
 section h2 {
-  font-size: 2.1rem;
+  font-size: 2.2rem;
   margin-bottom: 18px;
   text-transform: uppercase;
   border-bottom: 2px solid #b30000;
@@ -179,44 +180,44 @@ section h2 {
 .crew-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 26px;
+  gap: 28px;
 }
 
 .crew-card {
   background: rgba(0,0,0,0.85);
   border: 1px solid #333;
-  padding: 18px;
+  padding: 20px;
   border-radius: 6px;
   text-align: center;
 }
 
 .crew-card img {
   width: 100%;
-  max-width: 200px;
+  max-width: 210px;
   height: auto;
   border-radius: 6px;
   margin-bottom: 14px;
 }
 
 .crew-card h3 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-bottom: 6px;
 }
 
 .crew-card p {
   font-size: 1rem;
-  line-height: 1.45;
+  line-height: 1.5;
   opacity: 0.9;
 }
 
 /* =========================
-   BUTTONS & LINKS
+   BUTTONS
 ========================= */
 
 a.button {
   display: inline-block;
-  margin-top: 14px;
-  padding: 12px 20px;
+  margin-top: 16px;
+  padding: 12px 22px;
   background: #b30000;
   color: #fff;
   text-decoration: none;
@@ -225,7 +226,7 @@ a.button {
 }
 
 a.button:hover {
-  background: #ff0000;
+  background: #ff1a1a;
 }
 
 /* =========================
@@ -234,28 +235,28 @@ a.button:hover {
 
 footer {
   text-align: center;
-  padding: 22px;
+  padding: 24px;
   font-size: 0.95rem;
-  background: rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.95);
   border-top: 1px solid #333;
 }
 
 /* =========================
-   MOBILE FIXES
+   MOBILE
 ========================= */
 
 @media (max-width: 900px) {
   header {
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
   }
 
   .site-logo {
-    max-width: 320px;
+    max-width: 380px;
   }
 
   nav ul {
-    gap: 18px;
+    gap: 20px;
     flex-wrap: wrap;
     justify-content: center;
   }
