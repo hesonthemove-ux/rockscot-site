@@ -1,42 +1,92 @@
-const CACHE_NAME = 'rockscot-cache-v1';
+/* =====================================================
+   Rock.Scot Service Worker
+   Purpose:
+   - Offline resilience
+   - Asset caching
+   - Faster repeat visits
+   - Safe for GitHub Pages
+===================================================== */
+
+const CACHE_NAME = 'rockscot-v1';
+
+/* Files we want cached immediately */
 const ASSETS_TO_CACHE = [
-    './',
-    './index.html',
-    './css/styles.css',
-    './js/app.js',
-    './manifest.json',
-    './assets/images/branding/logo_ultra_wide.png',
-    './assets/images/background/background1.jpg',
-    './assets/images/background/background2.jpg',
-    './assets/images/background/background3.jpg',
-    './assets/images/background/background4.jpg',
-    './assets/images/background/background5.jpg',
-    './assets/images/background/background6.jpg',
-    './assets/images/background/background7.jpg',
-    './assets/images/djs/dj_alex.jpg',
-    './assets/images/djs/dj_andy.jpg'
-    // Add other DJ images here
+  './',
+  './index.html',
+  './css/styles.css',
+  './js/app.js',
+
+  /* Images */
+  './assets/images/logo_ultra_wide.png',
+
+  './assets/images/background/background1.jpg',
+  './assets/images/background/background2.jpg',
+  './assets/images/background/background3.jpg',
+  './assets/images/background/background4.jpg',
+  './assets/images/background/background5.jpg',
+  './assets/images/background/background6.jpg',
+  './assets/images/background/background7.jpg'
 ];
 
-self.addEventListener('install', e => {
-    e.waitUntil(
-        caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS_TO_CACHE))
-    );
+/* ----------------------------------
+   INSTALL
+----------------------------------- */
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(ASSETS_TO_CACHE);
+    })
+  );
+  self.skipWaiting();
 });
 
-self.addEventListener('activate', e => {
-    e.waitUntil(
-        caches.keys().then(keys =>
-            Promise.all(
-                keys.filter(key => key !== CACHE_NAME)
-                    .map(key => caches.delete(key))
-            )
-        )
-    );
+/* ----------------------------------
+   ACTIVATE
+----------------------------------- */
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
+          }
+        })
+      );
+    })
+  );
+  self.clients.claim();
 });
 
-self.addEventListener('fetch', e => {
-    e.respondWith(
-        caches.match(e.request).then(cached => cached || fetch(e.request))
-    );
+/* ----------------------------------
+   FETCH
+----------------------------------- */
+
+self.addEventListener('fetch', event => {
+
+  /* Never cache audio streams */
+  if (event.request.url.includes('broadcast.radio')) {
+    return;
+  }
+
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return (
+        response ||
+        fetch(event.request).then(fetchResponse => {
+          return caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, fetchResponse.clone());
+            return fetchResponse;
+          });
+        })
+      );
+    }).catch(() => {
+      /* Offline fallback (basic) */
+      if (event.request.mode === 'navigate') {
+        return caches.match('./index.html');
+      }
+    })
+  );
 });
