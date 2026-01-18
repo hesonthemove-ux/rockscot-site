@@ -42,7 +42,7 @@ body::before {
 header {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* logo above main menu */
   align-items: center;
   justify-content: center;
   padding-top: 20px;
@@ -52,7 +52,7 @@ header {
 
 /* ===== LOGO ===== */
 .site-logo {
-  max-width: 543px; /* reduce by 10% from previous 603px */
+  max-width: 548px; /* slightly smaller than last update */
   width: auto;
   height: auto;
   display: block;
@@ -116,14 +116,14 @@ main {
 }
 
 /* =========================
-   TICKER
+   TICKER (polished)
 ========================= */
 
 #ticker {
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.85);
   border-top: 1px solid #ff5500;
   border-bottom: 1px solid #ff5500;
-  padding: 12px 0;
+  padding: 10px 0;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -132,7 +132,9 @@ main {
   display: inline-block;
   padding-left: 100%;
   animation: ticker 22s linear infinite;
-  font-size: 1.15rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
 }
 
 @keyframes ticker {
@@ -141,19 +143,23 @@ main {
 }
 
 /* =========================
-   AUDIO PLAYER
+   AUDIO PLAYER (loud, aggressive styling)
 ========================= */
 
 #audio-player {
   margin: 24px 0;
-  padding: 18px;
-  background: rgba(0,0,0,0.85);
-  border: 1px solid #ff5500;
-  border-radius: 6px;
+  padding: 20px;
+  background: rgba(0,0,0,0.9);
+  border: 2px solid #ff5500;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #ff5500, 0 0 40px #ff5500 inset;
 }
 
 audio {
   width: 100%;
+  outline: none;
+  border-radius: 4px;
+  background: #111;
 }
 
 /* =========================
@@ -162,8 +168,8 @@ audio {
 
 section {
   margin: 40px 0;
-  background: rgba(0,0,0,0.75);
-  padding: 28px;
+  background: rgba(0,0,0,0.8);
+  padding: 30px;
   border-radius: 8px;
 }
 
@@ -176,21 +182,29 @@ section h2 {
 }
 
 /* =========================
-   CREW GRID
+   CREW GRID (polished)
 ========================= */
 
 .crew-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 28px;
+  justify-items: center;
 }
 
 .crew-card {
-  background: rgba(0,0,0,0.85);
-  border: 1px solid #333;
-  padding: 20px;
-  border-radius: 6px;
+  background: rgba(0,0,0,0.9);
+  border: 1px solid #ff5500;
+  padding: 22px;
+  border-radius: 8px;
   text-align: center;
+  box-shadow: 0 0 12px #ff5500 inset;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.crew-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px #ff5500;
 }
 
 .crew-card img {
@@ -202,8 +216,9 @@ section h2 {
 }
 
 .crew-card h3 {
-  font-size: 1.6rem;
-  margin-bottom: 6px;
+  font-size: 1.65rem;
+  margin-bottom: 8px;
+  color: #ff5500;
 }
 
 .crew-card p {
@@ -225,6 +240,8 @@ a.button {
   text-decoration: none;
   text-transform: uppercase;
   border-radius: 4px;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
 a.button:hover {
@@ -244,27 +261,27 @@ footer {
 }
 
 /* =========================
-   MOBILE
+   RESPONSIVE
 ========================= */
 
 @media (max-width: 900px) {
   header {
     flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
 
   .site-logo {
-    max-width: 485px; /* reduce proportionally */
+    max-width: 485px;
   }
 
   .main-menu {
-    gap: 16px;
+    gap: 14px;
+  }
+
+  .crew-grid {
+    gap: 20px;
   }
 }
-
-/* =========================
-   TABLET
-========================= */
 
 @media (min-width: 901px) and (max-width: 1400px) {
   .site-logo {
