@@ -1,84 +1,66 @@
-// ===============================
-// Rock.Scot Service Worker
-// ===============================
-
+// ROCK.SCOT SERVICE WORKER
 const CACHE_NAME = 'rockscot-cache-v1';
-
-// Assets to cache for offline / PWA
 const ASSETS_TO_CACHE = [
-    '/',
+    '/', // index.html
     '/index.html',
-    '/styles.css',
-    '/app.js',
+    '/css/styles.css',
+    '/js/app.js',
     '/manifest.json',
-    '/assets/images/logo_ultra_wide.png',
-    '/assets/images/background/background1.jpg',
-    '/assets/images/background/background2.jpg',
-    '/assets/images/background/background3.jpg',
-    '/assets/images/background/background4.jpg',
-    '/assets/images/background/background5.jpg',
-    '/assets/images/background/background6.jpg',
-    '/assets/images/background/background7.jpg',
-    '/assets/images/djs/dj_alex.jpg',
-    '/assets/images/djs/dj_andy.jpg',
-    '/assets/images/djs/dj_stevie.jpg',
-    '/assets/images/djs/dj_mhairi.jpg',
-    '/assets/images/djs/dj_jude.jpg',
-    '/assets/images/djs/dj_chris.jpg',
-    '/assets/images/djs/dj_cal.jpg',
-    '/assets/images/djs/dj_blue.jpg'
+
+    // Branding
+    '/images/branding/logo_ultra_wide.png',
+
+    // Backgrounds
+    '/images/background/background1.jpg',
+    '/images/background/background2.jpg',
+    '/images/background/background3.jpg',
+    '/images/background/background4.jpg',
+    '/images/background/background5.jpg',
+    '/images/background/background6.jpg',
+    '/images/background/background7.jpg',
+
+    // DJ images
+    '/images/djs/dj_andy.jpg',
+    '/images/djs/dj_alex.jpg',
+    '/images/djs/dj_stevie.jpg',
+    '/images/djs/dj_mhairi.jpg',
+    '/images/djs/dj_jude.jpg',
+    '/images/djs/dj_chris.jpg',
+    '/images/djs/dj_cal.jpg',
+    '/images/djs/dj_blue.jpg'
 ];
 
-// Install event - cache files
-self.addEventListener('install', (event) => {
-    console.log('[Service Worker] Installing...');
+// Install SW and cache assets
+self.addEventListener('install', event => {
     event.waitUntil(
-        caches.open(CACHE_NAME).then((cache) => {
-            console.log('[Service Worker] Caching assets');
-            return cache.addAll(ASSETS_TO_CACHE);
-        })
+        caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(ASSETS_TO_CACHE))
+            .then(() => self.skipWaiting())
     );
 });
 
-// Activate event - cleanup old caches
-self.addEventListener('activate', (event) => {
-    console.log('[Service Worker] Activating...');
+// Activate SW and remove old caches
+self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then((keys) =>
-            Promise.all(
-                keys.map((key) => {
-                    if (key !== CACHE_NAME) {
-                        console.log('[Service Worker] Removing old cache', key);
-                        return caches.delete(key);
-                    }
-                })
-            )
-        )
+        caches.keys().then(keys => Promise.all(
+            keys.map(key => {
+                if(key !== CACHE_NAME) return caches.delete(key);
+            })
+        ))
     );
-    return self.clients.claim();
+    self.clients.claim();
 });
 
-// Fetch event - serve cached assets first, fallback to network
-self.addEventListener('fetch', (event) => {
+// Fetch from cache, fallback to network
+self.addEventListener('fetch', event => {
     event.respondWith(
-        caches.match(event.request).then((cached) => {
-            if (cached) return cached;
-            return fetch(event.request)
-                .then((response) => {
-                    // Cache fetched files dynamically (optional)
-                    return caches.open(CACHE_NAME).then((cache) => {
-                        if (event.request.url.startsWith('http')) {
-                            cache.put(event.request, response.clone());
-                        }
-                        return response;
-                    });
-                })
-                .catch(() => {
-                    // Optional fallback
-                    if (event.request.destination === 'document') {
-                        return caches.match('/index.html');
-                    }
-                });
-        })
+        caches.match(event.request)
+            .then(res => res || fetch(event.request))
+            .catch(() => {
+                // Optional fallback
+                if(event.request.destination === 'image') {
+                    return '/images/branding/logo_ultra_wide.png';
+                }
+            })
     );
 });
