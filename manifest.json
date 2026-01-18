@@ -1,7 +1,7 @@
 {
-  "name": "Rock.Scot",
+  "name": "Rock.Scot - Central Scotland's Rock Authority",
   "short_name": "Rock.Scot",
-  "description": "Central Scotland's Rock Authority - 24/7 Rock Streaming",
+  "description": "Central Scotland's loudest rock station. Live stream, news, DJs, and advertising.",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#000000",
@@ -9,8 +9,13 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "assets/images/branding/logo_ultra_wide.png",
+      "src": "./assets/images/branding/logo_ultra_wide.png",
       "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/images/branding/logo_ultra_wide.png",
+      "sizes": "192x192",
       "type": "image/png"
     }
   ]
