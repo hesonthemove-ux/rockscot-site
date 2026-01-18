@@ -120,4 +120,145 @@
     <p>News, releases and stories from the Scottish rock scene.</p>
   </section>
 
-  <!-- =================
+  <!-- =====================================
+       CREW WITH BIOS
+  ====================================== -->
+  <section id="crew">
+    <h2>The Rock.Scot Crew</h2>
+    <p>Broadcasting from towns and cities across Central Scotland.</p>
+
+    <div class="crew-grid">
+
+      <div class="crew-card">
+        <h3>Andy – East Kilbride's Rock Rebel</h3>
+        <p>Hailing from East Kilbride in South Lanarkshire, Andy grew up blasting Biffy Clyro anthems from his bedroom. Started pirate radio in his garage before joining Rock.Scot, bringing high-energy playlists across Inverclyde, South Lanarkshire, and North Ayrshire.</p>
+        <ul>
+          <li>Favourite Scottish rock band: Biffy Clyro</li>
+          <li>Best gig ever: Franz Ferdinand at the Barrowland Ballroom</li>
+          <li>Dream venue to DJ: King Tut's Wah Wah Hut</li>
+          <li>Fun fact: Crowd-surfed at a Big Country tribute night and lost a shoe</li>
+        </ul>
+      </div>
+
+      <div class="crew-card">
+        <h3>Alex – Johnstone's Vinyl Viking</h3>
+        <p>Born and bred in Johnstone, Alex discovered rock digging through his uncle's record collection. Spins deep cuts and local shout-outs on Rock.Scot.</p>
+        <ul>
+          <li>Favourite Scottish rock band: Nazareth</li>
+          <li>Best gig ever: Texas at the SEC Armadillo</li>
+          <li>Dream venue: Barrowland Ballroom</li>
+          <li>Fun fact: Prized scratched vinyl of Deacon Blue from secret afterparty</li>
+        </ul>
+      </div>
+
+      <div class="crew-card">
+        <h3>Stevie – Port Glasgow's Headbanger</h3>
+        <p>From Port Glasgow, Stevie grew up on AC/DC and formed a garage band before DJing. Late-night shows keep Inverclyde headbanging.</p>
+        <ul>
+          <li>Favourite Scottish rock band: Big Country</li>
+          <li>Best gig ever: Mogwai at Òran Mór</li>
+          <li>Dream venue: Beacon Arts Centre, Greenock</li>
+          <li>Fun fact: Once high-fived Angus Young at a secret pub gig</li>
+        </ul>
+      </div>
+
+      <div class="crew-card">
+        <h3>Mhairi – Hamilton's Hard Rock Queen</h3>
+        <p>Hamilton-born Mhairi traded pop for distortion pedals. Witty banter and killer playlists dominate the Rock.Scot airwaves.</p>
+        <ul>
+          <li>Favourite Scottish rock band: The Jesus and Mary Chain</li>
+          <li>Best gig ever: Teenage Fanclub at King Tut's</li>
+          <li>Dream venue: The Grand Hall, Kilmarnock</li>
+          <li>Fun fact: Moonlights as tattoo artist for rock band logos</li>
+        </ul>
+      </div>
+
+      <div class="crew-card">
+        <h3>Jude – Irvine's Indie Rock Icon</h3>
+        <p>Irvine-native Jude champions Scottish indie rock and melodic acts on Rock.Scot, supporting emerging local talent.</p>
+        <ul>
+          <li>Favourite Scottish rock band: Travis</li>
+          <li>Best gig ever: Idlewild at the Barrowland</li>
+          <li>Dream venue: Harbour Arts Centre, Irvine</li>
+          <li>Fun fact: Once hitchhiked to a Franz Ferdinand gig and ended backstage</li>
+        </ul>
+      </div>
+
+      <div class="crew-card">
+        <h3>Chris – Greenock's Guitar Guru</h3>
+        <p>Chris grew up in Greenock on Primal Scream. Started DJing pub gigs before joining Rock.Scot to blast rock across the Firth of Clyde.</p>
+        <ul>
+          <li>Favourite Scottish rock band: Primal Scream</li>
+          <li>Best gig ever: Simple Minds at the OVO Hydro</li>
+          <li>Dream venue: Cathouse Rock Club, Glasgow</li>
+          <li>Fun fact: Owns every Big Country album on vinyl</li>
+        </ul>
+      </div>
+
+      <div class="crew-card">
+        <h3>Cal – Kilmarnock's Classic Rocker</h3>
+        <p>Kilmarnock-born Cal grew up on Biffy Clyro and The Sensational Alex Harvey Band. DJing now delivers timeless rock to fans in Ayrshire and North Ayrshire.</p>
+        <ul>
+          <li>Favourite Scottish rock band: Biffy Clyro</li>
+          <li>Best gig ever: The Fratellis at The Grand Hall Kilmarnock</li>
+          <li>Dream venue: Palace Theatre & Grand Hall, Kilmarnock</li>
+          <li>Fun fact: Nicknamed "Cal the Rocker" after winning an air guitar contest</li>
+        </ul>
+      </div>
+
+      <div class="crew-card">
+        <h3>Blue – Gourock's Bluesy Rock Maverick</h3>
+        <p>Blue grew up in Gourock on Nazareth and Gerry Rafferty. DJing across Rock.Scot delivers bluesy rock vibes from Gourock to Wemyss Bay.</p>
+        <ul>
+          <li>Favourite Scottish rock band: Nazareth</li>
+          <li>Best gig ever: Texas at Paisley Arts Centre</li>
+          <li>Dream venue: Coats Paisley / Beacon Arts Centre</li>
+          <li>Fun fact: Once mistaken for a roadie at a Mogwai gig</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =====================================
+       RATES
+  ====================================== -->
+  <section id="rates">
+    <h2>Advertise on Rock.Scot</h2>
+    <p>Reach rock fans across Central Scotland.</p>
+    <button class="cta">Launch Portal</button>
+  </section>
+
+  <!-- =====================================
+       SUBMIT
+  ====================================== -->
+  <section id="submit">
+    <h2>Submit Your Music</h2>
+    <p>Scottish bands, labels and promoters welcome.</p>
+  </section>
+
+  <!-- =====================================
+       FOOTER
+  ====================================== -->
+  <footer>
+    <p>&copy; Rock.Scot – Independent Scottish Rock Radio</p>
+  </footer>
+
+  <!-- =====================================
+       APP JS
+  ====================================== -->
+  <script src="./js/app.js"></script>
+
+  <!-- =====================================
+       SERVICE WORKER
+  ====================================== -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
+  </script>
+
+</body>
+</html>
