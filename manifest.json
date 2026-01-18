@@ -1,1 +1,17 @@
-manifest
+{
+  "name": "Rock.Scot",
+  "short_name": "Rock.Scot",
+  "description": "Central Scotland's Rock Authority - 24/7 Rock Streaming",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#ff5500",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "assets/images/branding/logo_ultra_wide.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
