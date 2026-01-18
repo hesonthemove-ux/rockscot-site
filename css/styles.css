@@ -1,290 +1,93 @@
-/* =========================
-   GLOBAL RESET & FONT
-========================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&display=swap');
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Root colors */
+:root {
+    --orange: #ff5500;
+    --grey: #999;
+    --bg-black: #000;
 }
 
-html, body {
-  width: 100%;
-  height: 100%;
-  font-family: 'Oswald', Arial, sans-serif;
-  background: #000;
-  color: #fff;
-  overflow-x: hidden;
+/* Reset & body */
+* { box-sizing: border-box; margin:0; padding:0; }
+body { font-family: 'Oswald', sans-serif; background:#000; color:#fff; overflow-x:hidden; }
+
+/* Header & Logo */
+.hdr-logo {
+    width: 65%;
+    max-width: 700px;
+    display:block;
+    margin: 0 auto 10px auto;
 }
 
-/* =========================
-   FULLSCREEN BACKGROUND
-========================= */
-
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-size: contain;   /* show full image within screen */
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  z-index: -1;
-  transition: background-image 1s ease-in-out;
-}
-
-/* =========================
-   HEADER & LOGO
-========================= */
-
-header {
-  position: relative;
-  display: flex;
-  flex-direction: column; /* logo above main menu */
-  align-items: center;
-  justify-content: center;
-  padding-top: 20px;
-  background: transparent;
-  z-index: 10;
-}
-
-/* ===== LOGO ===== */
-.site-logo {
-  max-width: 548px; /* slightly smaller than last update */
-  width: auto;
-  height: auto;
-  display: block;
-  margin-bottom: -12px; /* overlap menu */
-  z-index: 11;
-  position: relative;
-}
-
-/* =========================
-   MAIN NAV LINKS (Live / Wire / Crew / Rates / Submit)
-========================= */
-
+/* Navigation menu */
 .main-menu {
-  display: flex;
-  justify-content: center;
-  background: transparent; /* transparent so logo shows through */
-  padding: 12px 0;
-  gap: 24px;
-  flex-wrap: wrap;
-  z-index: 10;
-  position: relative;
+    display:flex;
+    justify-content:center;
+    background: transparent;
+    gap: 20px;
+    flex-wrap: nowrap;
 }
 
-.main-menu a {
-  color: #aaa;  /* grey text */
-  text-decoration: none;
-  font-size: 1.15rem;
-  font-weight: 600;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  padding: 6px 12px;
-  border-radius: 4px;
-  transition: all 0.3s ease;
+.main-menu button {
+    background: transparent;
+    color: var(--grey);
+    border: none;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: all 0.3s;
 }
 
-.main-menu a:hover,
-.main-menu a.active {
-  color: #ff5500; /* neon orange */
-  background: rgba(255,85,0,0.1);
+.main-menu button:hover,
+.main-menu button.active {
+    color: var(--orange);
 }
 
-/* =========================
-   MAIN CONTENT
-========================= */
+/* Views */
+.view { display: none; padding: 20px; }
+.view.active { display: block; }
 
-main {
-  padding: 30px;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Live tab */
+.live-container { max-width: 1200px; margin: 0 auto; text-align:center; }
+
+.clock { font-size:4rem; margin-bottom:20px; }
+
+/* Audio player */
+#audio-player { margin: 20px 0; }
+#audio-player button { margin-top:10px; padding:10px 20px; cursor:pointer; }
+
+/* Arrival Board */
+#arrival-board-container { margin-top:30px; }
+#arrival-board {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+    gap:8px;
+    background: rgba(0,0,0,0.8);
+    border: 2px solid var(--orange);
+    padding:12px;
+    border-radius:6px;
 }
+#arrival-board div { font-weight:700; text-align:center; }
 
-/* =========================
-   CLOCK
-========================= */
-
-#clock {
-  font-size: 2.3rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  margin-bottom: 16px;
-}
-
-/* =========================
-   TICKER (polished)
-========================= */
-
-#ticker {
-  background: rgba(0, 0, 0, 0.85);
-  border-top: 1px solid #ff5500;
-  border-bottom: 1px solid #ff5500;
-  padding: 10px 0;
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-#ticker span {
-  display: inline-block;
-  padding-left: 100%;
-  animation: ticker 22s linear infinite;
-  font-size: 1.2rem;
-  font-weight: 500;
-  letter-spacing: 1px;
-}
-
-@keyframes ticker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
-}
-
-/* =========================
-   AUDIO PLAYER (loud, aggressive styling)
-========================= */
-
-#audio-player {
-  margin: 24px 0;
-  padding: 20px;
-  background: rgba(0,0,0,0.9);
-  border: 2px solid #ff5500;
-  border-radius: 8px;
-  box-shadow: 0 0 20px #ff5500, 0 0 40px #ff5500 inset;
-}
-
-audio {
-  width: 100%;
-  outline: none;
-  border-radius: 4px;
-  background: #111;
-}
-
-/* =========================
-   CONTENT SECTIONS
-========================= */
-
-section {
-  margin: 40px 0;
-  background: rgba(0,0,0,0.8);
-  padding: 30px;
-  border-radius: 8px;
-}
-
-section h2 {
-  font-size: 2.2rem;
-  margin-bottom: 18px;
-  text-transform: uppercase;
-  border-bottom: 2px solid #ff5500;
-  padding-bottom: 6px;
-}
-
-/* =========================
-   CREW GRID (polished)
-========================= */
-
-.crew-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 28px;
-  justify-items: center;
-}
+/* Crew Rolodex */
+.crew-rolodex { perspective:1000px; height:320px; overflow:hidden; position:relative; }
+.crew-rolodex-track { transform-style: preserve-3d; transition: transform 0.8s ease-in-out; position:absolute; top:0; left:50%; transform-origin:center center; }
 
 .crew-card {
-  background: rgba(0,0,0,0.9);
-  border: 1px solid #ff5500;
-  padding: 22px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 12px #ff5500 inset;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    min-width:200px;
+    height:280px;
+    margin:0 auto;
+    background:#111;
+    border:1px solid #444;
+    text-align:center;
+    cursor:pointer;
+    margin-bottom:20px;
 }
 
-.crew-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px #ff5500;
-}
+.crew-card img { width:100%; height:100%; object-fit:cover; filter: grayscale(1); transition:0.5s; }
+.crew-card:hover img, .crew-card.active img { filter: grayscale(0); }
 
-.crew-card img {
-  width: 100%;
-  max-width: 210px;
-  height: auto;
-  border-radius: 6px;
-  margin-bottom: 14px;
-}
+/* Buttons */
+.btn-auth { background: var(--orange); color:#fff; border:none; padding:12px 20px; cursor:pointer; font-size:1.2rem; }
+.btn-auth:hover { background:#fff; color:#000; }
 
-.crew-card h3 {
-  font-size: 1.65rem;
-  margin-bottom: 8px;
-  color: #ff5500;
-}
-
-.crew-card p {
-  font-size: 1rem;
-  line-height: 1.5;
-  opacity: 0.9;
-}
-
-/* =========================
-   BUTTONS
-========================= */
-
-a.button {
-  display: inline-block;
-  margin-top: 16px;
-  padding: 12px 22px;
-  background: #ff5500;
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  border-radius: 4px;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-
-a.button:hover {
-  background: #ff7733;
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer {
-  text-align: center;
-  padding: 24px;
-  font-size: 0.95rem;
-  background: rgba(0,0,0,0.95);
-  border-top: 1px solid #333;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-
-@media (max-width: 900px) {
-  header {
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .site-logo {
-    max-width: 485px;
-  }
-
-  .main-menu {
-    gap: 14px;
-  }
-
-  .crew-grid {
-    gap: 20px;
-  }
-}
-
-@media (min-width: 901px) and (max-width: 1400px) {
-  .site-logo {
-    max-width: 580px;
-  }
-}
+/* Wire grid */
+#wire-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
