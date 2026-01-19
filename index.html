@@ -5,6 +5,7 @@
   <title>Rock.Scot - The Scottish Rock Station</title>
   <link rel="stylesheet" href="css/styles.css">
   <link rel="manifest" href="manifest.json">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js');
@@ -44,10 +45,23 @@
 
     <!-- Rates View -->
     <section id="rates" class="view">
-      <h1>Advertising Packages</h1>
+      <h1>Advertising Packages & Details</h1>
       <div id="packageSelection"></div>
-      <div id="calculator"></div>
-      <button id="launchPortal">Launch Portal</button>
+
+      <form id="customerForm">
+        <h2>Advertiser Details</h2>
+        <label>Full Name:<input type="text" id="fullName" required></label>
+        <label>Position:<input type="text" id="position" required></label>
+        <label>Company Name:<input type="text" id="companyName" required></label>
+        <label>Company Address:<input type="text" id="companyAddress" required></label>
+        <label>Phone Number:<input type="tel" id="phone" required></label>
+        <label>Email Address:<input type="email" id="email" required></label>
+
+        <label>Campaign Start Date:<input type="date" id="startDate" required></label>
+        <label>Campaign End Date:<input type="date" id="endDate" required></label>
+
+        <button type="submit" id="launchPortal">Preview Contract</button>
+      </form>
     </section>
 
     <!-- Submit View -->
@@ -56,11 +70,16 @@
       <div id="submitForm"></div>
     </section>
 
-    <!-- Contract View (hidden until Launch Portal) -->
-    <section id="contract" class="view">
-      <h1>Advertising Pre-Contract Agreement</h1>
-      <div id="contractContent"></div>
-    </section>
+    <!-- Contract Modal -->
+    <div id="contractModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Advertising Pre-Contract Agreement</h2>
+        <div id="contractPreview"></div>
+        <button id="downloadPDF">Download PDF</button>
+        <button id="printPDF">Print</button>
+      </div>
+    </div>
   </main>
 
   <footer>
