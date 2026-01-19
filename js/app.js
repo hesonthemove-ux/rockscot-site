@@ -1,6 +1,5 @@
-// app.js Phase 10 – Horizontal Nav + Departure Board + Wire + Crew + Audio + RSS
+// app.js – Phase 11 Gucci Build
 
-// --- Configuration ---
 const STATION_CONFIG = {
   streamUrl: "https://player.broadcast.radio/caledondia-tx-ltd",
   backgrounds: [
@@ -26,12 +25,10 @@ const STATION_CONFIG = {
   rssFeed: "https://api.rss2json.com/v1/api.json?rss_url=https://snackmag.co.uk/category/music/feed"
 };
 
-// --- App State ---
 const app = {
   bgIndex: 0,
   rssItems: [],
-  departureIndex: 0,
-  audioPlaying: false,
+  newsIndex: 0,
   audioEl: null,
 
   init: function() {
@@ -39,16 +36,15 @@ const app = {
     this.setupAudio();
     this.setupSignals();
     this.setupCrew();
-    this.loadRSS();
     this.setupBackgroundRotation();
+    this.loadRSS();
   },
 
   // --- Clock ---
   setupClock: function() {
     const clockEl = document.getElementById('clock');
     setInterval(() => {
-      const now = new Date();
-      clockEl.textContent = now.toLocaleTimeString();
+      clockEl.textContent = new Date().toLocaleTimeString();
     }, 1000);
   },
 
@@ -58,6 +54,7 @@ const app = {
     this.audioEl.src = STATION_CONFIG.streamUrl;
     this.audioEl.controls = true;
     this.audioEl.preload = "none";
+    this.audioEl.autoplay = false;
     document.getElementById('player-container').appendChild(this.audioEl);
   },
 
@@ -87,32 +84,14 @@ const app = {
     alert(`${dj.name}\n${dj.title}\n\n${dj.bio}`);
   },
 
-  // --- RSS Departure Board ---
-  loadRSS: async function() {
-    try {
-      const res = await fetch(STATION_CONFIG.rssFeed);
-      const data = await res.json();
-      this.rssItems = data.items;
-      this.updateDepartureBoard();
-    } catch(err) {
-      document.getElementById('departure-board').textContent = "Departure board offline.";
-    }
+  // --- Navigation ---
+  switchTab: function(tabId) {
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    document.getElementById(`v-${tabId}`).classList.add('active');
+    if(tabId === 'wire') this.populateWire();
   },
 
-  updateDepartureBoard: function() {
-    if(!this.rssItems.length) return;
-    const item = this.rssItems[this.departureIndex];
-    document.getElementById('departure-board').textContent = item.title;
-
-    // Dynamic SEO
-    document.title = `${item.title} | Rock.Scot`;
-    document.querySelector('meta[name="description"]').setAttribute('content', item.description?.slice(0,150) || '');
-
-    this.departureIndex = (this.departureIndex + 1) % this.rssItems.length;
-    setTimeout(() => { this.updateDepartureBoard(); }, 10000);
-  },
-
-  // --- Wire page ---
+  // --- Wire / RSS Cards ---
   populateWire: function() {
     const wireEl = document.getElementById('wire-grid');
     if(!this.rssItems.length) {
@@ -128,23 +107,45 @@ const app = {
     `).join('');
   },
 
-  // --- Navigation ---
-  switchTab: function(tabId) {
-    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-    document.getElementById(`v-${tabId}`).classList.add('active');
-    if(tabId === 'wire') this.populateWire();
+  // --- RSS News Board ---
+  loadRSS: async function() {
+    try {
+      const res = await fetch(STATION_CONFIG.rssFeed);
+      const data = await res.json();
+      this.rssItems = data.items;
+      this.updateNewsBoard();
+    } catch(err) {
+      document.getElementById('news-board').textContent = "Rock news offline";
+    }
   },
 
-  // --- Background rotation ---
+  updateNewsBoard: function() {
+    if(!this.rssItems.length) return;
+    const item = this.rssItems[this.newsIndex];
+    document.getElementById('news-board').textContent = item.title;
+
+    // SEO update
+    document.title = `${item.title} | Rock.Scot`;
+    document.querySelector('meta[name="description"]').setAttribute('content', item.description?.slice(0,150) || '');
+
+    this.newsIndex = (this.newsIndex + 1) % this.rssItems.length;
+    setTimeout(() => this.updateNewsBoard(), 12000); // update every 12s
+  },
+
+  // --- Background slideshow ---
   setupBackgroundRotation: function() {
     document.body.style.backgroundImage = `url('${STATION_CONFIG.backgrounds[0]}')`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
     setInterval(() => {
       this.bgIndex = (this.bgIndex + 1) % STATION_CONFIG.backgrounds.length;
       document.body.style.backgroundImage = `url('${STATION_CONFIG.backgrounds[this.bgIndex]}')`;
-      document.body.style.backgroundSize = 'cover';
-      document.body.style.backgroundPosition = 'center';
     }, 15000);
-  }
+  },
+
+  // --- Modals ---
+  openAdModal: function() { alert("Advertising portal modal"); },
+  openSubmitModal: function() { alert("Submit track modal"); }
 };
 
 document.addEventListener('DOMContentLoaded', () => app.init());
