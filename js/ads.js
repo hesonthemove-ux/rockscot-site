@@ -1,54 +1,67 @@
-// ========================
-// Ads Module
-// ========================
+/* =====================
+   AD PACKAGES / CALCULATOR / CONTRACT
+===================== */
+const ROCKSCOT_PACKAGES = [
+  { name: "Starter", spots: 10, basePrice: 100 },
+  { name: "Amplifier", spots: 25, basePrice: 225 },
+  { name: "Headliner", spots: 50, basePrice: 400 }
+];
 
-import { STATION_CONFIG } from './config.js';
-import html2pdf from 'html2pdf.js'; // Make sure html2pdf.bundle.min.js is loaded
+let selectedPackage = null;
+let calculatedTotal = 0;
 
-export function openAdModal() {
-    const modal = document.getElementById('ad-modal');
-    if (modal) modal.classList.add('open');
+/* Populate Packages */
+const packageSelection = document.getElementById('packageSelection');
+ROCKSCOT_PACKAGES.forEach((pkg, i) => {
+  const btn = document.createElement('button');
+  btn.textContent = `${pkg.name} - £${pkg.basePrice}`;
+  btn.addEventListener('click', () => {
+    selectedPackage = pkg;
+    calculateTotal();
+  });
+  packageSelection.appendChild(btn);
+});
+
+/* Simple Calculator */
+function calculateTotal() {
+  if (!selectedPackage) return;
+  const spots = selectedPackage.spots;
+  const base = selectedPackage.basePrice;
+  calculatedTotal = base;
+  const calcDiv = document.getElementById('calculator');
+  calcDiv.innerHTML = `<p>Package: ${selectedPackage.name}</p>
+                       <p>Estimated Cost: £${calculatedTotal}</p>`;
 }
 
-export function calcTotal() {
-    const base = parseInt(document.getElementById('pkg-opt')?.value || 0);
-    const prod = document.getElementById('prod-add')?.checked ? STATION_CONFIG.prices.productionFee : 0;
+/* Launch Portal -> Contract */
+document.getElementById('launchPortal').addEventListener('click', () => {
+  if (!selectedPackage) {
+    alert("Please select a package first");
+    return;
+  }
 
-    let start = new Date(document.getElementById('d-start')?.value);
-    let end = new Date(document.getElementById('d-end')?.value);
-    let surcharge = 1.0;
+  const contractView = document.getElementById('contract');
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  contractView.classList.add('active');
 
-    if (start && end && !isNaN(start) && !isNaN(end)) {
-        const days = (end - start) / (1000 * 3600 * 24);
-        if (days > 0 && days < STATION_CONFIG.prices.surchargeThreshold) {
-            surcharge = STATION_CONFIG.prices.surchargeRate;
-            document.getElementById('sur-alert').style.display = 'block';
-        } else {
-            document.getElementById('sur-alert').style.display = 'none';
-        }
-    }
-
-    const total = Math.round((base * surcharge) + prod);
-    document.getElementById('final-price').innerText = "£" + total;
-}
-
-export function sendEmail() {
-    const biz = document.getElementById('biz-name')?.value || "CLIENT";
-    const tot = document.getElementById('final-price')?.innerText || "£0";
-
-    window.location.href = `mailto:${STATION_CONFIG.meta.email}?subject=Ad Inquiry: ${biz}&body=Business: ${biz}%0D%0ATotal Est: ${tot}%0D%0AI agree to terms.`;
-}
-
-export function genPDF() {
-    const pdfDoc = document.getElementById('pdf-doc');
-    if (!pdfDoc) return;
-
-    document.getElementById('p-date').innerText = new Date().toLocaleDateString();
-    document.getElementById('p-client').innerText = document.getElementById('biz-name')?.value || "CLIENT";
-    document.getElementById('p-total').innerText = document.getElementById('final-price')?.innerText || "£0";
-
-    pdfDoc.style.display = 'block';
-    html2pdf().from(pdfDoc).save('RockScot_Contract.pdf').then(() => {
-        pdfDoc.style.display = 'none';
-    });
-}
+  const contractContent = document.getElementById('contractContent');
+  contractContent.innerHTML = `
+    <h2>Advertising Pre-Contract Agreement</h2>
+    <p><strong>Broadcaster:</strong> Caledonia TX Ltd t/a Rock.Scot</p>
+    <p><strong>Advertiser:</strong> [Business / Sole Trader]</p>
+    <p><strong>Package Selected:</strong> ${selectedPackage.name}</p>
+    <p><strong>Total Estimated Cost:</strong> £${calculatedTotal}</p>
+    <h3>Campaign Details</h3>
+    <ul>
+      <li>Spots Scheduled: ${selectedPackage.spots}</li>
+      <li>Start Date: [To be filled]</li>
+      <li>End Date: [To be filled]</li>
+      <li>Frequency: [To be filled]</li>
+    </ul>
+    <h3>Terms & Conditions</h3>
+    <p>All advertising is subject to Rock.Scot approval, compliance with UK broadcast laws, and payment in full prior to broadcast.</p>
+    <p>Advertiser agrees to content, scheduling, and indemnifies Rock.Scot for any claims arising from the advertising content.</p>
+    <p>Cancellation must be submitted in writing and may incur charges as per package terms.</p>
+    <p>Signature: ____________________ &nbsp;&nbsp; Date: ____________</p>
+  `;
+});
