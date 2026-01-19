@@ -1,88 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Rock.Scot – Scottish Rock Radio</title>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Rock.Scot – Loud Scottish Rock Radio broadcasting across Scotland." />
-
-  <link rel="stylesheet" href="./css/styles.css" />
+  <meta charset="UTF-8">
+  <title>Rock.Scot - The Scottish Rock Station</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
 </head>
-
 <body>
-
-  <!-- BACKGROUND -->
-  <div id="background"></div>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <img
-      src="./assets/images/branding/logo_ultra_wide.png"
-      alt="Rock.Scot"
-      class="logo"
-    />
-
+  <header>
+    <div id="logo">
+      <img src="assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot Logo">
+    </div>
     <nav class="main-nav">
-      <a data-view="live">Live</a>
-      <a data-view="wire">Wire</a>
-      <a data-view="crew">Crew</a>
-      <a data-view="rates">Rates</a>
-      <a data-view="submit">Submit</a>
+      <a href="#" data-view="live">Live</a>
+      <a href="#" data-view="wire">Wire</a>
+      <a href="#" data-view="crew">Crew</a>
+      <a href="#" data-view="rates">Rates</a>
+      <a href="#" data-view="submit">Submit</a>
     </nav>
-
-    <div id="clock"></div>
   </header>
 
-  <!-- PLAYER (IFRAME – LOCKED) -->
-  <section class="player-wrap">
-    <iframe
-      src="https://player.broadcast.radio/caledonia-tx-ltd"
-      title="Rock.Scot Live Stream"
-      loading="lazy"
-      allow="autoplay"
-    ></iframe>
-  </section>
+  <div id="background"></div>
 
-  <!-- MAIN CONTENT -->
   <main>
-
+    <!-- Live View -->
     <section id="live" class="view active">
-      <h1>Live on Rock.Scot</h1>
-      <p>Pure Scottish Rock. Loud. Independent.</p>
+      <h1>Live Radio</h1>
+      <iframe src="https://player.broadcast.radio/caledonia-tx-ltd" frameborder="0" allow="autoplay" id="radioPlayer"></iframe>
     </section>
 
-    <section id="wire" class="view">
-      <h1>The Wire</h1>
-      <p>Industry news and Scottish rock updates coming online.</p>
-    </section>
+    <!-- Wire View -->
+    <section id="wire" class="view"></section>
 
+    <!-- Crew View -->
     <section id="crew" class="view">
-      <h1>The Crew</h1>
-      <div id="crewGrid" class="crew-grid"></div>
+      <div id="crewGrid"></div>
     </section>
 
+    <!-- Rates View -->
     <section id="rates" class="view">
-      <h1>Advertising & Rates</h1>
-      <p>
-        Reach Scottish rock fans across Inverclyde, Ayrshire,
-        Lanarkshire and beyond.
-      </p>
-      <p>Email: <strong>advertise@rock.scot</strong></p>
+      <h1>Advertising Packages</h1>
+      <div id="packageSelection"></div>
+      <div id="calculator"></div>
+      <button id="launchPortal">Launch Portal</button>
     </section>
 
+    <!-- Submit View -->
     <section id="submit" class="view">
-      <h1>Submit Music</h1>
-      <p>
-        Submit Scottish rock, alternative, indie and heavy tracks.
-      </p>
-      <p>Email demos to: <strong>submissions@rock.scot</strong></p>
+      <h1>Submit Your Campaign</h1>
+      <div id="submitForm"></div>
     </section>
 
+    <!-- Contract View (hidden until Launch Portal) -->
+    <section id="contract" class="view">
+      <h1>Advertising Pre-Contract Agreement</h1>
+      <div id="contractContent"></div>
+    </section>
   </main>
 
-  <script src="./js/config.js"></script>
-  <script src="./js/app.js"></script>
+  <footer>
+    <div id="clock"></div>
+  </footer>
 
+  <script src="js/config.js"></script>
+  <script src="js/ads.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
