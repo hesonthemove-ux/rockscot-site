@@ -9,7 +9,6 @@ const ROCKSCOT_PACKAGES = [
 
 let selectedPackage = null;
 
-/* Populate Packages */
 const packageSelection = document.getElementById('packageSelection');
 ROCKSCOT_PACKAGES.forEach((pkg) => {
   const btn = document.createElement('button');
@@ -30,10 +29,7 @@ const form = document.getElementById("customerForm");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (!selectedPackage) {
-    alert("Please select a package first");
-    return;
-  }
+  if (!selectedPackage) { alert("Please select a package first"); return; }
 
   const data = {
     fullName: document.getElementById("fullName").value,
@@ -47,7 +43,6 @@ form.addEventListener("submit", (e) => {
     package: selectedPackage
   };
 
-  // Populate preview
   contractPreview.innerHTML = `
     <p>I, <strong>${data.fullName}</strong>, am authorised to represent <strong>${data.companyName}</strong>.</p>
     <p>Package: <strong>${data.package.name}</strong></p>
@@ -65,36 +60,29 @@ form.addEventListener("submit", (e) => {
   modal.style.display = "block";
 });
 
-/* Close Modal */
-closeModal.onclick = function() {
-  modal.style.display = "none";
-}
-window.onclick = function(event) {
-  if (event.target == modal) modal.style.display = "none";
-}
+closeModal.onclick = () => modal.style.display = "none";
+window.onclick = (event) => { if(event.target==modal) modal.style.display='none'; }
 
-/* Download PDF */
 document.getElementById("downloadPDF").addEventListener("click", () => {
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  doc.setFont("Oswald", "normal");
+  const doc = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+  doc.setFont("helvetica", "normal");
   doc.setFontSize(12);
   doc.html(contractPreview, {
-    callback: function(pdf) {
-      pdf.save("RockScot_Contract.pdf");
+    callback: function(pdf){
+      pdf.save("RockScot_Contract_A4.pdf");
     },
-    x: 10,
-    y: 10,
-    width: 190
+    x: 15,
+    y: 15,
+    width: 180
   });
 });
 
-/* Print PDF */
 document.getElementById("printPDF").addEventListener("click", () => {
   const printWindow = window.open('', '_blank');
   printWindow.document.write('<html><head><title>Contract</title>');
   printWindow.document.write('<link rel="stylesheet" href="css/styles.css">');
-  printWindow.document.write('</head><body >');
+  printWindow.document.write('</head><body>');
   printWindow.document.write(contractPreview.innerHTML);
   printWindow.document.write('</body></html>');
   printWindow.document.close();
