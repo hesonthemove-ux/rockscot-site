@@ -1,120 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rock.Scot | Central Scotland's Rock Authority</title>
-<meta name="description" content="Rock.Scot – Live Scottish rock radio, DJs, local news and premium playlists from South Lanarkshire, Inverclyde, and North Ayrshire.">
-<meta name="keywords" content="Scottish rock radio, live DJ, Biffy Clyro, AC/DC, Scottish bands, Inverclyde, South Lanarkshire, North Ayrshire">
-<meta name="theme-color" content="#0f0f0f">
+  <meta charset="UTF-8" />
+  <title>Rock.Scot – Scottish Rock Radio</title>
 
-<!-- Open Graph / Social Sharing -->
-<meta property="og:title" content="Rock.Scot | Central Scotland's Rock Authority">
-<meta property="og:description" content="Live Scottish rock radio with DJs, news, and exclusive playlists.">
-<meta property="og:image" content="assets/images/background/background1.jpg">
-<meta property="og:type" content="website">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Rock.Scot – Loud Scottish Rock Radio broadcasting across Scotland." />
 
-<link rel="manifest" href="manifest.json">
-<link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="manifest" href="./manifest.json" />
 
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/service-worker.js');
-  }
-</script>
 </head>
 <body>
 
-<header>
-  <div class="hdr-container">
-    <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-    <nav class="nav-strip">
-      <button class="nav-btn active" onclick="app.switchTab('live')">LIVE</button>
-      <button class="nav-btn" onclick="app.switchTab('wire')">WIRE</button>
-      <button class="nav-btn" onclick="app.switchTab('crew')">CREW</button>
-      <button class="nav-btn" onclick="app.switchTab('rates')">RATES</button>
-      <button class="nav-btn" onclick="app.switchTab('submit')">SUBMIT</button>
+  <!-- BACKGROUND -->
+  <div id="background"></div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <img
+      src="./assets/images/branding/logo_ultra_wide.png"
+      alt="Rock.Scot"
+      class="logo"
+    />
+
+    <nav class="main-nav">
+      <a data-view="live">Live</a>
+      <a data-view="wire">Wire</a>
+      <a data-view="crew">Crew</a>
+      <a data-view="rates">Rates</a>
+      <a data-view="submit">Submit</a>
     </nav>
+
+    <div id="clock"></div>
+  </header>
+
+  <!-- AUDIO -->
+  <div class="player">
+    <audio
+      id="audio"
+      controls
+      preload="none"
+      src="https://player.broadcast.radio/caledondia-tx-ltd"
+    ></audio>
   </div>
-  <div class="news-board" id="news-board">Loading rock news...</div>
-</header>
 
-<main>
-  <section id="v-live" class="view active">
-    <div class="live-container">
-      <div class="uniform-card live-card">
-        <div id="clock" class="clock-display">00:00:00</div>
-        <div id="player-container"></div>
-      </div>
-      <div class="uniform-card signal-card">
-        <h3>SIGNAL STATUS</h3>
-        <div id="sig-list"></div>
-      </div>
-    </div>
-  </section>
+  <!-- MAIN -->
+  <main id="views">
 
-  <section id="v-wire" class="view">
-    <div id="wire-grid" class="wire-grid"></div>
-  </section>
+    <section id="live" class="view active">
+      <h1>Live on Rock.Scot</h1>
+      <p>Pure Scottish Rock. Loud.</p>
+    </section>
 
-  <section id="v-crew" class="view">
-    <div id="crew-roller" class="crew-carousel"></div>
-  </section>
+    <section id="wire" class="view">
+      <h1>The Wire</h1>
+      <p>News feed coming online.</p>
+    </section>
 
-  <section id="v-rates" class="view">
-    <div class="rates-container">
-      <div class="uniform-card">
-        <h2>Advertising Portal</h2>
-        <p>Reach South Lanarkshire, North Ayrshire & Inverclyde – 547,000 potential listeners</p>
-        <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-      </div>
-    </div>
-  </section>
+    <section id="crew" class="view">
+      <h1>The Crew</h1>
+      <div class="crew-grid" id="crewGrid"></div>
+    </section>
 
-  <section id="v-submit" class="view">
-    <div class="uniform-card">
-      <h2>Get Played</h2>
-      <p>Ensure 24/7 OFCOM compliance. Max 25MB per submission.</p>
-      <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-    </div>
-  </section>
-</main>
+    <section id="rates" class="view">
+      <h1>Rates</h1>
+      <p>Email: advertise@rock.scot</p>
+    </section>
 
-<script src="js/app.js" type="module"></script>
-<script src="js/crew.js"></script>
-<script src="js/wire.js"></script>
-<script src="js/modals.js"></script>
-<script src="js/ads.js"></script>
-<script src="js/player.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/state.js"></script>
-<script src="js/views.js"></script>
+    <section id="submit" class="view">
+      <h1>Submit Music</h1>
+      <p>Email demos to: submissions@rock.scot</p>
+    </section>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "RadioStation",
-  "name": "Rock.Scot",
-  "url": "https://hesonthemove-ux.github.io/rockscot-site/",
-  "logo": "assets/images/branding/logo_ultra_wide.png",
-  "broadcastServiceTier": "Local",
-  "areaServed": {
-    "@type": "Place",
-    "name": "South Lanarkshire, Inverclyde, North Ayrshire"
-  },
-  "genre": "Rock",
-  "founder": [
-    {"@type": "Person","name":"Alex"},
-    {"@type": "Person","name":"Andy"},
-    {"@type": "Person","name":"Stevie"},
-    {"@type": "Person","name":"Mhairi"},
-    {"@type": "Person","name":"Jude"},
-    {"@type": "Person","name":"Chris"},
-    {"@type": "Person","name":"Cal"},
-    {"@type": "Person","name":"Blue"}
-  ]
-}
-</script>
+  </main>
+
+  <script src="./js/config.js"></script>
+  <script src="./js/app.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js');
+    }
+  </script>
 
 </body>
 </html>
