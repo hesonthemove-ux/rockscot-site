@@ -23,11 +23,12 @@ header {
 .main-nav {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin-top: 5px;
 }
 
 .main-nav a {
-  margin: 0 15px;
+  margin: 5px 15px;
   color: grey;
   text-decoration: none;
   font-weight: bold;
@@ -103,7 +104,7 @@ iframe#radioPlayer {
   margin: 5% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 90%;
   max-width: 900px;
   color: #ddd;
   border-radius: 5px;
@@ -158,4 +159,21 @@ iframe#radioPlayer {
   padding: 5px 0;
   font-size: 1.2em;
   color: grey;
+}
+
+/* RESPONSIVE */
+@media(max-width: 600px){
+  #logo img {
+    max-width: 80%;
+  }
+  .main-nav {
+    flex-direction: column;
+  }
+  iframe#radioPlayer {
+    height: 80px;
+  }
+  #crewGrid {
+    flex-direction: column;
+    align-items: center;
+  }
 }
