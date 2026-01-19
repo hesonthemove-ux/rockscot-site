@@ -1,108 +1,138 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
+/* =====================
+   GLOBAL
+===================== */
 body {
-  font-family: Arial, sans-serif;
-  background: #000;
-  color: #eee;
+  margin: 0;
+  font-family: 'Oswald', sans-serif;
+  color: #ddd;
+  background-color: black;
+  overflow-x: hidden;
 }
 
-/* BACKGROUND */
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: black;
+  padding: 10px 0;
+}
+
+#logo img {
+  max-width: 70%;
+  height: auto;
+}
+
+.main-nav {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+  background: transparent;
+}
+
+.main-nav a {
+  margin: 0 15px;
+  color: grey;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.main-nav a:hover,
+.main-nav a:active {
+  color: orange;
+}
+
 #background {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
 }
 
-/* HEADER */
-.site-header {
-  background: rgba(0,0,0,0.9);
-  padding: 12px;
-  text-align: center;
-}
-
-.logo {
-  max-width: 75%;
-  height: auto;
-  margin: 0 auto 8px;
-  display: block;
-}
-
-.main-nav {
-  display: flex;
-  justify-content: center;
-  gap: 18px;
-  margin-bottom: 6px;
-}
-
-.main-nav a {
-  cursor: pointer;
-  color: #aaa;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-
-.main-nav a:hover {
-  color: #ff5500;
-}
-
-#clock {
-  font-size: 14px;
-  opacity: 0.8;
-}
-
-/* PLAYER */
-.player-wrap {
-  background: #000;
-  padding: 10px;
-}
-
-.player-wrap iframe {
-  width: 100%;
-  height: 120px;
-  border: none;
-}
-
-/* CONTENT */
-main {
-  padding: 20px;
-}
-
+/* =====================
+   VIEWS
+===================== */
 .view {
   display: none;
+  padding: 20px;
 }
 
 .view.active {
   display: block;
 }
 
-/* CREW */
-.crew-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+iframe#radioPlayer {
+  width: 100%;
+  max-width: 700px;
+  height: 100px;
+  border: none;
+}
+
+/* =====================
+   CREW GRID
+===================== */
+#crewGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 15px;
-  margin-top: 15px;
 }
 
 .crew-card {
-  background: rgba(0,0,0,0.75);
-  padding: 10px;
+  width: 180px;
   text-align: center;
+  background: #111;
+  padding: 10px;
+  border-radius: 5px;
 }
 
-.crew-card img {
-  width: 100%;
-  height: auto;
-  display: block;
+/* =====================
+   CONTRACT
+===================== */
+#contractContent {
+  background: #111;
+  padding: 20px;
+  border-radius: 5px;
+  line-height: 1.5em;
 }
 
-.crew-card p {
-  margin-top: 8px;
-  font-weight: bold;
+#contractContent h2 {
+  margin-top: 20px;
+}
+
+#contractContent p, #contractContent li {
+  font-size: 0.95em;
+}
+
+#contractContent ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+button#launchPortal {
+  margin-top: 15px;
+  padding: 10px 20px;
+  background: orange;
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+button#launchPortal:hover {
+  background: #ff7f0f;
+}
+
+/* =====================
+   CLOCK
+===================== */
+#clock {
+  text-align: center;
+  padding: 5px 0;
+  font-size: 1.2em;
+  color: grey;
 }
