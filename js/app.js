@@ -1,6 +1,4 @@
-/* =====================
-   CLOCK
-===================== */
+/* CLOCK */
 function startClock() {
   const clock = document.getElementById('clock');
   setInterval(() => {
@@ -8,9 +6,7 @@ function startClock() {
   }, 1000);
 }
 
-/* =====================
-   BACKGROUND ROTATION
-===================== */
+/* BACKGROUND ROTATION */
 let bgIndex = 0;
 function rotateBackground() {
   const bg = document.getElementById('background');
@@ -19,9 +15,7 @@ function rotateBackground() {
   bgIndex = (bgIndex + 1) % ROCKSCOT_CONFIG.backgrounds.length;
 }
 
-/* =====================
-   NAVIGATION
-===================== */
+/* NAVIGATION */
 document.querySelectorAll('.main-nav a').forEach(link => {
   link.addEventListener('click', () => {
     document.querySelectorAll('.view')
@@ -31,9 +25,7 @@ document.querySelectorAll('.main-nav a').forEach(link => {
   });
 });
 
-/* =====================
-   CREW LOAD
-===================== */
+/* CREW LOAD */
 function loadCrew() {
   const grid = document.getElementById('crewGrid');
   grid.innerHTML = '';
@@ -49,9 +41,7 @@ function loadCrew() {
   });
 }
 
-/* =====================
-   WIRE (RSS FEED)
-===================== */
+/* WIRE */
 async function loadWire() {
   const wire = document.getElementById('wire');
   wire.innerHTML = `<h1>The Wire</h1><p>Loading Scottish rock headlines…</p>`;
@@ -72,9 +62,7 @@ async function loadWire() {
   }
 }
 
-/* =====================
-   INIT
-===================== */
+/* INIT */
 startClock();
 rotateBackground();
 setInterval(rotateBackground, 15000);
