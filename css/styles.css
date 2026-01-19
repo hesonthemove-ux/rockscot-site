@@ -1,66 +1,100 @@
-/* Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Oswald', sans-serif; }
-
-/* Body / Hero */
-body, html { width: 100%; height: 100%; overflow-x: hidden; background: #000; color: #eee; }
-
-#header {
-  width: 100%;
-  text-align: center;
-  background: #000;
-  position: relative;
-  z-index: 10;
-  padding: 10px 0;
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Oswald', sans-serif;
 }
 
-#logo {
+body, html {
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: #eee;
+  overflow-x: hidden;
+}
+
+/* Header & Logo */
+header {
+  width: 100%;
+  text-align: center;
+  background-color: #000;
+  padding: 10px 0;
+  position: relative;
+  z-index: 10;
+}
+
+.hdr-logo-container {
+  position: relative;
+  display: inline-block;
+}
+
+.hdr-logo {
   max-width: 65%;
   height: auto;
   display: block;
   margin: 0 auto;
 }
 
-#main-nav ul {
+/* Navigation Strip */
+.nav-strip {
   display: flex;
   justify-content: center;
-  list-style: none;
   margin-top: 10px;
+  flex-wrap: wrap;
+  background-color: transparent;
 }
 
-#main-nav li {
-  margin: 0 15px;
-}
-
-#main-nav a {
-  text-decoration: none;
+.nav-btn {
+  background: #000;
   color: #aaa;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
   font-weight: bold;
-  font-size: 1.1rem;
-  transition: color 0.3s;
+  cursor: pointer;
+  transition: color 0.3s, background 0.3s;
 }
 
-#main-nav a:hover, #main-nav a.active {
+.nav-btn:hover, .nav-btn.active {
   color: #ff6600;
+  background: #111;
+  border-radius: 5px;
 }
 
-#hero {
+/* Departure Board */
+.departure-board {
+  margin: 10px auto;
+  width: 90%;
+  max-width: 800px;
+  background: #111;
+  color: #ff6600;
+  font-family: monospace;
+  font-size: 1.2rem;
+  padding: 15px;
+  border-radius: 5px;
+  text-align: center;
+  letter-spacing: 1px;
+  box-shadow: 0 0 15px #ff6600 inset;
+}
+
+/* Hero Section Backgrounds */
+#hero, .view {
   position: relative;
   width: 100%;
-  height: calc(100vh - 150px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
   overflow: hidden;
 }
 
 #background-slideshow {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  top: 0; left: 0;
-  background-size: contain;
-  background-position: center center;
+  background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
   transition: background-image 1s ease-in-out;
   z-index: 1;
 }
@@ -69,50 +103,103 @@ body, html { width: 100%; height: 100%; overflow-x: hidden; background: #000; co
   position: relative;
   z-index: 5;
   width: 90%;
+  margin: 0 auto;
   text-align: center;
 }
 
-#clock {
+/* Clock */
+.clock-display {
   font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
-#departure-board {
-  font-family: monospace;
-  font-size: 1.2rem;
-  color: #ff6600;
-  background: #111;
-  padding: 10px;
-  margin: 0 auto 20px;
-  width: 80%;
-  max-width: 800px;
-  border-radius: 5px;
-}
-
-#stream {
+/* Player */
+.player-container audio {
   width: 300px;
   max-width: 80%;
 }
 
-/* Crew Carousel */
-#crew { padding: 30px 20px; background: #111; text-align: center; }
-#crew-carousel { display: flex; overflow-x: auto; gap: 20px; padding: 10px; }
-.crew-member { min-width: 200px; text-align: center; background: #222; border-radius: 5px; padding: 10px; flex-shrink: 0; }
-.crew-member img { width: 100%; border-radius: 5px; }
-.crew-member h3 { margin-top: 10px; font-size: 1.2rem; }
-.crew-member p { font-size: 0.9rem; color: #ccc; }
+/* Crew Section */
+#crew-roller {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 10px;
+  justify-content: center;
+}
 
-/* Wire / Rates / Submit */
-section { padding: 40px 20px; text-align: center; }
-button { padding: 10px 20px; font-size: 1.1rem; cursor: pointer; background: #ff6600; color: #000; border: none; border-radius: 5px; transition: background 0.3s; }
-button:hover { background: #ffa033; }
-form { display: flex; flex-direction: column; max-width: 400px; margin: 0 auto; }
-form input, form textarea { margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #222; color: #eee; }
+.crew-member {
+  flex: 0 0 200px;
+  background: #222;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 0.3s;
+}
 
-/* Responsive */
-@media(max-width: 768px) {
-  #main-nav ul { flex-direction: column; }
-  #logo { max-width: 80%; }
-  #stream { width: 100%; }
-  #crew-carousel { flex-wrap: nowrap; }
+.crew-member img {
+  width: 100%;
+  border-radius: 5px;
+  filter: grayscale(100%);
+  transition: filter 0.3s, transform 0.3s;
+}
+
+.crew-member:hover img {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+.crew-member h3 {
+  margin-top: 10px;
+  font-size: 1.2rem;
+}
+
+.crew-member p {
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* Section Styling */
+section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.uniform-card {
+  background: #111;
+  padding: 20px;
+  margin: 20px auto;
+  border-radius: 5px;
+  max-width: 800px;
+}
+
+button.btn-auth {
+  background: #ff6600;
+  color: #000;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+button.btn-auth:hover {
+  background: #ffa033;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hdr-logo {
+    max-width: 80%;
+  }
+  .nav-strip {
+    flex-direction: column;
+  }
+  .crew-member {
+    flex: 0 0 150px;
+  }
+  .player-container audio {
+    width: 100%;
+  }
 }
