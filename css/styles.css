@@ -1,34 +1,118 @@
-:root { 
-    --authority-orange: #ff5500;
-    --phantom-glass: rgba(0,0,0,0.7);
-    --glass-border: rgba(255,255,255,0.2);
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Oswald', sans-serif; }
+
+/* Body / Hero */
+body, html { width: 100%; height: 100%; overflow-x: hidden; background: #000; color: #eee; }
+
+#header {
+  width: 100%;
+  text-align: center;
+  background: #000;
+  position: relative;
+  z-index: 10;
+  padding: 10px 0;
 }
 
-* { box-sizing: border-box; margin:0; padding:0; }
-body { font-family: 'Oswald', sans-serif; background:#000; color:#fff; overflow-x:hidden; }
+#logo {
+  max-width: 65%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 
-.hdr-logo-wrap { background:#000; display:flex; justify-content:center; }
-.hdr-logo { width:65%; max-width:900px; }
+#main-nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  margin-top: 10px;
+}
 
-.nav-strip { display:flex; justify-content:center; background:#000; margin-top:-5px; }
-.nav-btn { flex:1; background:transparent; border:none; color:#ccc; padding:15px; font-family:'Oswald'; font-weight:700; cursor:pointer; transition:0.3s; }
-.nav-btn.active, .nav-btn:hover { color: var(--authority-orange); }
+#main-nav li {
+  margin: 0 15px;
+}
 
-.view { display:none; padding:20px; }
-.view.active { display:block; }
+#main-nav a {
+  text-decoration: none;
+  color: #aaa;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
 
-.uniform-card { background: var(--phantom-glass); border:1px solid var(--glass-border); padding:20px; margin:15px auto; max-width:900px; text-align:center; color:#fff; }
+#main-nav a:hover, #main-nav a.active {
+  color: #ff6600;
+}
 
-#clock { font-family:'Bebas Neue'; font-size:4rem; margin-bottom:15px; }
-.btn-auth { padding:12px 25px; font-family:'Bebas Neue'; background: var(--authority-orange); border:none; color:#000; cursor:pointer; transition:0.2s; }
-.btn-auth:hover { background:#fff; color:#000; }
+#hero {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 150px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
 
-.crew-track { display:flex; overflow-x:auto; gap:15px; scroll-snap-type:x mandatory; padding:20px 0; }
-.crew-card { min-width:250px; height:300px; background:#111; border:1px solid #444; scroll-snap-align:center; text-align:center; transition:0.3s; }
-.crew-card img { width:100%; height:70%; object-fit:cover; filter:grayscale(1); transition:0.5s; }
-.crew-card:hover img { filter:grayscale(0); }
-.crew-info { padding:10px; font-size:0.9rem; }
+#background-slideshow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+  z-index: 1;
+}
 
-#arrival-board { font-family:'Bebas Neue'; font-size:1.2rem; background:#000; color:#ff5500; padding:20px; text-align:center; min-height:200px; }
-#departure-board { list-style:none; margin-top:10px; }
-#departure-board li { margin:5px 0; font-family:'Oswald'; letter-spacing:1px; }
+#hero-overlay {
+  position: relative;
+  z-index: 5;
+  width: 90%;
+  text-align: center;
+}
+
+#clock {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+#departure-board {
+  font-family: monospace;
+  font-size: 1.2rem;
+  color: #ff6600;
+  background: #111;
+  padding: 10px;
+  margin: 0 auto 20px;
+  width: 80%;
+  max-width: 800px;
+  border-radius: 5px;
+}
+
+#stream {
+  width: 300px;
+  max-width: 80%;
+}
+
+/* Crew Carousel */
+#crew { padding: 30px 20px; background: #111; text-align: center; }
+#crew-carousel { display: flex; overflow-x: auto; gap: 20px; padding: 10px; }
+.crew-member { min-width: 200px; text-align: center; background: #222; border-radius: 5px; padding: 10px; flex-shrink: 0; }
+.crew-member img { width: 100%; border-radius: 5px; }
+.crew-member h3 { margin-top: 10px; font-size: 1.2rem; }
+.crew-member p { font-size: 0.9rem; color: #ccc; }
+
+/* Wire / Rates / Submit */
+section { padding: 40px 20px; text-align: center; }
+button { padding: 10px 20px; font-size: 1.1rem; cursor: pointer; background: #ff6600; color: #000; border: none; border-radius: 5px; transition: background 0.3s; }
+button:hover { background: #ffa033; }
+form { display: flex; flex-direction: column; max-width: 400px; margin: 0 auto; }
+form input, form textarea { margin-bottom: 10px; padding: 10px; border-radius: 5px; border: 1px solid #333; background: #222; color: #eee; }
+
+/* Responsive */
+@media(max-width: 768px) {
+  #main-nav ul { flex-direction: column; }
+  #logo { max-width: 80%; }
+  #stream { width: 100%; }
+  #crew-carousel { flex-wrap: nowrap; }
+}
