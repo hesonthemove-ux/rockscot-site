@@ -1,65 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rock.Scot | Central Scotland's Rock Authority</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="manifest" href="manifest.json">
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/service-worker.js');
-      }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock.Scot — Scotland's Premier Rock Station</title>
+  
+  <!-- SEO & Social -->
+  <meta name="description" content="Rock.Scot delivers non-stop rock to Inverclyde, South Lanarkshire, and beyond. Live DJs, local news, and Scottish rock anthems.">
+  <meta name="keywords" content="Rock.Scot, Scottish rock, radio, Inverclyde, South Lanarkshire, North Ayrshire, live DJ, music stream, rock music, Biffy Clyro, Nazareth, AC/DC">
+  <meta name="author" content="Rock.Scot">
+  <meta property="og:title" content="Rock.Scot — Scotland's Premier Rock Station">
+  <meta property="og:description" content="Non-stop rock anthems, live DJs, and local Scottish music.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hesonthemove-ux.github.io/rockscot-site/">
+  <meta property="og:image" content="assets/images/branding/logo_ultra_wide.png">
+  
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
+  <div id="site">
+    <!-- Logo -->
+    <header id="header">
+      <img id="logo" src="assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot Logo">
+      <nav id="main-nav">
+        <ul>
+          <li><a href="#live">Live</a></li>
+          <li><a href="#wire">Wire</a></li>
+          <li><a href="#crew">Crew</a></li>
+          <li><a href="#rates">Rates</a></li>
+          <li><a href="#submit">Submit</a></li>
+        </ul>
+      </nav>
+    </header>
 
-<header>
-    <div class="hdr-logo-wrap">
-        <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
-    </div>
-    <nav class="nav-strip">
-        <button class="nav-btn active" data-tab="live">LIVE</button>
-        <button class="nav-btn" data-tab="wire">WIRE</button>
-        <button class="nav-btn" data-tab="crew">CREW</button>
-        <button class="nav-btn" data-tab="rates">RATES</button>
-        <button class="nav-btn" data-tab="submit">SUBMIT</button>
-    </nav>
-</header>
-
-<main>
-    <section id="v-live" class="view active">
-        <div class="uniform-card">
-            <div id="clock">00:00:00</div>
-            <button id="play-stream" class="btn-auth">Play Live</button>
-            <audio id="audio-player" src="https://player.broadcast.radio/caledondia-tx-ltd" preload="none"></audio>
-        </div>
-        <div id="arrival-board" class="uniform-card">
-            <h3>Rock.Scot Live Feed</h3>
-            <ul id="departure-board"></ul>
-        </div>
+    <!-- Background / Hero -->
+    <section id="hero">
+      <div id="background-slideshow"></div>
+      <div id="hero-overlay">
+        <div id="clock"></div>
+        <div id="departure-board"></div>
+        <audio id="stream" controls preload="none"></audio>
+      </div>
     </section>
 
-    <section id="v-wire" class="view"></section>
-    <section id="v-crew" class="view">
-        <div id="crew-roller" class="crew-track"></div>
+    <!-- Crew -->
+    <section id="crew">
+      <h2>Our DJs</h2>
+      <div id="crew-carousel"></div>
     </section>
-    <section id="v-rates" class="view">
-        <div class="uniform-card">
-            <h3>Advertising Portal</h3>
-            <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
-        </div>
-    </section>
-    <section id="v-submit" class="view">
-        <div class="uniform-card">
-            <h3>Submit Track</h3>
-            <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
-        </div>
-    </section>
-</main>
 
-<script src="js/config.js"></script>
-<script src="js/app.js"></script>
+    <!-- Wire / Rates / Submit -->
+    <section id="wire">
+      <h2>Wire</h2>
+      <div id="wire-content"></div>
+    </section>
+
+    <section id="rates">
+      <h2>Rates</h2>
+      <button id="launch-portal">Launch Portal</button>
+    </section>
+
+    <section id="submit">
+      <h2>Submit</h2>
+      <form id="submit-form"></form>
+    </section>
+  </div>
+
+  <script src="js/app.js" type="module"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
 </body>
 </html>
