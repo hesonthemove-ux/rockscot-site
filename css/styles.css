@@ -1,6 +1,4 @@
-/* =====================
-   GLOBAL
-===================== */
+/* GLOBAL */
 body {
   margin: 0;
   font-family: 'Oswald', sans-serif;
@@ -18,7 +16,7 @@ header {
 }
 
 #logo img {
-  max-width: 70%;
+  max-width: 55%;
   height: auto;
 }
 
@@ -26,7 +24,6 @@ header {
   display: flex;
   justify-content: center;
   margin-top: 5px;
-  background: transparent;
 }
 
 .main-nav a {
@@ -42,6 +39,7 @@ header {
   color: orange;
 }
 
+/* BACKGROUND */
 #background {
   position: fixed;
   top: 0;
@@ -54,9 +52,7 @@ header {
   z-index: -1;
 }
 
-/* =====================
-   VIEWS
-===================== */
+/* VIEWS */
 .view {
   display: none;
   padding: 20px;
@@ -73,9 +69,7 @@ iframe#radioPlayer {
   border: none;
 }
 
-/* =====================
-   CREW GRID
-===================== */
+/* CREW GRID */
 #crewGrid {
   display: flex;
   flex-wrap: wrap;
@@ -91,31 +85,36 @@ iframe#radioPlayer {
   border-radius: 5px;
 }
 
-/* =====================
-   CONTRACT
-===================== */
-#contractContent {
-  background: #111;
+/* CONTRACT MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgba(0,0,0,0.85);
+}
+
+.modal-content {
+  background-color: #111;
+  margin: 5% auto;
   padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 900px;
+  color: #ddd;
   border-radius: 5px;
-  line-height: 1.5em;
 }
 
-#contractContent h2 {
-  margin-top: 20px;
+.modal-content h2 {
+  text-align: center;
 }
 
-#contractContent p, #contractContent li {
-  font-size: 0.95em;
-}
-
-#contractContent ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-button#launchPortal {
-  margin-top: 15px;
+.modal-content button {
+  margin: 10px 5px;
   padding: 10px 20px;
   background: orange;
   color: black;
@@ -123,13 +122,37 @@ button#launchPortal {
   cursor: pointer;
 }
 
-button#launchPortal:hover {
+.modal-content button:hover {
   background: #ff7f0f;
 }
 
-/* =====================
-   CLOCK
-===================== */
+.close {
+  color: #fff;
+  float: right;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* CUSTOMER FORM */
+#customerForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+#customerForm label {
+  margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+#customerForm input {
+  padding: 5px;
+  font-size: 1em;
+}
+
+/* CLOCK */
 #clock {
   text-align: center;
   padding: 5px 0;
