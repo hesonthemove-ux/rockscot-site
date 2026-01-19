@@ -1,5 +1,5 @@
 /* =====================
-   AD PACKAGES / CALCULATOR / CONTRACT
+   PACKAGES / CALCULATOR
 ===================== */
 const ROCKSCOT_PACKAGES = [
   { name: "Starter", spots: 10, basePrice: 100 },
@@ -8,60 +8,95 @@ const ROCKSCOT_PACKAGES = [
 ];
 
 let selectedPackage = null;
-let calculatedTotal = 0;
 
 /* Populate Packages */
 const packageSelection = document.getElementById('packageSelection');
-ROCKSCOT_PACKAGES.forEach((pkg, i) => {
+ROCKSCOT_PACKAGES.forEach((pkg) => {
   const btn = document.createElement('button');
   btn.textContent = `${pkg.name} - £${pkg.basePrice}`;
   btn.addEventListener('click', () => {
     selectedPackage = pkg;
-    calculateTotal();
   });
   packageSelection.appendChild(btn);
 });
 
-/* Simple Calculator */
-function calculateTotal() {
-  if (!selectedPackage) return;
-  const spots = selectedPackage.spots;
-  const base = selectedPackage.basePrice;
-  calculatedTotal = base;
-  const calcDiv = document.getElementById('calculator');
-  calcDiv.innerHTML = `<p>Package: ${selectedPackage.name}</p>
-                       <p>Estimated Cost: £${calculatedTotal}</p>`;
-}
+/* =====================
+   CONTRACT PREVIEW + PDF
+===================== */
+const modal = document.getElementById("contractModal");
+const contractPreview = document.getElementById("contractPreview");
+const closeModal = document.querySelector(".close");
+const form = document.getElementById("customerForm");
 
-/* Launch Portal -> Contract */
-document.getElementById('launchPortal').addEventListener('click', () => {
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
   if (!selectedPackage) {
     alert("Please select a package first");
     return;
   }
 
-  const contractView = document.getElementById('contract');
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-  contractView.classList.add('active');
+  const data = {
+    fullName: document.getElementById("fullName").value,
+    position: document.getElementById("position").value,
+    companyName: document.getElementById("companyName").value,
+    companyAddress: document.getElementById("companyAddress").value,
+    phone: document.getElementById("phone").value,
+    email: document.getElementById("email").value,
+    startDate: document.getElementById("startDate").value,
+    endDate: document.getElementById("endDate").value,
+    package: selectedPackage
+  };
 
-  const contractContent = document.getElementById('contractContent');
-  contractContent.innerHTML = `
-    <h2>Advertising Pre-Contract Agreement</h2>
-    <p><strong>Broadcaster:</strong> Caledonia TX Ltd t/a Rock.Scot</p>
-    <p><strong>Advertiser:</strong> [Business / Sole Trader]</p>
-    <p><strong>Package Selected:</strong> ${selectedPackage.name}</p>
-    <p><strong>Total Estimated Cost:</strong> £${calculatedTotal}</p>
-    <h3>Campaign Details</h3>
-    <ul>
-      <li>Spots Scheduled: ${selectedPackage.spots}</li>
-      <li>Start Date: [To be filled]</li>
-      <li>End Date: [To be filled]</li>
-      <li>Frequency: [To be filled]</li>
-    </ul>
+  // Populate preview
+  contractPreview.innerHTML = `
+    <p>I, <strong>${data.fullName}</strong>, am authorised to represent <strong>${data.companyName}</strong>.</p>
+    <p>Package: <strong>${data.package.name}</strong></p>
+    <p>Spots: <strong>${data.package.spots}</strong></p>
+    <p>Total: <strong>£${data.package.basePrice}</strong></p>
+    <p>Campaign Dates: <strong>${data.startDate}</strong> to <strong>${data.endDate}</strong></p>
+    <p>Company Address: ${data.companyAddress}</p>
+    <p>Phone: ${data.phone} | Email: ${data.email}</p>
     <h3>Terms & Conditions</h3>
     <p>All advertising is subject to Rock.Scot approval, compliance with UK broadcast laws, and payment in full prior to broadcast.</p>
     <p>Advertiser agrees to content, scheduling, and indemnifies Rock.Scot for any claims arising from the advertising content.</p>
     <p>Cancellation must be submitted in writing and may incur charges as per package terms.</p>
-    <p>Signature: ____________________ &nbsp;&nbsp; Date: ____________</p>
   `;
+
+  modal.style.display = "block";
+});
+
+/* Close Modal */
+closeModal.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target == modal) modal.style.display = "none";
+}
+
+/* Download PDF */
+document.getElementById("downloadPDF").addEventListener("click", () => {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  doc.setFont("Oswald", "normal");
+  doc.setFontSize(12);
+  doc.html(contractPreview, {
+    callback: function(pdf) {
+      pdf.save("RockScot_Contract.pdf");
+    },
+    x: 10,
+    y: 10,
+    width: 190
+  });
+});
+
+/* Print PDF */
+document.getElementById("printPDF").addEventListener("click", () => {
+  const printWindow = window.open('', '_blank');
+  printWindow.document.write('<html><head><title>Contract</title>');
+  printWindow.document.write('<link rel="stylesheet" href="css/styles.css">');
+  printWindow.document.write('</head><body >');
+  printWindow.document.write(contractPreview.innerHTML);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.print();
 });
