@@ -8,9 +8,8 @@
   <meta name="description" content="Rock.Scot – Loud Scottish Rock Radio broadcasting across Scotland." />
 
   <link rel="stylesheet" href="./css/styles.css" />
-  <link rel="manifest" href="./manifest.json" />
-
 </head>
+
 <body>
 
   <!-- BACKGROUND -->
@@ -35,54 +34,55 @@
     <div id="clock"></div>
   </header>
 
-  <!-- AUDIO -->
-  <div class="player">
-    <audio
-      id="audio"
-      controls
-      preload="none"
-      src="https://player.broadcast.radio/caledondia-tx-ltd"
-    ></audio>
-  </div>
+  <!-- PLAYER (IFRAME – LOCKED) -->
+  <section class="player-wrap">
+    <iframe
+      src="https://player.broadcast.radio/caledonia-tx-ltd"
+      title="Rock.Scot Live Stream"
+      loading="lazy"
+      allow="autoplay"
+    ></iframe>
+  </section>
 
-  <!-- MAIN -->
-  <main id="views">
+  <!-- MAIN CONTENT -->
+  <main>
 
     <section id="live" class="view active">
       <h1>Live on Rock.Scot</h1>
-      <p>Pure Scottish Rock. Loud.</p>
+      <p>Pure Scottish Rock. Loud. Independent.</p>
     </section>
 
     <section id="wire" class="view">
       <h1>The Wire</h1>
-      <p>News feed coming online.</p>
+      <p>Industry news and Scottish rock updates coming online.</p>
     </section>
 
     <section id="crew" class="view">
       <h1>The Crew</h1>
-      <div class="crew-grid" id="crewGrid"></div>
+      <div id="crewGrid" class="crew-grid"></div>
     </section>
 
     <section id="rates" class="view">
-      <h1>Rates</h1>
-      <p>Email: advertise@rock.scot</p>
+      <h1>Advertising & Rates</h1>
+      <p>
+        Reach Scottish rock fans across Inverclyde, Ayrshire,
+        Lanarkshire and beyond.
+      </p>
+      <p>Email: <strong>advertise@rock.scot</strong></p>
     </section>
 
     <section id="submit" class="view">
       <h1>Submit Music</h1>
-      <p>Email demos to: submissions@rock.scot</p>
+      <p>
+        Submit Scottish rock, alternative, indie and heavy tracks.
+      </p>
+      <p>Email demos to: <strong>submissions@rock.scot</strong></p>
     </section>
 
   </main>
 
   <script src="./js/config.js"></script>
   <script src="./js/app.js"></script>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js');
-    }
-  </script>
 
 </body>
 </html>
