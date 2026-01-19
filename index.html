@@ -36,7 +36,7 @@ if ('serviceWorker' in navigator) {
         <button class="nav-btn" onclick="app.switchTab('rates', event)">RATES</button>
         <button class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</button>
     </nav>
-    <div class="departure-board" id="departure-board"></div>
+    <div class="departure-board" id="departure-board">Loading headlines...</div>
 </header>
 
 <main>
@@ -76,7 +76,7 @@ if ('serviceWorker' in navigator) {
 </main>
 
 <script src="js/config.js"></script>
-<script src="js/app.js"></script>
+<script src="js/app.js" type="module"></script>
 <script src="js/crew.js"></script>
 <script src="js/wire.js"></script>
 <script src="js/modals.js"></script>
