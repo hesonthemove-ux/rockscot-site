@@ -148,9 +148,16 @@ iframe#radioPlayer {
   flex-direction: column;
 }
 
-#customerForm input {
+#customerForm input,
+#customerForm button {
   padding: 5px;
   font-size: 1em;
+}
+
+/* POSTCODE INPUT */
+#postcode {
+  font-size: 1em;
+  padding: 5px;
 }
 
 /* CLOCK */
@@ -162,12 +169,13 @@ iframe#radioPlayer {
 }
 
 /* RESPONSIVE */
-@media(max-width: 600px){
+@media(max-width: 800px){
   #logo img {
-    max-width: 80%;
+    max-width: 70%;
   }
   .main-nav {
     flex-direction: column;
+    align-items: center;
   }
   iframe#radioPlayer {
     height: 80px;
@@ -175,5 +183,23 @@ iframe#radioPlayer {
   #crewGrid {
     flex-direction: column;
     align-items: center;
+  }
+  #customerForm {
+    width: 90%;
+    margin: 10px auto;
+  }
+}
+
+@media(max-width: 500px){
+  #logo img {
+    max-width: 90%;
+  }
+  .main-nav a {
+    margin: 3px 0;
+  }
+  .modal-content {
+    width: 95%;
+    margin-top: 10%;
+    padding: 15px;
   }
 }
