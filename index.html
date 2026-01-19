@@ -1,77 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock.Scot — Scotland's Premier Rock Station</title>
-  
-  <!-- SEO & Social -->
-  <meta name="description" content="Rock.Scot delivers non-stop rock to Inverclyde, South Lanarkshire, and beyond. Live DJs, local news, and Scottish rock anthems.">
-  <meta name="keywords" content="Rock.Scot, Scottish rock, radio, Inverclyde, South Lanarkshire, North Ayrshire, live DJ, music stream, rock music, Biffy Clyro, Nazareth, AC/DC">
-  <meta name="author" content="Rock.Scot">
-  <meta property="og:title" content="Rock.Scot — Scotland's Premier Rock Station">
-  <meta property="og:description" content="Non-stop rock anthems, live DJs, and local Scottish music.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://hesonthemove-ux.github.io/rockscot-site/">
-  <meta property="og:image" content="assets/images/branding/logo_ultra_wide.png">
-  
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="manifest" href="manifest.json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rock.Scot | Central Scotland's Rock Authority</title>
+<meta name="description" content="Rock.Scot delivers live rock radio, local Scottish rock news, and high-energy playlists across South Lanarkshire, Inverclyde, and North Ayrshire.">
+<meta name="keywords" content="Scottish rock, Biffy Clyro, Franz Ferdinand, Rock radio, Inverclyde, South Lanarkshire, North Ayrshire">
+<meta name="theme-color" content="#000000">
+
+<!-- Open Graph / Social Sharing -->
+<meta property="og:title" content="Rock.Scot | Central Scotland's Rock Authority">
+<meta property="og:description" content="Live Scottish rock radio, crew, and news. Tune in from anywhere in Central Scotland.">
+<meta property="og:image" content="assets/images/background/background1.jpg">
+<meta property="og:type" content="website">
+
+<link rel="manifest" href="manifest.json">
+<link rel="stylesheet" href="css/styles.css">
+
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/service-worker.js');
+}
+</script>
 </head>
 <body>
-  <div id="site">
-    <!-- Logo -->
-    <header id="header">
-      <img id="logo" src="assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot Logo">
-      <nav id="main-nav">
-        <ul>
-          <li><a href="#live">Live</a></li>
-          <li><a href="#wire">Wire</a></li>
-          <li><a href="#crew">Crew</a></li>
-          <li><a href="#rates">Rates</a></li>
-          <li><a href="#submit">Submit</a></li>
-        </ul>
-      </nav>
-    </header>
 
-    <!-- Background / Hero -->
-    <section id="hero">
-      <div id="background-slideshow"></div>
-      <div id="hero-overlay">
-        <div id="clock"></div>
-        <div id="departure-board"></div>
-        <audio id="stream" controls preload="none"></audio>
-      </div>
-    </section>
+<header>
+    <div class="hdr-logo-container">
+        <img src="assets/images/branding/logo_ultra_wide.png" class="hdr-logo" alt="Rock.Scot Logo">
+    </div>
+    <nav class="nav-strip">
+        <button class="nav-btn active" onclick="app.switchTab('live', event)">LIVE</button>
+        <button class="nav-btn" onclick="app.switchTab('wire', event)">WIRE</button>
+        <button class="nav-btn" onclick="app.switchTab('crew', event)">CREW</button>
+        <button class="nav-btn" onclick="app.switchTab('rates', event)">RATES</button>
+        <button class="nav-btn" onclick="app.switchTab('submit', event)">SUBMIT</button>
+    </nav>
+    <div class="departure-board" id="departure-board"></div>
+</header>
 
-    <!-- Crew -->
-    <section id="crew">
-      <h2>Our DJs</h2>
-      <div id="crew-carousel"></div>
-    </section>
+<main>
+<section id="v-live" class="view active">
+    <div class="uniform-card live-card">
+        <div id="clock" class="clock-display">00:00:00</div>
+        <div id="player-container" class="player-container"></div>
+    </div>
+    <div class="uniform-card signal-card">
+        <h3>SIGNAL STATUS</h3>
+        <div id="sig-list"></div>
+    </div>
+</section>
 
-    <!-- Wire / Rates / Submit -->
-    <section id="wire">
-      <h2>Wire</h2>
-      <div id="wire-content"></div>
-    </section>
+<section id="v-wire" class="view">
+    <div id="wire-grid"></div>
+</section>
 
-    <section id="rates">
-      <h2>Rates</h2>
-      <button id="launch-portal">Launch Portal</button>
-    </section>
+<section id="v-crew" class="view">
+    <div id="crew-roller" class="crew-carousel"></div>
+</section>
 
-    <section id="submit">
-      <h2>Submit</h2>
-      <form id="submit-form"></form>
-    </section>
-  </div>
+<section id="v-rates" class="view">
+    <div class="uniform-card">
+        <h3>ADVERTISING PORTAL</h3>
+        <button class="btn-auth" onclick="app.openAdModal()">Launch Portal</button>
+    </div>
+</section>
 
-  <script src="js/app.js" type="module"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
-    }
-  </script>
+<section id="v-submit" class="view">
+    <div class="uniform-card">
+        <h2>GET PLAYED</h2>
+        <p>Ensure 24/7 Ofcom Compliance. Max 25MB.</p>
+        <button class="btn-auth" onclick="app.openSubmitModal()">Start Upload</button>
+    </div>
+</section>
+</main>
+
+<script src="js/config.js"></script>
+<script src="js/app.js"></script>
+<script src="js/crew.js"></script>
+<script src="js/wire.js"></script>
+<script src="js/modals.js"></script>
+<script src="js/ads.js"></script>
+<script src="js/player.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/state.js"></script>
+<script src="js/views.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RadioStation",
+  "name": "Rock.Scot",
+  "url": "https://hesonthemove-ux.github.io/rockscot-site/",
+  "logo": "assets/images/branding/logo_ultra_wide.png",
+  "broadcastServiceTier": "Local",
+  "areaServed": {
+    "@type": "Place",
+    "name": "South Lanarkshire, Inverclyde, North Ayrshire"
+  },
+  "genre": "Rock",
+  "founder": [
+    {"@type": "Person", "name": "Alex"},
+    {"@type": "Person", "name": "Andy"},
+    {"@type": "Person", "name": "Stevie"},
+    {"@type": "Person", "name": "Mhairi"},
+    {"@type": "Person", "name": "Jude"},
+    {"@type": "Person", "name": "Chris"},
+    {"@type": "Person", "name": "Cal"},
+    {"@type": "Person", "name": "Blue"}
+  ]
+}
+</script>
+
 </body>
 </html>
