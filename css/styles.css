@@ -1,205 +1,236 @@
-/* GLOBAL */
-body {
+/* =====================================================
+   Rock.Scot SPA – style.css
+   Xperia 5 V Optimised (21:9)
+   Glassmorphism • 3D • Premium Mobile UI
+   ===================================================== */
+
+:root {
+  --accent: #ff6a00;
+  --bg-black: #000;
+  --glass: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-blur: 18px;
+  --glass-tint: 60; /* admin-controlled */
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
   margin: 0;
-  font-family: 'Oswald', sans-serif;
-  color: #ddd;
-  background-color: black;
+  padding: 0;
+  background: var(--bg-black);
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+  height: 100%;
   overflow-x: hidden;
 }
 
+/* ================= HEADER ================= */
 header {
+  width: 100vw;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  background-color: black;
-  padding: 10px 0;
+  justify-content: space-between;
+  padding: env(safe-area-inset-top) 16px 12px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.85), rgba(0,0,0,0.3));
 }
 
 #logo img {
-  max-width: 55%;
-  height: auto;
+  width: 130vw;
+  max-width: none;
+  transform: translateX(-15vw);
 }
 
-.main-nav {
+/* ================= STUDIO CLOCK ================= */
+#studio-clock {
+  font-variant-numeric: tabular-nums;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-shadow:
+    0 0 6px rgba(255,106,0,0.8),
+    0 0 14px rgba(255,106,0,0.6);
+}
+
+/* ================= TICKER ================= */
+#ticker {
+  width: 100vw;
+  background: rgba(0,0,0,0.85);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+#ticker marquee {
+  color: #fff;
+  font-size: 0.85rem;
+  padding: 6px 0;
+}
+
+/* ================= NAV ================= */
+nav {
+  width: 100vw;
   display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 5px;
+  justify-content: space-around;
+  background: rgba(0,0,0,0.9);
 }
 
-.main-nav a {
-  margin: 5px 15px;
-  color: grey;
-  text-decoration: none;
-  font-weight: bold;
-  transition: color 0.2s;
+nav button {
+  flex: 1;
+  background: none;
+  border: none;
+  color: #aaa;
+  padding: 12px 0;
+  font-size: 0.9rem;
 }
 
-.main-nav a:hover,
-.main-nav a:active {
-  color: orange;
+nav button.active {
+  color: var(--accent);
 }
 
-/* BACKGROUND */
-#background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: -1;
+/* ================= SPA VIEWS ================= */
+#views {
+  position: relative;
 }
 
-/* VIEWS */
 .view {
   display: none;
-  padding: 20px;
+  min-height: calc(100vh - 160px);
 }
 
 .view.active {
   display: block;
 }
 
-iframe#radioPlayer {
-  width: 100%;
-  max-width: 700px;
-  height: 100px;
-  border: none;
+/* ================= 90% FRAMED CONTENT ================= */
+.frame {
+  width: 90%;
+  margin: 0 auto;
+  padding: 16px 0;
 }
 
-/* CREW GRID */
-#crewGrid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
+/* ================= LIVE PLAYER ================= */
+iframe {
+  width: 100%;
+  height: 55vh;
+  border: none;
+  border-radius: 18px;
+  background: #000;
+}
+
+/* ================= THE WIRE GRID ================= */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+/* ================= CREW CAROUSEL ================= */
+#crew-carousel {
+  perspective: 1000px;
+  height: 60vh;
 }
 
 .crew-card {
-  width: 180px;
-  text-align: center;
-  background: #111;
-  padding: 10px;
-  border-radius: 5px;
+  position: absolute;
+  width: 70%;
+  left: 15%;
+  top: 10%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease, filter 0.6s ease;
 }
 
-/* CONTRACT MODAL */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 0;
-  top: 0;
+.crew-card img {
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  background-color: rgba(0,0,0,0.85);
+  border-radius: 22px;
 }
 
-.modal-content {
-  background-color: #111;
-  margin: 5% auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 90%;
-  max-width: 900px;
-  color: #ddd;
-  border-radius: 5px;
+.crew-card.focus {
+  filter: grayscale(0);
 }
 
-.modal-content h2 {
-  text-align: center;
+.crew-card.blur {
+  filter: grayscale(1) brightness(0.7);
 }
 
-.modal-content button {
-  margin: 10px 5px;
-  padding: 10px 20px;
-  background: orange;
-  color: black;
+/* ================= RATES ================= */
+#view-rates h1 {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+}
+
+#ad-form label {
+  display: block;
+  margin-bottom: 12px;
+}
+
+#ad-form input,
+#ad-form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 12px;
   border: none;
-  cursor: pointer;
-}
-
-.modal-content button:hover {
-  background: #ff7f0f;
-}
-
-.close {
+  background: rgba(255,255,255,0.08);
   color: #fff;
-  float: right;
-  font-size: 28px;
-  cursor: pointer;
 }
 
-/* CUSTOMER FORM */
-#customerForm {
+#price-output {
+  font-size: 1.8rem;
+  margin: 14px 0;
+  color: var(--accent);
+}
+
+#ad-form button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  font-weight: 700;
+}
+
+/* ================= ADMIN OVERLAY ================= */
+#admin-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
   display: flex;
-  flex-direction: column;
-  max-width: 600px;
-  margin: 20px auto;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
 }
 
-#customerForm label {
-  margin: 5px 0;
-  display: flex;
-  flex-direction: column;
+.glass-panel {
+  width: 85%;
+  padding: 20px;
+  border-radius: 22px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255, calc(var(--glass-tint) / 100)),
+    rgba(255,255,255, 0.05)
+  );
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
 }
 
-#customerForm input,
-#customerForm button {
-  padding: 5px;
-  font-size: 1em;
+.glass-panel input,
+.glass-panel button {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
 }
 
-/* POSTCODE INPUT */
-#postcode {
-  font-size: 1em;
-  padding: 5px;
+/* ================= ANIMATIONS ================= */
+.view {
+  animation: fadeIn 0.4s ease;
 }
 
-/* CLOCK */
-#clock {
-  text-align: center;
-  padding: 5px 0;
-  font-size: 1.2em;
-  color: grey;
-}
-
-/* RESPONSIVE */
-@media(max-width: 800px){
-  #logo img {
-    max-width: 70%;
-  }
-  .main-nav {
-    flex-direction: column;
-    align-items: center;
-  }
-  iframe#radioPlayer {
-    height: 80px;
-  }
-  #crewGrid {
-    flex-direction: column;
-    align-items: center;
-  }
-  #customerForm {
-    width: 90%;
-    margin: 10px auto;
-  }
-}
-
-@media(max-width: 500px){
-  #logo img {
-    max-width: 90%;
-  }
-  .main-nav a {
-    margin: 3px 0;
-  }
-  .modal-content {
-    width: 95%;
-    margin-top: 10%;
-    padding: 15px;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
