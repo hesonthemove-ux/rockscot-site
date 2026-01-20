@@ -1,94 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock.Scot - The Scottish Rock Station</title>
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="manifest" href="manifest.json">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
-    }
-  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Rock.Scot – Central Scotland's Rock Station</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div id="logo">
-      <img src="assets/images/branding/logo_ultra_wide.png" alt="Rock.Scot Logo">
+
+  <!-- HEADER / BRAND -->
+  <header id="header">
+    <div id="logo" data-admin-trigger>
+      <img src="assets/logo-ultrawide.svg" alt="Rock.Scot" />
     </div>
-    <nav class="main-nav">
-      <a href="#" data-view="live">Live</a>
-      <a href="#" data-view="wire">Wire</a>
-      <a href="#" data-view="crew">Crew</a>
-      <a href="#" data-view="rates">Rates</a>
-      <a href="#" data-view="submit">Submit</a>
-    </nav>
+    <div id="studio-clock">
+      <span id="clock-hours">00</span>:<span id="clock-mins">00</span>
+    </div>
   </header>
 
-  <div id="background"></div>
+  <!-- TICKER -->
+  <section id="ticker">
+    <marquee id="ticker-text">Rock.Scot – Central Scotland's Home of Rock</marquee>
+  </section>
 
-  <main>
-    <!-- Live View -->
-    <section id="live" class="view active">
-      <h1>Live Radio</h1>
-      <iframe src="https://player.broadcast.radio/caledonia-tx-ltd" frameborder="0" allow="autoplay" id="radioPlayer"></iframe>
-    </section>
+  <!-- NAVIGATION -->
+  <nav id="nav">
+    <button data-tab="live">Live</button>
+    <button data-tab="wire">The Wire</button>
+    <button data-tab="crew">The Crew</button>
+    <button data-tab="rates">Rates</button>
+  </nav>
 
-    <!-- Wire View -->
-    <section id="wire" class="view"></section>
+  <!-- SPA VIEWS -->
+  <main id="views">
 
-    <!-- Crew View -->
-    <section id="crew" class="view">
-      <div id="crewGrid"></div>
-    </section>
-
-    <!-- Rates View -->
-    <section id="rates" class="view">
-      <h1>Advertising Packages & Details</h1>
-      <div id="packageSelection"></div>
-
-      <form id="customerForm">
-        <h2>Advertiser Details</h2>
-        <label>Full Name:<input type="text" id="fullName" required></label>
-        <label>Position:<input type="text" id="position" required></label>
-        <label>Company Name:<input type="text" id="companyName" required></label>
-        <label>Company Address:<input type="text" id="companyAddress" required></label>
-        <label>Phone Number:<input type="tel" id="phone" required></label>
-        <label>Email Address:<input type="email" id="email" required></label>
-
-        <label>Campaign Start Date:<input type="date" id="startDate" required></label>
-        <label>Campaign End Date:<input type="date" id="endDate" required></label>
-
-        <button type="submit" id="launchPortal">Preview Contract</button>
-      </form>
-    </section>
-
-    <!-- Submit View -->
-    <section id="submit" class="view">
-      <h1>Submit Your Campaign</h1>
-      <div id="submitForm"></div>
-    </section>
-
-    <!-- Contract Modal -->
-    <div id="contractModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Advertising Pre-Contract Agreement</h2>
-        <div id="contractPreview"></div>
-        <button id="downloadPDF">Download PDF</button>
-        <button id="printPDF">Print</button>
+    <!-- LIVE / HOME -->
+    <section class="view active" id="view-live">
+      <div class="frame">
+        <iframe
+          src="https://YOUR-CALEDONIA-TX-FEED"
+          allow="autoplay"
+          loading="lazy"
+        ></iframe>
       </div>
-    </div>
+    </section>
+
+    <!-- THE WIRE -->
+    <section class="view" id="view-wire">
+      <div class="frame grid" id="news-grid"></div>
+    </section>
+
+    <!-- THE CREW -->
+    <section class="view" id="view-crew">
+      <div id="crew-carousel"></div>
+    </section>
+
+    <!-- RATES -->
+    <section class="view" id="view-rates">
+      <div class="frame">
+        <h1>Advertise on Rock.Scot</h1>
+        <form id="ad-form">
+          <label>
+            Package
+            <select id="package">
+              <option value="regional">Regional – £299</option>
+              <option value="multi">Multi-Regional – £449</option>
+            </select>
+          </label>
+
+          <label>
+            Duration (days)
+            <input type="number" id="duration" value="28" />
+          </label>
+
+          <label>
+            Production Required
+            <input type="checkbox" id="production" /> £195 one-off
+          </label>
+
+          <div id="price-output">£0.00</div>
+          <button type="submit">Request Callback</button>
+        </form>
+      </div>
+    </section>
+
   </main>
 
-  <footer>
-    <div id="clock"></div>
-  </footer>
+  <!-- ADMIN OVERLAY -->
+  <div id="admin-overlay" hidden>
+    <div class="glass-panel">
+      <h2>Master Control</h2>
+      <input type="password" id="admin-pin" maxlength="4" placeholder="PIN" />
+      <button id="unlock-admin">Unlock</button>
 
-  <script src="js/config.js"></script>
+      <div id="admin-controls" hidden>
+        <label>UI Glass Tint <input type="range" id="glass-slider" min="0" max="100" /></label>
+        <label>Ticker Text <input type="text" id="ticker-editor" /></label>
+        <button id="save-admin">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/core.js"></script>
+  <script src="js/crew.js"></script>
   <script src="js/ads.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+
 </body>
 </html>
